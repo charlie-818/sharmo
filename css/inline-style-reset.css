@@ -1,0 +1,42 @@
+/* Target common elements with inline styles */
+#problem [style],
+#benefits [style],
+#tokenization [style],
+.hero [style],
+.contact [style],
+footer [style],
+.protocol-card [style],
+.property-card [style] {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: #E0E0E0 !important;
+}
+
+/* Target inline styles for specific divs in problem section */
+#problem > div > div:nth-child(2) > div:first-child[style] {
+    background: #FFFFFF !important;
+    border-color: #E0E0E0 !important;
+}
+
+#problem > div > div:nth-child(2) > div:nth-child(2) > div[style] {
+    background: #FFFFFF !important;
+    border-color: #E0E0E0 !important;
+}
+
+/* Ensure text in problem section is black */
+#problem p[style] {
+    color: #000000 !important;
+}
+
+/* Handle spans with colored text */
+#problem p span[style] {
+    color: #1DB954 !important;
+}
+
+/* Target any element with dark background colors */
+[style*="background-color: rgba(18"],
+[style*="background-color: rgba(30"],
+[style*="background-color: #121212"],
+[style*="background-color: #1E1E1E"] {
+    background-color: #FFFFFF !important;
+} 

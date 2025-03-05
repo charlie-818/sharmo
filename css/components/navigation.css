@@ -1,0 +1,361 @@
+/* Navigation Bar - Modern Crypto Style */
+.nav {
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    height: 80px; /* Increased from 70px to accommodate larger logo */
+    display: flex;
+    align-items: center;
+}
+
+.nav:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 75px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.nav-logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0a1f44;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+}
+
+.token-text {
+    color: #4f46e5;
+}
+
+/* Logo glow with more subtle effect */
+.logo-glow {
+    position: absolute;
+    width: 120%; /* Increased to match larger logo */
+    height: 120%; /* Increased to match larger logo */
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, rgba(79, 70, 229, 0) 70%);
+    filter: none; /* Removed blur effect */
+    animation: pulse 3s infinite;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(0.95); opacity: 0.5; }
+}
+
+/* Main Navigation */
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-item {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link, .nav-page {
+    color: #4a5568;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 8px 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+    letter-spacing: 0.01em;
+}
+
+.nav-link:hover, .nav-page:hover {
+    color: #4f46e5;
+}
+
+/* Remove the underlining effects */
+.nav-link::after, .nav-page::after {
+    display: none;
+}
+
+.nav-link:hover::after, .nav-page:hover::after {
+    display: none;
+}
+
+.nav-link.active, .nav-page.active {
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+.nav-link.active::after, .nav-page.active::after {
+    display: none;
+}
+
+/* Dropdown Menu */
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    margin-top: 0;
+}
+
+.nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 30px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    transform: rotate(45deg);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-item:hover .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 8px 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #0a1f44;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-dropdown a {
+    display: block;
+    padding: 8px 15px;
+    color: #4a5568;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-dropdown a:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+    color: #4f46e5;
+}
+
+/* CTA button in nav */
+.contact-btn {
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.contact-btn::after {
+    display: none;
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+    width: 14px;
+    height: 14px;
+}
+
+.contact-btn:hover .btn-icon {
+    transform: translateX(3px);
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 101;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 5px 0;
+    background-color: #0a1f44;
+    transition: all 0.3s ease;
+}
+
+/* Remove blockchain animation for cleaner look */
+.blockchain-nodes, .data-particle, .connection {
+    display: none;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav {
+        height: 70px; /* Adjusted for mobile */
+    }
+    
+    /* Make sure the logo is still visible but slightly smaller on mobile */
+    .logo {
+        height: 40px; /* Slightly smaller than desktop but still larger than original */
+    }
+    
+    .nav-logo {
+        font-size: 1.3rem; /* Adjusted for mobile */
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 280px;
+        height: 100vh;
+        background-color: white;
+        padding: 80px 20px 30px;
+        transition: all 0.3s ease;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        height: auto;
+    }
+
+    .nav-link, .nav-page {
+        display: block;
+        padding: 12px 15px;
+        font-size: 1.05rem;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .nav-link:hover, .nav-page:hover {
+        background-color: rgba(79, 70, 229, 0.05);
+    }
+
+    .nav-dropdown {
+        position: static;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        margin-top: 0;
+        padding: 0 0 0 15px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-item:hover .nav-dropdown {
+        max-height: 300px;
+    }
+
+    .nav-dropdown::before {
+        display: none;
+    }
+
+    .dropdown-header {
+        padding: 8px 0;
+    }
+
+    .nav-dropdown a {
+        padding: 8px 0;
+    }
+
+    .contact-btn {
+        margin: 15px 0 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}

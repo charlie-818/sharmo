@@ -1,0 +1,56 @@
+/* Chat Light Theme Overrides */
+
+.chat-container {
+    background-color: var(--primary) !important;
+    border: 1px solid var(--light-gray) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+.chat-header {
+    background: linear-gradient(90deg, rgba(29, 185, 84, 0.1) 0%, var(--primary) 100%) !important;
+    border-bottom: 1px solid var(--light-gray) !important;
+}
+
+.chat-header h3 {
+    color: var(--secondary) !important;
+}
+
+.ai-status {
+    color: var(--text-secondary) !important;
+}
+
+.close-btn {
+    color: var(--text-secondary) !important;
+}
+
+.chat-messages {
+    background-color: var(--primary) !important;
+}
+
+.user-message {
+    background-color: var(--dark-gray) !important;
+    border: 1px solid var(--light-gray) !important;
+    color: var(--text) !important;
+}
+
+.ai-message {
+    background-color: rgba(29, 185, 84, 0.05) !important;
+    border: 1px solid rgba(29, 185, 84, 0.15) !important;
+    color: var(--text) !important;
+}
+
+.chat-input input {
+    background-color: var(--dark-gray) !important;
+    border: 1px solid var(--light-gray) !important;
+    color: var(--text) !important;
+}
+
+.chat-footer {
+    border-top: 1px solid var(--light-gray) !important;
+    color: var(--text-secondary) !important;
+}
+
+.chat-trigger {
+    background-color: var(--secondary) !important;
+    color: white !important;
+} 

@@ -1,0 +1,241 @@
+/* Index Page Light Theme Overrides */
+
+/* Problem section */
+#problem {
+    padding: 80px 0; 
+    background: var(--primary) !important;
+}
+
+#problem h2 {
+    color: var(--text);
+    background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 50px 0;
+}
+
+/* Main content box in problem section */
+#problem > div > div:nth-child(2) > div:first-child {
+    max-width: 900px; 
+    background: var(--primary);
+    border-radius: 20px; 
+    border: 1px solid var(--light-gray); 
+    padding: 40px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Text in the problem section */
+#problem p {
+    color: var(--text); 
+    font-size: 1.4em; 
+    line-height: 1.8; 
+    margin-bottom: 30px; 
+    font-weight: 300;
+}
+
+/* Highlight text in the problem section */
+#problem p span {
+    color: var(--secondary); 
+    font-weight: 500;
+}
+
+/* Use case cards */
+#problem > div > div:nth-child(2) > div:nth-child(2) > div {
+    background: var(--primary);
+    padding: 25px; 
+    border-radius: 15px; 
+    border: 1px solid var(--light-gray); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Use case card icons */
+#problem div > div:nth-child(2) > div:nth-child(2) > div svg {
+    stroke: var(--secondary);
+}
+
+#problem div > div:nth-child(2) > div:nth-child(2) > div div:first-child {
+    background: rgba(29, 185, 84, 0.1);
+}
+
+/* Use case titles */
+#problem div > div:nth-child(2) > div:nth-child(2) > div h3 {
+    color: var(--secondary);
+}
+
+/* Use case list items */
+#problem div > div:nth-child(2) > div:nth-child(2) > div li {
+    color: var(--text);
+}
+
+/* Benefits section */
+#benefits {
+    padding: 80px 0;
+    background: var(--primary) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Benefits background */
+#benefits::before,
+#benefits::after {
+    background: radial-gradient(circle at center, rgba(29, 185, 84, 0.05) 0%, transparent 70%);
+}
+
+/* Benefits cards */
+.benefit-card {
+    background: var(--primary);
+    border: 1px solid var(--light-gray);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Benefits highlights */
+.benefit-highlights .highlight {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+}
+
+.highlight-number,
+.highlight-text {
+    color: var(--text);
+}
+
+/* Protocol section */
+.protocol-card {
+    background: var(--primary);
+    border: 1px solid var(--light-gray);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.protocol-card h3,
+.protocol-card p,
+.protocol-card ul li {
+    color: var(--text);
+}
+
+/* Code showcase */
+.code-showcase {
+    background: var(--primary);
+    border: 1px solid var(--light-gray);
+}
+
+.code-container {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+}
+
+.code-header {
+    background: var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.file-name {
+    color: var(--text);
+}
+
+.copy-btn {
+    background: var(--secondary);
+    color: white;
+    border: none;
+}
+
+.code-explanation {
+    background: var(--primary);
+    border: 1px solid var(--light-gray);
+}
+
+.explanation-item {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+}
+
+.explanation-item h4 {
+    color: var(--secondary);
+}
+
+.explanation-item p {
+    color: var(--text);
+}
+
+/* Chat interface */
+.chat-container {
+    background: var(--primary);
+    border: 1px solid var(--light-gray);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header {
+    background: linear-gradient(
+        90deg,
+        rgba(29, 185, 84, 0.1) 0%,
+        var(--primary) 100%
+    );
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.chat-header h3 {
+    color: var(--secondary);
+}
+
+.ai-status {
+    color: var(--text-secondary);
+}
+
+.close-btn {
+    color: var(--text-secondary);
+}
+
+.chat-messages {
+    background: var(--primary);
+}
+
+.user-message {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    color: var(--text);
+}
+
+.ai-message {
+    background: rgba(29, 185, 84, 0.05);
+    border: 1px solid rgba(29, 185, 84, 0.15);
+    color: var(--text);
+}
+
+.chat-input input {
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    color: var(--text);
+}
+
+.chat-footer {
+    border-top: 1px solid var(--light-gray);
+    color: var(--text-secondary);
+}
+
+/* Hero section */
+.hero {
+    background: var(--primary) !important;
+}
+
+.hero p {
+    color: var(--text-secondary) !important;
+}
+
+/* Hero stats */
+.hero-stat span {
+    color: var(--text);
+    background: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+}
+
+.hero-quote {
+    color: var(--text);
+}
+
+.quote-text {
+    color: var(--text);
+}
+
+.quote-author {
+    color: var(--text-secondary);
+} 

@@ -1,0 +1,111 @@
+/*
+ * Clean Design CSS
+ * This stylesheet removes shadows and applies consistent clean styling across the site.
+ * Use this in addition to other stylesheets for a flat, modern design.
+ */
+
+/* Remove all box shadows */
+.card,
+.container,
+.section,
+.form,
+.lookup-form,
+.property-card,
+.property-section,
+button,
+.btn,
+.lookup-btn,
+.tokenize-btn,
+.submit-button,
+.connect-btn,
+.contact-btn,
+.actions a,
+.action-buttons a,
+input,
+select,
+textarea {
+    box-shadow: none !important;
+}
+
+/* Remove transform effects on hover */
+button:hover,
+.btn:hover,
+.lookup-btn:hover,
+.tokenize-btn:hover,
+.submit-button:hover,
+.connect-btn:hover,
+.contact-btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Clean focus states */
+input:focus,
+select:focus,
+textarea:focus {
+    box-shadow: 0 0 0 1px rgba(29, 185, 84, 0.1) !important;
+    outline: none;
+}
+
+/* Clean cards */
+.card,
+.lookup-form,
+.property-card,
+.property-section {
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 12px !important;
+}
+
+/* Remove decorative before/after elements */
+.section::before,
+.section::after,
+.property-lookup::before,
+.property-lookup::after {
+    display: none !important;
+}
+
+/* Clean buttons */
+.btn,
+.lookup-btn,
+.tokenize-btn,
+.submit-button,
+.connect-btn,
+.contact-btn {
+    border: none !important;
+    padding: 14px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: background-color 0.2s ease !important;
+}
+
+/* Simple animations */
+.btn:hover,
+.lookup-btn:hover,
+.tokenize-btn:hover,
+.submit-button:hover,
+.connect-btn:hover,
+.contact-btn:hover {
+    transition: background-color 0.2s ease !important;
+}
+
+/* Clean form elements */
+input,
+select,
+textarea {
+    border: 1px solid var(--light-gray) !important;
+    padding: 12px 16px !important;
+    border-radius: 6px !important;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .btn,
+    .lookup-btn,
+    .tokenize-btn,
+    .submit-button,
+    .connect-btn,
+    .contact-btn {
+        width: 100% !important;
+        padding: 12px 20px !important;
+    }
+} 

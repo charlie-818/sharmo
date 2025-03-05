@@ -1,0 +1,19 @@
+{
+  "name": "sharmo",
+  "version": "1.0.0",
+  "description": "A modern web interface demonstrating the concept of blockchain-based insurance tokenization. This project showcases how traditional insurance models can be revolutionized using blockchain technology.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development netlify-cli dev --env=.env",
+    "start": "cross-env NODE_ENV=development netlify-cli dev --env=.env",
+    "login": "npx netlify-cli login",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "node-fetch": "^2.7.0"
+  }
+}

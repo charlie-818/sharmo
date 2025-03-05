@@ -1,0 +1,49 @@
+/* Syntax highlighting for Solidity code */
+.code-content .comment,
+.code-content .code-line .comment { 
+    color: #6A9955 !important; 
+    font-style: italic !important; 
+}
+
+.code-content .keyword,
+.code-content .code-line .keyword { 
+    color: #569CD6 !important; 
+    font-weight: 600 !important; 
+}
+
+.code-content .string,
+.code-content .code-line .string { 
+    color: #CE9178 !important; 
+}
+
+.code-content .number,
+.code-content .code-line .number { 
+    color: #B5CEA8 !important; 
+}
+
+.code-content .type,
+.code-content .code-line .type { 
+    color: #4EC9B0 !important; 
+    font-weight: 500 !important; 
+}
+
+.code-content .variable,
+.code-content .code-line .variable { 
+    color: #9CDCFE !important; 
+}
+
+.code-content .custom-type,
+.code-content .code-line .custom-type { 
+    color: #4EC9B0 !important; 
+    font-weight: 600 !important; 
+}
+
+.code-content .function,
+.code-content .code-line .function { 
+    color: #DCDCAA !important; 
+}
+
+.code-content .storage,
+.code-content .code-line .storage { 
+    color: #569CD6 !important; 
+} 

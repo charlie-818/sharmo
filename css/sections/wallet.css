@@ -1,0 +1,425 @@
+/* Add these styles to the existing wallet.css */
+
+/* Modal Styles */
+.wallet-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: linear-gradient(165deg, rgba(30, 30, 30, 0.95) 0%, rgba(18, 18, 18, 0.98) 100%);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(29, 185, 84, 0.15);
+    max-width: 600px;
+    width: 90%;
+}
+
+.status-card {
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.wallet-info {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    word-break: break-all;
+}
+
+.warning {
+    background: rgba(255, 87, 34, 0.1);
+    border: 1px solid rgba(255, 87, 34, 0.2);
+    color: #ff5722;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Transaction Styles */
+.transaction-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.transaction-icon.received {
+    background: rgba(29, 185, 84, 0.1);
+    color: var(--secondary);
+}
+
+.transaction-icon.sent {
+    background: rgba(255, 87, 34, 0.1);
+    color: #ff5722;
+}
+
+/* Loading and Error States */
+.loading, .error, .no-transactions {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.error {
+    color: #ff5722;
+}
+
+/* Error Message */
+.error-message {
+    background: rgba(255, 87, 34, 0.1);
+    border: 1px solid rgba(255, 87, 34, 0.2);
+    color: #ff5722;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Wallet Section */
+.wallet-section {
+    margin-top: 100px;  /* Fixed distance from nav */
+    padding: 0 0 60px;
+    background-color: var(--primary);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Wallet Title */
+.wallet-title {
+    font-size: 3.2em;
+    text-align: center;
+    margin: 0 0 60px 0;
+    background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    top : 40px;
+    color: var(--text);
+}
+
+/* Wallet Status Card */
+.status-card {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    background-color: var(--primary);
+    border: 1px solid var(--light-gray);
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.status-card h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.status-card p {
+    color: var(--text-secondary);
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Wallet Instructions */
+.wallet-instructions {
+    text-align: left;
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.wallet-instructions ol {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.wallet-instructions ol li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(29, 185, 84, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.wallet-instructions li:hover {
+    background: rgba(29, 185, 84, 0.1);
+    transform: translateX(5px);
+}
+
+.step {
+    background-color: var(--secondary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.instruction {
+    color: var(--text);
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.metamask-link {
+    color: var(--secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.metamask-link:hover {
+    color: #1ed760;
+}
+
+.external-link {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+.shield-icon {
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Wallet Buttons */
+.wallet-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.connect-btn {
+    width: auto;
+    min-width: 250px;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: var(--secondary);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.connect-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.connect-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-card {
+    background-color: var(--primary);
+    border-radius: 20px;
+    border: 1px solid var(--light-gray);
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-card h3 {
+    font-size: 1.6em;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(29, 185, 84, 0.1);
+}
+
+/* Balance Card */
+.balance-info {
+    text-align: center;
+    padding: 20px 0;
+    background-color: var(--dark-gray);
+    color: var(--text);
+}
+
+.eth-balance {
+    font-size: 2.4em;
+    color: var(--text);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.currency {
+    color: var(--secondary);
+    margin-left: 10px;
+    font-size: 0.7em;
+}
+
+.usd-balance {
+    color: var(--text-secondary);
+    font-size: 1.1em;
+}
+
+/* Token List */
+.token-list {
+    margin-top: 20px;
+    background-color: var(--dark-gray);
+    color: var(--text);
+}
+
+.token-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.token-item:hover {
+    background: rgba(29, 185, 84, 0.05);
+}
+
+.token-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.token-name {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.token-address {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.token-balance {
+    text-align: right;
+}
+
+.token-amount {
+    color: var(--secondary);
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.token-symbol {
+    color: var(--text-secondary);
+    margin-left: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wallet-title {
+        font-size: 2.6em;
+    }
+
+    .status-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .eth-balance {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .wallet-buttons {
+        max-width: 100%;
+    }
+
+    .connect-btn {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
+
+.wallet-status {
+    max-width: 800px;
+    margin: 0 auto;
+    top : -40px;
+    padding: 30px;
+    background: rgba(18, 18, 18, 0.95);
+    border-radius: 15px;
+    border: 1px solid rgba(29, 185, 84, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+} 

@@ -1,0 +1,44 @@
+/* Override specific inline styles */
+
+/* Problem section inline styles */
+[style*="background: linear-gradient(165deg, var(--dark-gray) 0%, var(--primary) 100%)"],
+[style*="background: linear-gradient(165deg, rgba(30, 30, 30, 0.6) 0%, rgba(18, 18, 18, 0.8) 100%)"], 
+[style*="background: linear-gradient(165deg, rgba(30, 30, 30, 0.6) 0%, rgba(18, 18, 18, 0.8) 100%)"] {
+    background: var(--primary) !important;
+    border-color: var(--light-gray) !important;
+}
+
+/* Text color overrides for inline styles */
+[style*="color: var(--text)"] {
+    color: var(--text) !important;
+}
+
+[style*="color: var(--text-secondary)"] {
+    color: var(--text-secondary) !important;
+}
+
+/* Benefits section inline styles */
+[style*="background: radial-gradient(circle at 10% 20%, rgba(30, 30, 30, 0.98) 0%, rgba(18, 18, 18, 0.97) 90%)"] {
+    background: var(--primary) !important;
+}
+
+/* Override div elements with inline background styles */
+div[style*="background:"] {
+    background: var(--primary) !important;
+}
+
+/* Target specific elements we know have inline styles */
+#problem > div > div:nth-child(2),
+#problem > div > div:nth-child(2) > div,
+#problem > div > div:nth-child(2) > div > div,
+#benefits > div[style],
+#benefits div[style*="position: absolute"] {
+    background-color: var(--primary) !important;
+    background: var(--primary) !important;
+    border-color: var(--light-gray) !important;
+}
+
+/* Style for specific text spans */
+#problem p span[style] {
+    color: var(--secondary) !important;
+} 

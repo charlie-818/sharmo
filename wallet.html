@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sharmo - Wallet</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <!-- Section-specific styles -->
+    <link rel="stylesheet" href="css/sections/wallet.css">
+    <script src="js/common.js"></script>
+</head>
+<body>
+    <!-- Include the header component -->
+    <div id="header-container"></div>
+    <script>
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    </script>
+
+    <section class="wallet-section">
+        <div class="container">
+            <h2 class="wallet-title">Wallet Dashboard</h2>
+            
+            <!-- Wallet Connection Status -->
+            
+                <div class="status-card not-connected">
+                    <h3>Connect with MetaMask</h3>
+                    <div class="wallet-instructions">
+                        <p>To connect your wallet and start investing in tokenized properties:</p>
+                        <ol>
+                            <li>
+                                <span class="step">1</span>
+                                <span class="instruction">Install MetaMask 
+                                    <a href="https://metamask.io/download/" target="_blank" class="metamask-link">
+                                        from the official website
+                                        <svg class="external-link" viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                                        </svg>
+                                    </a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="step">2</span>
+                                <span class="instruction">Create or import your Ethereum wallet in MetaMask</span>
+                            </li>
+                            <li>
+                                <span class="step">3</span>
+                                <span class="instruction">Click the connect button below</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="wallet-buttons">
+                        <button class="connect-btn" onclick="connectWallet()">
+                            <img src="images/metamask-logo.jpeg" alt="MetaMask">
+                            Connect MetaMask
+                        </button>
+                    </div>
+                    <p class="security-note">
+                        <svg class="shield-icon" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Your wallet security is our priority. We only request connection permissions.
+                    </p>
+                </div>
+            
+
+            <!-- Wallet Dashboard (Hidden until connected) -->
+            <div class="wallet-dashboard" id="walletDashboard" style="display: none;">
+                <div class="dashboard-grid">
+                    <!-- Balance Card -->
+                    <div class="dashboard-card balance-card">
+                        <h3>Wallet Balance</h3>
+                        <div class="balance-info">
+                            <div class="eth-balance">
+                                <span class="balance-amount">0.00</span>
+                                <span class="currency">ETH</span>
+                            </div>
+                            <div class="usd-balance">≈ $0.00 USD</div>
+                        </div>
+                    </div>
+
+                    <!-- Property Tokens Card -->
+                    <div class="dashboard-card tokens-card">
+                        <h3>Your Property Tokens</h3>
+                        <div class="token-list">
+                            <!-- Token items will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Transaction History Card -->
+                    <div class="dashboard-card history-card">
+                        <h3>Transaction History</h3>
+                        <div class="transaction-list">
+                            <!-- Transactions will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include the footer component -->
+    <div id="footer-container"></div>
+    <script>
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <script src="js/wallet.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html> 

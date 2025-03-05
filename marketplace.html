@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sharmo - Property Marketplace</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/chat.css">
+    <!-- Add marketplace styles with correct path -->
+    <link rel="stylesheet" href="css/sections/marketplace.css" type="text/css">
+    <link rel="stylesheet" href="css/components/property-lookup.css">
+    <link rel="stylesheet" href="css/components/property-dashboard.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js"></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <!-- Include the header component -->
+    <div id="header-container"></div>
+    <script>
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    </script>
+
+    <section class="transactions">
+        <div class="container">
+            <h2 style="text-align: center; margin-top: 80px;" class="marketplace-title">Property Marketplace</h2>
+            
+            <!-- Marketplace View -->
+            <div class="view-content marketplace-view" id="marketplace-view">
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="propertySearch" placeholder="Search by location, type, or price range...">
+                        <button class="search-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="propertyType">
+                            <option value="">Property Type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="industrial">Industrial</option>
+                        </select>
+                        <select id="priceRange">
+                            <option value="">Price Range</option>
+                            <option value="2000000-4000000">$2M - $4M</option>
+                            <option value="4000000-6000000">$4M - $6M</option>
+                            <option value="6000000-8000000">$6M - $8M</option>
+                            <option value="8000000-10000000">$8M - $10M</option>
+                            <option value="10000000-20000000">$10M - $20M</option>
+                        </select>
+                        <select id="tokenization">
+                            <option value="">Tokenization Status</option>
+                            <option value="available">Available for Tokenization</option>
+                            <option value="in-progress">Tokenization in Progress</option>
+                            <option value="completed">Fully Tokenized</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="property-grid">
+                    <!-- First 6 property cards -->
+                    <div class="property-card"><!-- Property 1 --></div>
+                    <div class="property-card"><!-- Property 2 --></div>
+                    <div class="property-card"><!-- Property 3 --></div>
+                    <div class="property-card"><!-- Property 4 --></div>
+                    <div class="property-card"><!-- Property 5 --></div>
+                    <div class="property-card"><!-- Property 6 --></div>
+                </div>
+
+            
+
+            <!-- Property Lookup View -->
+            <div class="view-content lookup-view" id="lookup-view" style="display: none;">
+                <div class="lookup-form">
+                    <div class="form-group">
+                        <label for="address">Property Address</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" required>
+                                <option value="">Select State</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="lookupBtn" class="lookup-btn">Look Up Property</button>
+                </div>
+                
+                <div id="propertyResults" class="property-results" style="display: none;">
+                    <div class="dashboard-grid">
+                        <!-- Key Metrics Card -->
+                        <div class="dashboard-card metrics-card">
+                            <div class="metric-group">
+                                <div class="metric primary">
+                                    <span class="metric-value">$${data.propertyData.estimatedValue.toLocaleString()}</span>
+                                    <span class="metric-label">Property Value</span>
+                                    <div class="metric-trend">+12% vs Market Avg</div>
+                                </div>
+                                <div class="stats-row">
+                                    <div class="stat">
+                                        <span class="stat-label">Annual Rental Income</span>
+                                        <span class="stat-value">$${Math.round(data.propertyData.estimatedValue * 0.08).toLocaleString()}</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Cap Rate</span>
+                                        <span class="stat-value">8%</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">5-Year ROI</span>
+                                        <span class="stat-value">47%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Property Details -->
+                        <div class="dashboard-card details-card">
+                            <div class="property-header">
+                                <div class="property-type">
+                                    <i class="fas fa-home"></i>
+                                    <span>${data.propertyData.propertyType}</span>
+                                </div>
+                                <div class="property-specs">
+                                    <span><i class="fas fa-bed"></i> ${data.propertyData.bedrooms}</span>
+                                    <span><i class="fas fa-bath"></i> ${data.propertyData.bathrooms}</span>
+                                    <span><i class="fas fa-ruler-combined"></i> ${data.propertyData.squareFootage.toLocaleString()} sqft</span>
+                                </div>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <span class="feature-label">Year Built</span>
+                                    <span class="feature-value">${data.propertyData.yearBuilt}</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature-label">Lot Size</span>
+                                    <span class="feature-value">${data.propertyData.lotSize}</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature-label">Price per Sqft</span>
+                                    <span class="feature-value">$${Math.round(data.propertyData.estimatedValue / data.propertyData.squareFootage).toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <a href="/wallet.html" class="tokenize-btn" onclick="localStorage.setItem('propertyValue', '${data.propertyData.estimatedValue}')">
+                            Start Tokenization Process
+                        </a>
+                    </div>
+                </div>
+                
+                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Fetching property data...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include the footer component -->
+    <div id="footer-container"></div>
+    <script>
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+
+    <script src="js/marketplace.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html> 

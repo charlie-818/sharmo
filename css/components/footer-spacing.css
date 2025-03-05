@@ -1,0 +1,52 @@
+/*
+ * Footer Spacing CSS
+ * Ensures the footer is properly positioned at the bottom of the page
+ * with appropriate spacing above it.
+ */
+
+/* Main page structure to push footer down */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content should fill available space */
+.property-lookup,
+section:not(.footer),
+main {
+    flex: 1 0 auto;
+}
+
+/* Footer container always at the bottom */
+#footer-container {
+    margin-top: auto;
+}
+
+/* Footer spacing and positioning */
+.footer {
+    margin-top: 0;
+    position: relative;
+    width: 100%;
+    z-index: 10;
+    padding-top: 2rem;
+}
+
+/* Additional spacing for taller screens */
+@media screen and (min-height: 900px) {
+    .footer {
+        margin-top: 0;
+    }
+    
+    .property-lookup {
+        padding-bottom: 2rem;
+    }
+}
+
+/* Adjustments for mobile devices */
+@media (max-width: 768px) {
+    .footer {
+        margin-top: 0;
+        padding-top: 2rem;
+    }
+} 

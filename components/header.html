@@ -1,0 +1,126 @@
+<nav class="nav">
+    <div class="container nav-container">
+        <a href="/" class="nav-brand">
+            <div class="logo-container">
+                <img src="/images/logo.png" alt="sharmo logo" class="logo">
+                <div class="logo-glow"></div>
+            </div>
+            <span class="nav-logo">sharmo</span>
+        </a>
+        
+        
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <div class="nav-links">
+            <div class="nav-item">
+                <a href="/#about" class="nav-link">About</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-header">
+                        <span>About sharmo</span>
+                    </div>
+                    <a href="/#benefits" class="scroll-link">Benefits</a>
+                    <a href="/#opportunities" class="scroll-link">Opportunities</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="/#tokenization" class="nav-link">How It Works</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-header">
+                        <span>Tokenization Process</span>
+                    </div>
+                    <a href="/#tokenization" class="scroll-link">Tokenization</a>
+       
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="/marketplace.html" class="nav-link">Properties</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-header">
+                        <span>Property Portfolio</span>
+                    </div>
+                    <a href="/marketplace.html">Browse Properties</a>
+            
+                </div>
+            </div>
+            <a href="/wallet.html" class="nav-page">Wallet</a>
+            <a href="/#contact" class="contact-btn">
+                <span>Contact Us</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+  
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+        }
+        
+        // Add active class to current page link
+        const currentLocation = window.location.href;
+        const navItems = document.querySelectorAll('.nav-link, .nav-page');
+        
+        navItems.forEach(item => {
+            if (currentLocation.includes(item.getAttribute('href'))) {
+                item.classList.add('active');
+            }
+        });
+        
+        // Create blockchain data particles animation
+        const createDataParticle = () => {
+            const connection = document.querySelector('.connection');
+            if (!connection) return;
+            
+            const particle = document.createElement('div');
+            particle.classList.add('data-particle');
+            particle.style.position = 'absolute';
+            particle.style.top = '0';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = '3px';
+            particle.style.height = '3px';
+            particle.style.background = '#1DB954';
+            particle.style.borderRadius = '50%';
+            particle.style.opacity = '0.8';
+            particle.style.transform = 'translateY(-50%)';
+            particle.style.animation = `moveDataParticle ${2 + Math.random() * 2}s linear forwards`;
+            
+            connection.appendChild(particle);
+            
+            // Remove particle after animation completes
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 4000);
+        };
+        
+        // Add data particles animation
+        setInterval(createDataParticle, 800);
+        
+        // Add keyframes for data particle animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes moveDataParticle {
+                0% { transform: translateY(-50%) translateX(0); opacity: 0; }
+                20% { opacity: 0.8; }
+                100% { transform: translateY(-50%) translateX(100px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script> 

@@ -1,0 +1,312 @@
+/* 
+ * Property Lookup - Clean Minimalist Design
+ * Elegant, simple design with subtle accents
+ */
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main section styling */
+.property-lookup {
+    padding: 60px 0 80px;
+    background: #ffffff;
+    position: relative;
+    flex: 1;
+}
+
+/* Remove decorative background elements */
+.property-lookup::before,
+.property-lookup::after {
+    display: none;
+}
+
+.property-lookup .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.property-lookup h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.property-lookup h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #8b5cf6;
+    border-radius: 2px;
+}
+
+/* Form styling */
+.lookup-form {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background: #ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.lookup-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.lookup-btn:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+}
+
+.lookup-btn:active {
+    transform: translateY(0);
+}
+
+/* Remove decorative button elements */
+.lookup-btn::before {
+    display: none;
+}
+
+/* Property results */
+.property-results {
+    margin-top: 30px;
+}
+
+.property-results h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.property-card {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.property-section {
+    margin-bottom: 30px;
+}
+
+.property-section:last-child {
+    margin-bottom: 0;
+}
+
+.property-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.property-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+#propertyValue {
+    color: #8b5cf6;
+    font-weight: 600;
+}
+
+.action-buttons {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tokenize-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #8b5cf6;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.tokenize-btn:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+}
+
+.tokenize-btn:active {
+    transform: translateY(0);
+}
+
+/* Remove decorative button elements */
+.tokenize-btn::before {
+    display: none;
+}
+
+/* Loading and error states */
+.loading-indicator {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(139, 92, 246, 0.2);
+    border-top-color: #8b5cf6;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    padding: 24px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.error-details {
+    color: #777;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .property-lookup {
+        padding: 40px 0 60px;
+    }
+    
+    .property-lookup h2 {
+        font-size: 28px;
+    }
+    
+    .lookup-form {
+        padding: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .property-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .property-section {
+        margin-bottom: 20px;
+    }
+}
+
+#footer-container {
+    margin-top: auto;
+}
+
+/* Form error highlight */
+.form-error {
+    border-color: #e53e3e !important;
+    background-color: #fff5f5 !important;
+}
+
+/* Add shake animation for error feedback */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+

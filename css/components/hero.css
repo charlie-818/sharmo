@@ -1,0 +1,271 @@
+/* Hero Section - Modern Crypto Style */
+.hero {
+    background: linear-gradient(130deg, #ffffff 0%, #f5f7ff 100%);
+    color: #0a1f44;
+    padding: 100px 0 120px;
+    text-align: center;
+    margin: 0;
+    height: auto;
+    min-height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Add subtle grid pattern */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(rgba(0, 65, 255, 0.03) 1px, transparent 1px),
+        radial-gradient(rgba(0, 65, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Add subtle gradient overlay */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero .container {
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 5;
+    padding: 0 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    letter-spacing: -0.02em;
+    width: 100%;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #0a1f44;
+    font-weight: 800;
+    max-width: 900px;
+}
+
+.animated-word {
+    display: inline-block;
+    position: relative;
+    padding: 0 5px;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 10px auto 30px;
+    color: #4a5568;
+    position: relative;
+    z-index: 5;
+    font-weight: 400;
+}
+
+/* Stats Section - Modern Crypto Style */
+.crypto-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    width: 100%;
+    margin: 20px 0 40px;
+}
+
+.hero-stat {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.12);
+    padding: 25px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    transform-origin: center center;
+}
+
+/* Remove background gradient effect */
+.hero-stat::before {
+    display: none;
+}
+
+/* Add subtle glowing accent */
+.hero-stat::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #4f46e5, #7c3aed);
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+.hero-stat span {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.hero-stat:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.25);
+}
+
+.hero-stat strong {
+    font-size: 1.1rem;
+    color: #4a5568;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Remove blockchain animation */
+.blockchain-animation {
+    display: none;
+}
+
+/* Remove node animations */
+.node {
+    display: none;
+}
+
+/* CTA Button */
+.hero-cta {
+    margin: 10px auto 0;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-cta .btn {
+    padding: 16px 34px;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cta .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.hero-cta .btn:hover {
+    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.35);
+    transform: translateY(-3px);
+}
+
+.hero-cta .btn:hover::before {
+    left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0 100px;
+        min-height: auto;
+    }
+
+    .hero .container {
+        padding: 0 20px;
+        gap: 30px;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        font-size: 1.15rem;
+        margin-bottom: 30px;
+    }
+
+    .crypto-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hero-stat {
+        height: 110px;
+        padding: 20px;
+    }
+
+    .hero-stat span {
+        font-size: 2.2rem;
+    }
+
+    .hero-cta .btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+}

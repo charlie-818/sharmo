@@ -1,0 +1,383 @@
+/* Card Base Styles */
+.card {
+    background: var(--primary);
+    border-radius: var(--card-radius);
+    border: var(--card-border);
+    padding: 30px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-shadow: var(--box-shadow);
+}
+
+/* Remove animated card background */
+.card::before {
+    display: none;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove hover animation */
+.card:hover::before {
+    display: none;
+}
+
+/* Card with highlight border */
+.card-highlight {
+    position: relative;
+    border-left: 3px solid var(--secondary);
+}
+
+/* Remove complex border effects */
+.card-highlight::after {
+    display: none;
+}
+
+/* Card Header */
+.card-header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Feature card specific header styling to center titles */
+.feature-card .card-header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.feature-card .card-icon {
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    color: var(--text);
+    font-size: 1.4em;
+    margin-bottom: 0;
+}
+
+.feature-card .card-header h3 {
+    text-align: center;
+    width: 100%;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-gray);
+    border-radius: 8px;
+    color: var(--secondary);
+    margin-right: 15px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Card Content */
+.card-content {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+}
+
+/* Center text in feature cards content */
+.feature-card .card-content {
+    text-align: center;
+}
+
+.feature-card .card-content p {
+    text-align: center;
+}
+
+/* Card Footer */
+.card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Center content in feature card footer */
+.feature-card .card-footer {
+    justify-content: center;
+}
+
+.feature-card .crypto-stat {
+    text-align: center;
+    width: 100%;
+}
+
+.feature-card .crypto-stat.small {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.feature-card .crypto-value,
+.feature-card .crypto-label {
+    text-align: center;
+}
+
+/* Stat values and labels */
+.crypto-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.crypto-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    margin: 40px 0;
+}
+
+/* Stat Card */
+.stat-card {
+    background: var(--primary);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: var(--card-border);
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* Feature Card */
+.feature-card {
+    padding: 30px;
+    border-radius: var(--card-radius);
+    background: var(--primary);
+    border: var(--card-border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+}
+
+/* Remove complex decorative elements */
+.feature-card::before {
+    display: none;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove complex hover effects */
+.feature-card:hover::before {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        padding: 25px;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .stat-value {
+        font-size: 1.8rem;
+    }
+}
+
+/* Example cards for tokenization benefits */
+.example-card {
+    border-radius: 12px;
+    background: var(--primary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 22px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.example-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.example-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.example-card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 128, 240, 0.08);
+    border-radius: 10px;
+    margin-right: 14px;
+    color: var(--secondary);
+    flex-shrink: 0;
+}
+
+.example-card-title {
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+}
+
+.example-card-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.example-card-content {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.example-card-content p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.example-stat {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(74, 128, 240, 0.06);
+    border-radius: 8px;
+    border-left: 3px solid var(--secondary);
+}
+
+.example-stat-value {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--secondary);
+    margin-bottom: 4px;
+}
+
+.example-stat-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* process-card styles - for the How It Works section */
+.process-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.process-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    z-index: 1;
+}
+
+.process-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(99, 102, 241, 0.03), transparent);
+    transition: width 0.7s ease;
+    z-index: -1;
+}
+
+.process-card:hover::after {
+    width: 100%;
+}
+
+/* Ensure intro-card matches site's design patterns */
+.intro-card {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.intro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    z-index: 1;
+}
+
+.intro-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(99, 102, 241, 0.03), transparent);
+    transition: width 0.7s ease;
+    z-index: -1;
+}
+
+.intro-card:hover::after {
+    width: 100%;
+}

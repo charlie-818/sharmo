@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - Tokenized Real Estate Investment Platform</title>
+    <meta name="description" content="Sharmo - Invest in tokenized real estate properties on the blockchain with as little as $50.">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+    <meta name="msapplication-TileImage" content="images/logo.png">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/benefits.css">
+    <link rel="stylesheet" href="css/components/property-lookup.css">
+    <link rel="stylesheet" href="css/components/code-showcase.css">
+    <link rel="stylesheet" href="css/components/chat.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/footer-fix.css">
+    
+    <!-- Section-specific styles -->
+    <link rel="stylesheet" href="css/sections/problem.css">
+    <link rel="stylesheet" href="css/sections/solution.css">
+    <link rel="stylesheet" href="css/sections/tokenization.css">
+    <link rel="stylesheet" href="css/sections/benefits.css">
+    <link rel="stylesheet" href="css/sections/features.css">
+    <link rel="stylesheet" href="css/sections/faq.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="js/code-showcase.js" defer></script>
+    
+    <!-- Chat button visibility fix -->
+    <style>
+        .chat-actions button,
+        .chat-input button {
+            min-width: unset !important;
+            min-height: unset !important;
+            padding: 0 !important;
+            background-image: none !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .chat-actions button svg,
+        .chat-input button svg {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        
+        /* Override any button hover effects */
+        .chat-actions button::before,
+        .chat-input button::before {
+            display: none !important;
+        }
+    </style>
+    
+    <!-- Custom style overrides -->
+    <style>
+        #contact h2 {
+            color: #6366f1 !important;
+            -webkit-text-fill-color: #6366f1 !important;
+            background: none !important;
+            text-align: center !important;
+            margin: 0 0 20px 0 !important;
+            width: 100% !important;
+        }
+        
+        #contact h2::after {
+            content: '';
+            display: block !important;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4f46e5, #7c3aed) !important;
+            margin: 15px auto 0 !important;
+            border-radius: 2px;
+            left: 0;
+            right: 0;
+        }
+    </style>
+    
+    <!-- Contact section styling fix -->
+    <style>
+        .contact-section .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .contact-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .contact-card {
+            width: 100%;
+            max-width: 900px;
+        }
+    </style>
+    
+    <!-- Footer spacing fix -->
+    <style>
+        /* Fix for extra white space between sections and footer */
+        .footer, 
+        #footer-container .footer {
+            margin-top: 0 !important;
+            padding-top: 2rem !important;
+        }
+        
+        /* Fix for footer container spacing */
+        #footer-container {
+            margin-top: 0 !important;
+        }
+        
+        /* Ensure the page wrapper doesn't create extra space */
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Keep the footer at the bottom */
+        #footer-container {
+            margin-top: auto;
+        }
+    </style>
+    
+    <!-- Header position fix -->
+    <style>
+        /* Ensure consistent header positioning */
+        #header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            height: 70px; /* Match the height in navigation.css */
+        }
+        
+        /* Prevent content from being hidden behind the fixed header */
+        body {
+            padding-top: 70px; /* Same as header height */
+        }
+        
+        /* Adjust first section spacing */
+        section:first-of-type {
+            margin-top: 0;
+        }
+        
+        /* Remove any conflicting margin/padding styles */
+        .nav, 
+        .nav-container {
+            margin-top: 0 !important;
+            position: relative !important;
+        }
+        
+        @media (max-width: 768px) {
+            #header-container {
+                height: 60px;
+            }
+            
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Remove background lines -->
+    <!-- 
+    <div class="bg-lines">
+        <div class="bg-line" style="left: 5%;"></div>
+        <div class="bg-line" style="left: 25%;"></div>
+        <div class="bg-line" style="left: 45%;"></div>
+        <div class="bg-line" style="left: 65%;"></div>
+        <div class="bg-line" style="left: 85%;"></div>
+    </div>
+    -->
+
+    <!-- Include the header component -->
+    <div id="header-container"></div>
+    <!-- Header now loaded via navigation.js -->
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <h1>Making Real Estate <span class="animated-word">Accessible</span> Through Tokenization</h1>
+            <p>Sharmo transforms property ownership through blockchain technology, enabling fractional ownership, instant liquidity, and global accessibility.</p>
+            
+            <div class="crypto-stats">
+                <div class="hero-stat">
+                    <span>$143M+</span>
+                    <strong>Total Asset Value</strong>
+                        </div> 
+                <div class="hero-stat">
+                    <span>12,400+</span>
+                    <strong>Global Investors</strong>
+                    </div>
+                <div class="hero-stat">
+                    <span>8.2%</span>
+                    <strong>Average Annual Yield</strong>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#tokenization" class="btn">Start Tokenizing</a>
+        </div>
+        </div>
+    </section>
+
+    
+    <section id="opportunities" class="opportunities">
+        <div class="container">
+            <p class="section-intro">Discover how tokenizing your property creates immediate financial opportunities for you as a homeowner without selling your house or taking on more debt.</p>
+            
+            <div class="examples-container">
+                <!-- Example 1: Access Equity -->
+                <div class="example-card">
+                    <div class="example-card-header">
+                        <div class="example-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 1V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="example-card-title">Access Your Home Equity</h4>
+                            <p class="example-card-subtitle">Without monthly payments</p>
+                    </div>
+                    </div>
+                    <div class="example-card-content">
+                        <p>Imagine your home is worth $500,000 and you tokenize 20% ($100,000). You receive that cash immediately while keeping full control of your property. Unlike a HELOC or second mortgage, there are <strong>no monthly payments</strong> and <strong>no interest charges</strong> – ever.</p>
+                        <div class="example-stat">
+                            <div class="example-stat-value">$0 in Monthly Payments</div>
+                            <div class="example-stat-label">compared to $583/month on a typical $100,000 HELOC</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example 2: Home Improvements -->
+                <div class="example-card">
+                    <div class="example-card-header">
+                        <div class="example-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 6L20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 18L4 12L10 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="example-card-title">Fund Home Improvements</h4>
+                            <p class="example-card-subtitle">Increase your property value</p>
+                    </div>
+                    </div>
+                    <div class="example-card-content">
+                        <p>Use the funds from tokenizing 15% of your home to renovate your kitchen and bathroom. A $75,000 renovation on a $500,000 home typically increases value by $105,000. You keep 85% of this value increase ($89,250) while sharing just $15,750 with token holders.</p>
+                        <div class="example-stat">
+                            <div class="example-stat-value">$89,250 Added Value</div>
+                            <div class="example-stat-label">you keep from a $75,000 renovation investment</div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <!-- Example 4: Debt Elimination -->
+                <div class="example-card">
+                    <div class="example-card-header">
+                        <div class="example-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="example-card-title">Eliminate High-Interest Debt</h4>
+                            <p class="example-card-subtitle">Improve your freedom</p>
+                    </div>
+                </div>
+                    <div class="example-card-content">
+                        <p>Tokenize 25% of your $400,000 home to pay off $100,000 in credit card debt with 18% APR. You'll save $18,000 in annual interest payments with no new loan payments. You keep complete ownership control while immediately improving your monthly cash flow by $1,500.</p>
+                        <div class="example-stat">
+                            <div class="example-stat-value">$18,000 Saved Annually</div>
+                            <div class="example-stat-label">in interest payments without taking on new debt</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="opportunities-cta">
+                <a href="property-lookup.html" class="btn">Calculate Your Home Tokenization Value</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tokenization" class="tokenization">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="tokenization-container">
+                <!-- Streamlined explanation -->
+                <div class="intro-card">
+                    <p>Sharmo converts real estate into digital tokens on Ethereum blockchain, allowing fractional ownership with minimal investment. Buy, sell, and trade property shares instantly while benefiting from real asset security.</p>
+                    <p>Our process is simple yet powerful: First, we verify each property's legal status and value. Then we tokenize it into digital shares, distribute these tokens on decentralized exchanges, and manage the ongoing administration through smart contracts. The entire process makes real estate investing as easy as buying stocks.</p>
+                </div>
+
+                <!-- Simplified process cards -->
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4>Asset Verification</h4>
+                        <p><strong>Legal Due Diligence</strong><br>
+                        We verify property titles, ownership history, and compliance to ensure complete legal certainty.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4>Tokenization</h4>
+                        <p><strong>Digital Ownership</strong><br>
+                        Smart contracts create ERC-20 tokens representing legally-backed property shares with clear ownership rights.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4>Distribution</h4>
+                        <p><strong>Instant Trading</strong><br>
+                        Property tokens trade 24/7 on decentralized exchanges, reducing months-long transactions to seconds.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4>Management</h4>
+                        <p><strong>Automated Governance</strong><br>
+                        Blockchain smart contracts distribute rental income instantly and enable transparent property decisions.</p>
+                    </div>
+                </div>
+
+                <!-- Protocols section added back with cleaner design -->
+                <h3 class="section-subheading">Blockchain Standards We Use</h3>
+                <div class="protocol-grid">
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="protocol-icon eth-black">
+                                <img src="images/ethereum/eth-black.png" alt="Ethereum Icon">
+                            </div>
+                            <h3>ERC-20</h3>
+                        </div>
+                        <p>The most common token standard, perfect for creating fungible tokens that represent equal shares of an asset.</p>
+                        <ul>
+                            <li>Easily tradable on exchanges</li>
+                            <li>Widely supported by wallets</li>
+                            <li>Ideal for fractional ownership</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="protocol-icon">
+                                <img src="images/ethereum/eth.png" alt="Ethereum Icon">
+                            </div>
+                            <h3>ERC-721</h3>
+                        </div>
+                        <p>Non-fungible tokens (NFTs) for unique assets with specific characteristics and ownership history.</p>
+                        <ul>
+                            <li>Unique property identifiers</li>
+                            <li>Individual asset tracking</li>
+                            <li>Complete ownership history</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="protocol-icon eth-orange">
+                                <img src="images/ethereum/eth-orange.png" alt="Ethereum Icon">
+                            </div>
+                            <h3>ERC-1155</h3>
+                        </div>
+                        <p>Hybrid protocol supporting both fungible and non-fungible tokens in a single smart contract.</p>
+                        <ul>
+                            <li>Multiple token types</li>
+                            <li>Reduced gas costs</li>
+                            <li>Flexible asset management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Code showcase added back with cleaner design -->
+                <div class="code-showcase">
+                    <h3 class="section-subheading">Smart Contract Example</h3>
+                    <div class="code-container">
+                        <div class="code-editor-header">
+                            <div class="window-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="file-name">sharmoToken.sol</div>
+                            <div class="header-actions">
+                                <button id="copy-code-btn" onclick="copyCodeToClipboard()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-editor-body">
+                            <div class="line-numbers">
+                                <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+                            </div>
+                            <div class="code-content-wrapper">
+                                <pre class="code-content"><code id="solidity-code">// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/* OpenZeppelin Imports for Security & Standards */
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+/* Main Contract Definition */
+contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyGuard {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+    
+    /* Property Data Structure */
+    struct Property {
+        uint256 id;          // Unique property identifier
+        string location;     // Physical location of the property
+        uint256 valuation;   // Current market value
+        bool forSale;        // Whether property is listed for sale
+        uint256 salePrice;   // Price if listed for sale
+        string propertyType; // Residential, Commercial, etc.
+        uint256 sqFootage;   // Square footage of the property
+        uint256 createdAt;   // Timestamp when property was tokenized
+        address originalOwner; // Original owner of the property
+    }
+    
+    // Mapping from token ID to Property
+    mapping(uint256 => Property) public properties;
+    
+    // Mapping from token ID to sale price
+    mapping(uint256 => uint256) public propertyPrices;
+    
+    // Events
+    event PropertyMinted(uint256 indexed tokenId, address indexed owner, string location, uint256 valuation);
+    event PropertyListed(uint256 indexed tokenId, uint256 price);
+    event PropertyUnlisted(uint256 indexed tokenId);
+    event PropertySold(uint256 indexed tokenId, address indexed from, address indexed to, uint256 price);
+    event PropertyValuationUpdated(uint256 indexed tokenId, uint256 oldValuation, uint256 newValuation);
+    
+    // Modifiers
+    modifier onlyTokenOwner(uint256 tokenId) {
+        require(ownerOf(tokenId) == msg.sender, "Not the owner of this property token");
+        _;
+    }
+    
+    modifier propertyExists(uint256 tokenId) {
+        require(_exists(tokenId), "Property does not exist");
+        _;
+    }
+    
+    constructor() ERC721("Sharmo Real Estate Token", "SRET") Ownable(msg.sender) {}
+    
+    /**
+     * @dev Mint a new property token
+     * @param to Address that will own the property token
+     * @param location Physical location of the property
+     * @param valuation Initial valuation of the property
+     * @param propertyType Type of property (Residential, Commercial, etc.)
+     * @param sqFootage Square footage of the property
+     * @param tokenURI URI for property metadata
+     */
+    function mintProperty(
+        address to,
+        string memory location,
+        uint256 valuation,
+        string memory propertyType,
+        uint256 sqFootage,
+        string memory tokenURI
+    ) public onlyOwner returns (uint256) {
+        uint256 newTokenId = _tokenIds.current();
+        _mint(to, newTokenId);
+        _setTokenURI(newTokenId, tokenURI);
+        
+        properties[newTokenId] = Property({
+            id: newTokenId,
+            location: location,
+            valuation: valuation,
+            forSale: false,
+            salePrice: 0,
+            propertyType: propertyType,
+            sqFootage: sqFootage,
+            createdAt: block.timestamp,
+            originalOwner: to
+        });
+        
+        emit PropertyMinted(newTokenId, to, location, valuation);
+        
+        _tokenIds.increment();
+        return newTokenId;
+    }
+    
+    /**
+     * @dev List a property for sale
+     * @param tokenId ID of the property token
+     * @param price Sale price in wei
+     */
+    function listPropertyForSale(uint256 tokenId, uint256 price) 
+        public 
+        onlyTokenOwner(tokenId) 
+        propertyExists(tokenId) 
+    {
+        require(price > 0, "Price must be greater than zero");
+        
+        properties[tokenId].forSale = true;
+        properties[tokenId].salePrice = price;
+        propertyPrices[tokenId] = price;
+        
+        emit PropertyListed(tokenId, price);
+    }
+    
+    /**
+     * @dev Remove property from sale
+     * @param tokenId ID of the property token
+     */
+    function unlistProperty(uint256 tokenId) 
+        public 
+        onlyTokenOwner(tokenId) 
+        propertyExists(tokenId) 
+    {
+        require(properties[tokenId].forSale, "Property is not for sale");
+        
+        properties[tokenId].forSale = false;
+        properties[tokenId].salePrice = 0;
+        delete propertyPrices[tokenId];
+        
+        emit PropertyUnlisted(tokenId);
+    }
+    
+    /**
+     * @dev Buy a property that is for sale
+     * @param tokenId ID of the property token
+     */
+    function buyProperty(uint256 tokenId) 
+        public 
+        payable 
+        propertyExists(tokenId) 
+        nonReentrant 
+    {
+        Property storage property = properties[tokenId];
+        require(property.forSale, "Property is not for sale");
+        require(msg.value >= property.salePrice, "Insufficient funds sent");
+        require(ownerOf(tokenId) != msg.sender, "Cannot buy your own property");
+        
+        address seller = ownerOf(tokenId);
+        
+        // Transfer ownership
+        _transfer(seller, msg.sender, tokenId);
+        
+        // Update property details
+        property.forSale = false;
+        uint256 salePrice = property.salePrice;
+        property.salePrice = 0;
+        delete propertyPrices[tokenId];
+        
+        // Transfer funds to seller
+        (bool success, ) = payable(seller).call{value: msg.value}("");
+        require(success, "Transfer failed");
+        
+        emit PropertySold(tokenId, seller, msg.sender, salePrice);
+    }
+    
+    /**
+     * @dev Update property valuation
+     * @param tokenId ID of the property token
+     * @param newValuation New valuation amount
+     */
+    function updateValuation(uint256 tokenId, uint256 newValuation) 
+        public 
+        onlyOwner 
+        propertyExists(tokenId) 
+    {
+        require(newValuation > 0, "Valuation must be greater than zero");
+        
+        uint256 oldValuation = properties[tokenId].valuation;
+        properties[tokenId].valuation = newValuation;
+        
+        emit PropertyValuationUpdated(tokenId, oldValuation, newValuation);
+    }
+    
+    /**
+     * @dev Get all properties owned by an address
+     * @param owner Address to check
+     * @return Array of property token IDs
+     */
+    function getPropertiesOfOwner(address owner) public view returns (uint256[] memory) {
+        uint256 balance = balanceOf(owner);
+        uint256[] memory result = new uint256[](balance);
+        
+        for (uint256 i = 0; i < balance; i++) {
+            result[i] = tokenOfOwnerByIndex(owner, i);
+        }
+        
+        return result;
+    }
+    
+    /**
+     * @dev Get property details
+     * @param tokenId ID of the property token
+     * @return Property struct with details
+     */
+    function getPropertyDetails(uint256 tokenId) 
+        public 
+        view 
+        propertyExists(tokenId) 
+        returns (Property memory) 
+    {
+        return properties[tokenId];
+    }
+    
+    /**
+     * @dev Override functions to make ERC721URIStorage and ERC721Enumerable compatible
+     */
+    function _update(address to, uint256 tokenId, address auth)
+        internal
+        override(ERC721, ERC721Enumerable)
+        returns (address)
+    {
+        return super._update(to, tokenId, auth);
+    }
+
+    function _increaseBalance(address account, uint128 value)
+        internal
+        override(ERC721, ERC721Enumerable)
+    {
+        super._increaseBalance(account, value);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721Enumerable, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Script for syntax highlighting -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const codeElement = document.getElementById('solidity-code');
+                        if (codeElement) {
+                            const solidity = codeElement.innerText;
+                            let highlightedCode = solidity;
+                            
+                            // Highlight comments
+                            highlightedCode = highlightedCode.replace(/(\/\/.*$|\/\*[\s\S]*?\*\/)/gm, 
+                                '<span class="comment">$1</span>');
+                                
+                            // Highlight strings
+                            highlightedCode = highlightedCode.replace(/("(?:\\.|[^"\\])*")/g, 
+                                '<span class="string">$1</span>');
+                                
+                            // Highlight keywords
+                            const keywords = ['pragma', 'solidity', 'contract', 'function', 'public', 'private', 
+                                'internal', 'external', 'view', 'pure', 'returns', 'return', 'struct', 
+                                'mapping', 'memory', 'storage', 'import', 'is', 'for', 'while', 'if', 'else'];
+                                
+                            keywords.forEach(keyword => {
+                                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                                highlightedCode = highlightedCode.replace(regex, '<span class="keyword">$1</span>');
+                            });
+                            
+                            // Highlight types
+                            const types = ['uint', 'uint256', 'int', 'bytes', 'string', 'address', 'bool'];
+                            types.forEach(type => {
+                                const regex = new RegExp(`\\b(${type})\\b`, 'g');
+                                highlightedCode = highlightedCode.replace(regex, '<span class="type">$1</span>');
+                            });
+                            
+                            // Highlight numbers
+                            highlightedCode = highlightedCode.replace(/\b(\d+)\b/g, 
+                                '<span class="number">$1</span>');
+                                
+                            // Highlight custom types (capitalized words)
+                            highlightedCode = highlightedCode.replace(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 
+                                '<span class="custom-type">$1</span>');
+                            
+                            codeElement.innerHTML = highlightedCode;
+                        }
+                    });
+                </script>
+
+                <!-- CTA Button -->
+                <div class="token-action">
+                    <a href="/marketplace.html" class="btn-primary">
+                        <span>Explore Available Properties</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Script for code copy functionality -->
+            <script>
+                function copyCodeToClipboard() {
+                    const codeElement = document.querySelector('.code-content code');
+                    const textToCopy = codeElement.innerText;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const copyBtn = document.getElementById('copy-code-btn');
+                        const originalText = copyBtn.innerHTML;
+                        
+                        copyBtn.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27c93f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Copied!</span>
+                        `;
+                        
+                        setTimeout(() => {
+                            copyBtn.innerHTML = originalText;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                }
+            </script>
+        </div>
+    </section>
+
+    <section id="benefits" class="benefits">
+        <div class="container">
+            
+            <p class="section-intro">Learn all the ways that you can use tokenization to your advantage!</p>
+            
+            <div class="card-grid">
+                <div class="feature-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 14.01L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Fractional Ownership</h3>
+                        </div>
+                    <div class="card-content">
+                        <p>Invest in high-value properties with as little as $100, removing traditional barriers to real estate investing.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">100x</div>
+                            <div class="crypto-label">Lower barrier to entry</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Instant Liquidity</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Trade property tokens 24/7 on decentralized exchanges, eliminating the typical months-long real estate selling process.</p>
+                        </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">24/7</div>
+                            <div class="crypto-label">Global trading</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card card-highlight">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 12L12 12L15 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                    </div>
+                        <h3>Smart Income Distribution</h3>
+                        </div>
+                    <div class="card-content">
+                        <p>Receive rental income automatically through smart contracts, with transparent payment tracking and instant settlement.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">0s</div>
+                            <div class="crypto-label">Settlement time</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18457 2.99721 7.13633 4.39828 5.49707C5.79935 3.85782 7.69279 2.71538 9.79619 2.24015C11.8996 1.76491 14.1003 1.98234 16.07 2.86" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                    </div>
+                        <h3>Portfolio Diversification</h3>
+                        </div>
+                    <div class="card-content">
+                        <p>Build a diverse real estate portfolio across multiple locations and property types without geographic constraints.</p>
+                        </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">Global</div>
+                            <div class="crypto-label">Investment reach</div>
+                    </div>
+                </div>
+            </div>
+                
+                <div class="feature-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Transparent Transactions</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>All property details and transaction history are permanently recorded on the blockchain, providing complete transparency.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">100%</div>
+                            <div class="crypto-label">Verifiable records</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.31 8L20.05 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.69 8L3.95 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 2V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Global Accessibility</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Access real estate investments from anywhere in the world, breaking down geographical barriers to property ownership.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="crypto-stat small">
+                            <div class="crypto-value">5 mins</div>
+                            <div class="crypto-label">Investment process</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add animated background elements -->
+        <div class="blockchain-nodes">
+            <div class="node-element n1"></div>
+            <div class="node-element n2"></div>
+            <div class="node-element n3"></div>
+            <div class="node-element n4"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-header" style="text-align: center; width: 100%;">
+                <h2 style="color: #6366f1 !important; -webkit-text-fill-color: #6366f1 !important; background: none !important; text-align: center !important; width: 100%; margin: 0 auto 20px auto !important;">Connect With Us</h2>
+            </div>
+            
+            <div class="contact-card">
+                <form class="crypto-form" id="contactForm">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="name">Full Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="name" placeholder="Your name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="email" placeholder="Your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="investmentType">Investment Interest</label>
+                            <div class="input-wrapper">
+                                <select id="investmentType">
+                                    <option value="" disabled selected>Select interest</option>
+                                    <option value="buy">Buy Tokens</option>
+                                    <option value="sell">Tokenize Property</option>
+                                    <option value="learn">Learn More</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="budget">Investment Budget</label>
+                            <div class="input-wrapper">
+                                <select id="budget">
+                                    <option value="" disabled selected>Select range</option>
+                                    <option value="under10k">Under $10,000</option>
+                                    <option value="10k-50k">$10,000 - $50,000</option>
+                                    <option value="50k-100k">$50,000 - $100,000</option>
+                                    <option value="100k-plus">$100,000+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field full-width">
+                        <label for="message">Message</label>
+                        <div class="input-wrapper">
+                            <textarea id="message" placeholder="Tell us how we can help you" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-consent">
+                        <label class="checkbox-container">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            <span class="consent-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        <span class="button-text">Submit Request</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation JS -->
+    <script src="js/navigation.js"></script>
+
+    <!-- Code Showcase JS -->
+    <script>
+        function copyCode() {
+            const code = document.querySelector('.code-content').textContent;
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    const copyBtn = document.querySelector('.copy-btn');
+                    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+        
+        // Add hover effect for explanation items
+        document.addEventListener('DOMContentLoaded', function() {
+            const explanationItems = document.querySelectorAll('.explanation-item');
+            explanationItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    item.style.transform = 'translateX(5px)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    item.style.transform = '';
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Create blockchain connections and data particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const blockchain = document.querySelector('.blockchain-animation');
+            const nodes = document.querySelectorAll('.node');
+            
+            // Connect nodes with lines
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    if (Math.random() > 0.3) { // 70% chance to create a connection
+                        createConnection(nodes[i], nodes[j], blockchain);
+                    }
+                }
+            }
+            
+            // Create data particles flowing between nodes
+            setInterval(() => {
+                const startNode = nodes[Math.floor(Math.random() * nodes.length)];
+                const endNode = nodes[Math.floor(Math.random() * nodes.length)];
+                
+                if (startNode !== endNode) {
+                    createDataParticle(startNode, endNode, blockchain);
+                }
+            }, 2000);
+        });
+        
+        function createConnection(node1, node2, parent) {
+            const connection = document.createElement('div');
+            connection.className = 'connection';
+            
+            const rect1 = node1.getBoundingClientRect();
+            const rect2 = node2.getBoundingClientRect();
+            
+            const x1 = rect1.left + rect1.width/2;
+            const y1 = rect1.top + rect1.height/2;
+            const x2 = rect2.left + rect2.width/2;
+            const y2 = rect2.top + rect2.height/2;
+            
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+            
+            connection.style.width = `${length}px`;
+            connection.style.height = '2px';
+            connection.style.position = 'absolute';
+            connection.style.top = `${y1}px`;
+            connection.style.left = `${x1}px`;
+            connection.style.transformOrigin = '0 0';
+            connection.style.transform = `rotate(${angle}deg)`;
+            
+            parent.appendChild(connection);
+        }
+        
+        function createDataParticle(startNode, endNode, parent) {
+            const particle = document.createElement('div');
+            particle.className = 'data-particle';
+            
+            const rect1 = startNode.getBoundingClientRect();
+            const rect2 = endNode.getBoundingClientRect();
+            
+            const x1 = rect1.left + rect1.width/2;
+            const y1 = rect1.top + rect1.height/2;
+            const x2 = rect2.left + rect2.width/2;
+            const y2 = rect2.top + rect2.height/2;
+            
+            const flowX = x2 - x1;
+            const flowY = y2 - y1;
+            
+            particle.style.top = `${y1}px`;
+            particle.style.left = `${x1}px`;
+            particle.style.setProperty('--flow-x', `${flowX}px`);
+            particle.style.setProperty('--flow-y', `${flowY}px`);
+            
+            parent.appendChild(particle);
+            
+            // Remove particle after animation completes
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+    </script>
+
+    <!-- Include the footer component -->
+    <div id="footer-container"></div>
+    <script>
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+                
+                // Ensure footer visibility
+                setTimeout(() => {
+                    const footer = document.querySelector('.footer');
+                    if (footer) {
+                        footer.style.display = 'block';
+                        footer.style.visibility = 'visible';
+                        footer.style.opacity = '1';
+                        
+                        // Make sure disclaimer is visible
+                        const disclaimer = document.querySelector('.legal-disclaimer');
+                        if (disclaimer) {
+                            disclaimer.style.display = 'block';
+                            disclaimer.style.visibility = 'visible';
+                            disclaimer.style.opacity = '1';
+                        }
+                    }
+                }, 100);
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+
+    <!-- AI Chat Interface -->
+    <div class="chat-container" style="display: none;">
+        <div class="chat-header">
+            <div class="chat-title">
+                <div class="chat-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>TokenAI Assistant</h3>
+            </div>
+            <div class="chat-actions">
+                <button id="closeChat" aria-label="Close chat" style="overflow: visible;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
+                        <path d="M18 6L6 18" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6L18 18" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="message-counter">
+            <span id="remainingMessages">5/5 questions remaining</span>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Ask about tokenization..." aria-label="Chat input">
+            <button id="sendMessage" aria-label="Send message" style="overflow: visible;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
+                    <path d="M22 2L11 13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button id="openChat" class="open-chat-btn" aria-label="Open chat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 8H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 12H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <!-- Chat functionality -->
+    <script src="js/chat.js"></script>
+</body>
+</html>

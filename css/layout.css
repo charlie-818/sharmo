@@ -1,0 +1,294 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    color: white !important;
+}
+
+section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    position: relative;
+    scroll-margin-top: 100px;
+    background-color: var(--dark-gray);
+}
+
+/* Unified Section Header Styling */
+section h2,
+.contact h2 {
+    color: var(--secondary);
+    text-align: left;
+    font-size: 3.2em;
+    margin: 0 0 50px 120px;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: capitalize !important;
+    letter-spacing: 0.5px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+    padding-left: 0;
+}
+
+/* Remove or modify the line under headers */
+section h2::after,
+.contact h2::after {
+    /* Remove this entire block or comment it out */
+    display: none; /* This will hide the green line under headers */
+}
+
+/* Force consistent styling for all headers */
+.tokenization h2,
+.problem h2,
+.solution h2,
+.benefits h2,
+.contact h2 {
+    margin: 0 0 50px 120px !important;
+    text-transform: capitalize !important;
+    font-size: 3.2em !important;
+    background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Container spacing adjustments */
+.tokenization-container,
+.crisis-container,
+.solution-overview,
+.benefits-grid,
+.contact-form {
+    margin-top: 0 !important;
+    padding-top: 30px !important;
+}
+
+/* Specific adjustments for problem section */
+.crisis-container {
+    padding-top: 30px !important;
+    background: linear-gradient(
+        165deg,
+        rgba(30, 30, 30, 0.9) 0%,
+        rgba(18, 18, 18, 0.95) 100%
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(29, 185, 84, 0.15);
+}
+
+/* Specific adjustments for contact form */
+.contact-form {
+    padding: 30px !important;
+    background: linear-gradient(
+        165deg,
+        rgba(30, 30, 30, 0.9) 0%,
+        rgba(18, 18, 18, 0.95) 100%
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(29, 185, 84, 0.15);
+}
+
+/* Remove any conflicting margins */
+.benefits .benefits-grid,
+.tokenization .tokenization-container {
+    margin-top: 0 !important;
+}
+
+/* Add subtle animation for headers */
+section h2 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInHeader 0.6s ease-out forwards;
+}
+
+@keyframes fadeInHeader {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Remove any conflicting header styles from individual sections */
+.benefits h2,
+.problem h2,
+.solution h2,
+.token-explanation h2 {
+    margin: 0 0 40px 0;
+    display: block;
+}
+
+section:first-of-type {
+    margin-top: 80px;
+}
+
+/* Section dividers */
+section:not(:first-of-type)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(29, 185, 84, 0.3) 50%,
+        transparent 100%
+    );
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Add a subtle glow effect */
+section:not(:first-of-type)::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(29, 185, 84, 0.1) 50%,
+        transparent 100%
+    );
+    filter: blur(2px);
+    z-index: 1;
+}
+
+/* Add a subtle glow effect to the bottom of the hero section */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(29, 185, 84, 0.3) 50%,
+        transparent 100%
+    );
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Specific adjustments for longer headers */
+.solution h2 {
+    font-size: 2.4em;  /* Slightly reduced */
+    letter-spacing: 0.3px;  /* Tighter spacing */
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 40px;
+    }
+    section h2 {
+        margin-left: 40px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1000px;
+    }
+    section h2 {
+        font-size: 2.6em;
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    section h2,
+    .tokenization h2,
+    .problem h2,
+    .solution h2,
+    .benefits h2,
+    .contact h2 {
+        margin-left: 20px !important;
+        font-size: 2.5em !important;
+    }
+
+    section h2::after {
+        left: 0;
+    }
+}
+
+/* Update problem section to match */
+.problem {
+    margin-top: -50px;
+    padding: 80px 0 80px;
+    background: var(--primary);
+    position: relative;
+}
+
+/* Ensure navigation bar doesn't overlap content */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 15px 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    height: 60px;
+}
+
+/* Loading indicator styles */
+.loading {
+    background: transparent !important;
+    border: none !important;
+    padding: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Specific adjustments for tokenization and benefits sections */
+.tokenization h2,
+.benefits h2 {
+    margin: 0 0 50px 120px !important;
+}
+
+/* Container spacing - separate from header spacing */
+.tokenization-container,
+.benefits-grid {
+    margin-top: 0;
+    padding-top: 30px !important;
+}
+
+/* For marketplace page specifically, since it uses inline styles */
+.transactions h2 {
+    margin-bottom: 30px !important; /* Adjust spacing since we removed the line */
+}

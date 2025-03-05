@@ -1,0 +1,86 @@
+/* Footer visibility fixes */
+.footer, 
+#footer-container .footer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    background: linear-gradient(135deg, #1a2942, #121a29) !important;
+    color: #ffffff !important;
+    padding: 2rem 0 1rem !important;
+    margin-top: 0 !important;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.footer::before,
+#footer-container .footer::before {
+    z-index: -1 !important;
+    opacity: 0.7 !important;
+}
+
+.footer-content,
+.footer-brand,
+.footer-links,
+.footer-contact,
+.footer-bottom,
+#footer-container .footer-content,
+#footer-container .footer-brand,
+#footer-container .footer-links,
+#footer-container .footer-contact,
+#footer-container .footer-bottom {
+    background: transparent !important;
+    color: #ffffff !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.footer-links h4,
+#footer-container .footer-links h4 {
+    color: #ffffff !important;
+    margin-bottom: 1rem !important;
+    font-weight: 600 !important;
+    font-size: 1.2rem !important;
+}
+
+.footer-links ul,
+#footer-container .footer-links ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.footer-links li,
+#footer-container .footer-links li {
+    margin-bottom: 0.5rem !important;
+}
+
+.footer-links a,
+#footer-container .footer-links a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none !important;
+    transition: color 0.3s !important;
+}
+
+.footer-links a:hover,
+#footer-container .footer-links a:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
+
+.legal-disclaimer,
+#footer-container .legal-disclaimer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding-top: 1.5rem !important;
+    margin-top: 1.5rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-align: center !important;
+} 

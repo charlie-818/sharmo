@@ -1,0 +1,53 @@
+.process {
+    padding: 100px 0;
+    background: var(--primary);
+}
+
+.process h2 {
+    text-align: center;
+    font-size: 3.2em;
+    background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 50px;
+}
+
+.process-steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.process-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0 auto 20px;
+}
+
+.process-step h3 {
+    color: var(--text);
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.process-step p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1.1em;
+} 
