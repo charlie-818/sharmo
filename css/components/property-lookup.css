@@ -1,211 +1,175 @@
 /* 
- * Property Lookup - Space-Efficient Design
- * Completely rebuilt to eliminate all conflicts
+ * Property Lookup - Enterprise-Level Design
+ * Modern, full-width interface with consistent styling
  */
 
-/* ====== CORE CONTAINER STYLES ====== */
+/* Main container styling - removing conflicts */
 .property-lookup {
     padding: 0 !important;
     margin: 0 !important;
-    background-color: #f8f9fa !important;
-    display: flex !important;
-    flex-direction: column !important;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 270px);
+    display: flex;
+    flex-direction: column;
     flex: 1 !important;
-    min-height: calc(100vh - 250px) !important;
 }
 
+/* Container spacing - single definition */
 .property-lookup .container {
-    max-width: 1200px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    padding: 30px 20px 0 !important; /* REDUCED TOP PADDING */
-    box-sizing: border-box !important;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px 0 !important; /* Optimized spacing */
+    box-sizing: border-box;
     background-color: transparent !important;
 }
 
-/* ====== TYPOGRAPHY ====== */
+/* Improved heading style */
 .property-lookup h2 {
-    font-size: 1.6rem !important;
+    font-size: 1.7rem !important;
     color: #222222 !important;
-    margin: 0 0 14px 0 !important;
-    position: relative !important;
-    display: inline-block !important;
-    font-weight: 600 !important;
-    padding-bottom: 5px !important;
-    text-align: left !important;
-    width: 100% !important;
-    letter-spacing: -0.01em !important;
-    border: none !important;
+    margin: 0 0 16px 0 !important;
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+    padding-bottom: 6px;
+    text-align: left;
+    width: 100%;
+    letter-spacing: -0.01em;
 }
 
+/* Heading underline - cleaner look */
 .property-lookup h2::after {
-    content: '' !important;
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 50px !important;
-    height: 3px !important;
-    background: linear-gradient(to right, var(--property-primary), var(--property-secondary)) !important;
-    border-radius: 3px !important;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--property-primary), var(--property-secondary));
+    border-radius: 3px;
 }
 
-/* ====== FORM LAYOUT ====== */
+/* Lookup form - cleaner, more aesthetic design */
 .lookup-form {
     background: linear-gradient(to bottom, #ffffff, #fafbfc) !important;
-    border-radius: 10px !important;
-    padding: 18px !important; /* REDUCED PADDING */
-    margin: 0 0 15px !important; /* REDUCED MARGIN */
+    border-radius: 12px !important;
+    padding: 22px !important;
+    margin: 0 0 20px !important;
     border: 1px solid rgba(0, 0, 0, 0.07) !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr 160px !important;
-    grid-gap: 15px !important; /* REDUCED GAP */
+    grid-gap: 18px !important; /* Increased for better spacing */
     align-items: end !important;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04) !important; /* Subtle shadow */
 }
 
+/* Address field - improved spacing */
 .lookup-form .form-group:first-child {
-    grid-column: 1 / -1 !important;
-    margin-bottom: 5px !important; /* REDUCED MARGIN */
+    grid-column: 1 / -1;
+    margin-bottom: 6px; /* Slightly increased for better visual separation */
 }
 
+/* Form group - clean reset */
 .form-group {
-    margin-bottom: 0 !important;
-    position: relative !important;
+    margin-bottom: 0;
+    position: relative;
 }
 
+/* Hidden form row - redundant */
 .form-row {
-    display: none !important;
+    display: none;
 }
 
-/* ====== FORM ELEMENTS ====== */
+/* Label styling - improved aesthetics */
 .form-group label {
-    display: block !important;
-    margin-bottom: 4px !important; /* REDUCED MARGIN */
-    font-weight: 500 !important;
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
     color: #333333 !important;
-    font-size: 0.75rem !important; /* SMALLER FONT */
+    font-size: 0.8rem; /* Smaller for efficiency */
     -webkit-text-fill-color: #333333 !important;
-    letter-spacing: 0.4px !important;
-    text-transform: uppercase !important;
-    opacity: 0.9 !important;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    opacity: 0.85;
 }
 
+/* Input/select styling - refined appearance */
 .form-group input,
 .form-group select {
-    width: 100% !important;
-    padding: 8px 12px !important; /* REDUCED PADDING */
+    width: 100%;
+    padding: 10px 14px 10px 12px;
     border: 1px solid #d0d5dd !important;
-    border-radius: 8px !important;
-    font-size: 0.9rem !important; /* SMALLER FONT */
-    transition: all 0.2s ease !important;
+    border-radius: 9px;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
     background-color: #ffffff !important;
     color: #333333 !important;
-    height: 40px !important; /* REDUCED HEIGHT */
+    height: 46px; /* Slightly taller for better proportion */
     font-family: inherit !important;
     -webkit-text-fill-color: #333333 !important;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
+/* Placeholder styling - improved readability */
 .form-group input::placeholder {
     color: #9ca3af !important;
-    opacity: 0.9 !important;
-    font-size: 0.85rem !important;
+    opacity: 0.9;
+    font-size: 0.9rem;
 }
 
+/* Focus state - enhanced visual feedback */
 .form-group input:focus,
 .form-group select:focus {
     outline: none !important;
     border-color: var(--property-primary) !important;
-    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
 }
 
-/* ====== BUTTON ====== */
+/* Search button - refined aesthetics */
 .lookup-btn {
-    padding: 0 14px !important; /* REDUCED PADDING */
-    height: 40px !important; /* REDUCED HEIGHT */
-    grid-column: 3 !important;
-    grid-row: 2 !important;
+    padding: 0 18px !important;
+    height: 46px !important; /* Match input height */
+    grid-column: 3;
+    grid-row: 2;
     background: linear-gradient(135deg, var(--property-primary), var(--property-secondary)) !important;
     border: none !important;
     color: white !important;
-    border-radius: 8px !important;
+    border-radius: 9px !important;
     font-weight: 600 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important; /* REDUCED GAP */
+    gap: 8px !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 3px 6px rgba(123, 58, 237, 0.2) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    font-size: 0.8rem !important; /* SMALLER FONT */
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 10px rgba(123, 58, 237, 0.2) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
 }
 
+/* Hover effect - smoother transition */
 .lookup-btn:hover {
     background: linear-gradient(135deg, var(--property-secondary), var(--property-primary)) !important;
-    box-shadow: 0 4px 10px rgba(123, 58, 237, 0.25) !important;
-    transform: translateY(-1px) !important;
+    box-shadow: 0 5px 15px rgba(123, 58, 237, 0.25) !important;
+    transform: translateY(-2px);
 }
 
+/* Button icon - proper alignment */
 .lookup-btn svg {
-    margin-right: 2px !important;
-    width: 14px !important; /* SMALLER ICON */
-    height: 14px !important; /* SMALLER ICON */
+    margin-right: 2px;
+    width: 16px;
+    height: 16px;
 }
 
+/* Active state - feedback */
 .lookup-btn:active {
     transform: translateY(1px) !important;
-    box-shadow: 0 2px 3px rgba(123, 58, 237, 0.15) !important;
+    box-shadow: 0 2px 5px rgba(123, 58, 237, 0.15) !important;
 }
 
-/* ====== RESPONSIVE DESIGN ====== */
-@media (max-width: 768px) {
-    .property-lookup .container {
-        padding: 25px 15px 0 !important; /* FURTHER REDUCED */
-    }
-    
-    .property-lookup h2 {
-        font-size: 1.4rem !important;
-        margin: 0 0 12px 0 !important;
-    }
-    
-    .lookup-form {
-        padding: 15px !important;
-        grid-template-columns: 1fr !important;
-        grid-gap: 12px !important;
-    }
-    
-    .lookup-btn {
-        grid-column: 1 !important;
-        grid-row: 4 !important;
-        width: 100% !important;
-        margin-top: 0 !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .property-lookup .container {
-        padding: 20px 12px 0 !important; /* EVEN FURTHER REDUCED */
-    }
-    
-    .property-lookup h2 {
-        font-size: 1.3rem !important;
-        margin: 0 0 10px 0 !important;
-        text-align: center !important;
-    }
-    
-    .lookup-form {
-        padding: 12px !important;
-        grid-gap: 10px !important;
-    }
-    
-    .form-group label {
-        font-size: 0.7rem !important;
-    }
-}
-
-/* ====== RESULTS STYLING ====== */
+/* Property results section */
 .property-results {
     opacity: 0;
     transform: translateY(20px);
@@ -215,40 +179,342 @@
 }
 
 .property-results h3 {
-    font-size: 1.4rem !important;
+    font-size: 1.4rem;
     color: #222222 !important;
-    margin: 10px 0 12px 0 !important;
-    position: relative !important;
-    display: inline-block !important;
-    padding-bottom: 5px !important;
-    width: 100% !important;
+    margin-bottom: 16px;
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+    padding-bottom: 8px;
 }
 
 .property-results h3::after {
-    content: '' !important;
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 40px !important;
-    height: 3px !important;
-    background: linear-gradient(to right, var(--property-primary), var(--property-secondary)) !important;
-    border-radius: 3px !important;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--property-primary);
+    border-radius: 2px;
+    display: block;
 }
 
+/* Improved property card styling for better visibility */
 .property-card {
-    background: #fff !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    background: white !important;
+    border-radius: 12px !important;
     overflow: hidden !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     margin-bottom: 0 !important;
 }
 
-/* ====== ESSENTIAL UTILITY CLASSES ====== */
+.property-section {
+    padding: 20px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background: linear-gradient(to right, #ffffff, #fafbfc) !important;
+}
+
+.property-section:last-child {
+    border-bottom: none;
+}
+
+/* Fixed section title styles */
+.property-section h4 {
+    font-size: 1.1rem !important;
+    color: #222222 !important;
+    margin-bottom: 16px !important;
+    position: relative !important;
+    display: inline-block !important;
+    font-weight: 600 !important;
+    padding-bottom: 6px !important;
+    letter-spacing: 0.2px !important;
+}
+
+.property-section h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: var(--property-primary);
+    border-radius: 2px;
+    display: block !important;
+}
+
+.property-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+}
+
+/* Ensure property details are clearly visible */
+.property-detail {
+    display: flex !important;
+    flex-direction: column !important;
+    transition: all 0.3s ease !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    background-color: #f8fafc !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+.property-detail:hover {
+    background-color: #f1f5f9 !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+.detail-label {
+    font-size: 0.75rem !important;
+    color: #64748b !important;
+    margin-bottom: 4px !important;
+    font-weight: 500 !important;
+    display: block !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.detail-value {
+    font-size: 1rem !important;
+    color: #111827 !important;
+    font-weight: 600 !important;
+}
+
+#propertyValue {
+    color: #10b981 !important;
+    font-size: 1.05rem !important;
+}
+
+.action-buttons {
+    padding: 15px !important;
+    margin: 0 !important;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tokenize-btn {
+    display: flex !important;
+    align-items: center !important;
+    background: linear-gradient(to bottom, var(--property-primary), var(--property-secondary)) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 5px rgba(124, 58, 237, 0.3) !important;
+    letter-spacing: 0.3px !important;
+}
+
+.tokenize-btn:hover {
+    background-color: var(--property-secondary) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.4) !important;
+    filter: brightness(1.05) !important;
+}
+
+.tokenize-btn:active {
+    transform: translateY(0);
+}
+
+/* Add high contrast to the loading states */
+.loading-indicator {
+    text-align: center;
+    padding: 40px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid var(--property-primary);
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--error);
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.error-message h4 {
+    color: var(--error);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.error-message p {
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.error-details {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    padding: 10px 0;
+}
+
+.form-error {
+    border-color: var(--error) !important;
+    background-color: rgba(220, 53, 69, 0.05) !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .property-lookup .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+    
+    .property-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+    .property-lookup .container {
+        padding: 35px 15px 0 !important;
+    }
+    
+    .property-lookup h2 {
+        font-size: 1.5rem !important;
+        margin: 0 0 14px 0 !important;
+    }
+    
+    .lookup-form {
+        padding: 18px !important;
+        grid-template-columns: 1fr !important;
+        grid-gap: 14px !important;
+    }
+    
+    .lookup-btn {
+        grid-column: 1 !important;
+        grid-row: 4 !important;
+        width: 100% !important;
+        margin-top: 4px !important;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .property-grid {
+        gap: 8px !important;
+    }
+    
+    .property-results h3 {
+        font-size: 1.4rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .property-results h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .property-section h4 {
+        font-size: 1.1rem;
+        width: 100%;
+    }
+    
+    .property-section h4::after {
+        left: 0;
+    }
+    
+    .tokenize-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .property-detail {
+        background-color: #f8f9fa;
+        border: 1px solid #eee;
+        margin-bottom: 8px;
+    }
+    
+    .property-section {
+        padding: 15px !important;
+    }
+    
+    .action-buttons {
+        padding: 10px !important;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .property-lookup .container {
+        padding: 30px 12px 0 !important;
+    }
+    
+    .property-lookup h2 {
+        font-size: 1.4rem !important;
+        margin: 0 0 12px 0 !important;
+        text-align: center !important;
+    }
+    
+    .lookup-form {
+        padding: 16px !important;
+        grid-gap: 12px !important;
+    }
+    
+    .form-group label {
+        font-size: 0.75rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .lookup-btn {
+        height: 44px !important;
+    }
+    
+    .property-section {
+        padding: 12px !important;
+    }
+    
+    .property-detail {
+        padding: 8px 4px;
+    }
+}
+
 #footer-container {
     margin: 0 !important;
     padding: 0 !important;
 }
 
+/* Ensure the page has no excess whitespace */
 .page-wrapper {
     min-height: 100vh !important;
     display: flex !important;
@@ -256,20 +522,171 @@
     gap: 0 !important;
 }
 
-/* ====== TOKEN POTENTIAL INDICATORS ====== */
+/* Clear overrides for conflicting styles */
+.container h2, .container h3, .container h4 {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #222222 !important;
+}
+
+/* Fix for property-section bottom spacing */
+.property-section:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 15px;
+}
+
+/* Ensure proper vertical rhythm */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+/* Remove any shadow effects that might be coming from global styles */
+.property-lookup *, 
+.property-card *, 
+.lookup-form * {
+    box-shadow: none !important;
+}
+
+/* Fix underline display issues for section headers */
+.property-lookup h2::after,
+.property-results h3::after,
+.property-section h4::after {
+    display: block;
+}
+
+/* Fix for missing CSS variables or conflicts */
+:root {
+    --text-dark: #222222;
+    --text-light: #666666;
+    --border-light: #e0e0e0;
+    --bg-light: #f8f9fa;
+    --success: #10b981;
+    --error: #dc3545;
+}
+
+/* Override any global styles that might affect form visibility */
+.form-group input,
+.form-group select {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border-color: #cccccc !important;
+}
+
+/* Make select dropdown options visible */
+.form-group select option {
+    background-color: white;
+    color: #333333;
+}
+
+/* Ensure form elements maintain visibility on all devices */
+@media (max-width: 768px) {
+    .form-group label {
+        color: #333333 !important;
+    }
+    
+    .form-group input,
+    .form-group select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+    }
+    
+    .property-section h4 {
+        color: #222222 !important;
+    }
+}
+
+/* Additional overrides to ensure all text is visible */
+.lookup-form * {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Ensure the form and content are visible by forcing important styles */
+.lookup-form {
+    background-color: white !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Force inputs to have visible text and borders */
+input, select, button, textarea {
+    font-family: inherit !important;
+    -webkit-text-fill-color: #333333 !important;
+    color: #333333 !important;
+    border-color: #cccccc !important;
+    background-color: #ffffff !important;
+}
+
+/* Ensure all labels are visible */
+label {
+    -webkit-text-fill-color: #333333 !important;
+    color: #333333 !important;
+}
+
+/* Make sure no external CSS is hiding our form */
+.property-lookup {
+    display: flex !important;
+    visibility: visible !important;
+}
+
+.lookup-form {
+    display: grid !important;
+    visibility: visible !important;
+}
+
+.form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+}
+
+.property-results,
+.property-card,
+.property-section {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.property-grid {
+    display: grid !important;
+    visibility: visible !important;
+}
+
+.property-detail {
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+}
+
+/* Fix for Chrome autofill changing input background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: #333333 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Better styling for special token values */
 #tokenPotential {
-    font-weight: 600 !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
 }
 
 #tokenPotential[style*="color: #10b981"] {
-    color: #10b981 !important;
+    background-color: rgba(16, 185, 129, 0.1) !important;
 }
 
 #tokenPotential[style*="color: #f59e0b"] {
-    color: #f59e0b !important;
+    background-color: rgba(245, 158, 11, 0.1) !important;
 }
 
 #tokenPotential[style*="color: #ef4444"] {
-    color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.1) !important;
 }
 
