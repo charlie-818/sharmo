@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sharmo - Property Marketplace</title>
+    <title>sharmo - Property Marketplace (Coming Soon)</title>
     <!-- Add favicon -->
     <link rel="icon" type="image/png" href="/images/logo.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo.png">
@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/components/footer.css">
     <link rel="stylesheet" href="css/components/cards.css">
     <link rel="stylesheet" href="css/components/forms.css">
-    <link rel="stylesheet" href="css/components/chat.css">
     <!-- Add marketplace styles with correct path -->
     <link rel="stylesheet" href="css/sections/marketplace.css" type="text/css">
     <link rel="stylesheet" href="css/components/property-lookup.css">
@@ -27,6 +26,515 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="js/common.js"></script>
     <script src="js/main.js" defer></script>
+
+    <style>
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 160px);
+            padding: 30px;
+            background: var(--primary);
+        }
+        
+        .diagram-container {
+            position: relative;
+            width: 800px;
+            max-width: 90%;
+            height: 500px;
+            margin: 40px auto;
+            border-radius: 10px;
+            background: var(--light-gray);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .diagram-header {
+            height: 40px;
+            background: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+        
+        .diagram-controls {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .control-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .control-dot.red { background-color: #ff5f57; }
+        .control-dot.yellow { background-color: #febc2e; }
+        .control-dot.green { background-color: #28c840; }
+        
+        .diagram-content {
+            height: calc(100% - 40px);
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background: var(--dark-gray);
+            padding: 15px;
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+        }
+        
+        .sidebar-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .folder {
+            margin-bottom: 10px;
+        }
+        
+        .folder-name {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 3px 0;
+        }
+        
+        .folder-name i {
+            color: var(--secondary);
+        }
+        
+        .file {
+            margin-left: 20px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .file.active {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .code-area {
+            flex: 1;
+            background: var(--dark-gray);
+            padding: 15px;
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            overflow: auto;
+            position: relative;
+        }
+        
+        .code-lines {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 15px 10px;
+            color: var(--text-secondary);
+            text-align: right;
+            background: rgba(0, 0, 0, 0.1);
+            height: 100%;
+            user-select: none;
+        }
+        
+        .code-content {
+            margin-left: 30px;
+        }
+        
+        .keyword { color: #f92672; }
+        .function { color: #a6e22e; }
+        .string { color: #e6db74; }
+        .component { color: #66d9ef; }
+        .comment { color: #75715e; }
+        .property { color: #fd971f; }
+        
+        .marketplace-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .development-status {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .status-tag {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+        
+        .view-mock-btn {
+            padding: 12px 30px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .view-mock-btn:hover {
+            background: #1ed760;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.2);
+        }
+        
+        .mock-data-container {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto;
+            background: var(--primary);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mock-data-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        
+        .mock-data-header h3 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .close-mock-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-mock-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .property-card {
+            background: var(--primary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary);
+        }
+        
+        .property-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: var(--secondary);
+            color: white;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .property-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .property-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+        
+        .property-details {
+            padding: 15px;
+        }
+        
+        .property-title {
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+            color: var(--text);
+            line-height: 1.3;
+            font-weight: 600;
+        }
+        
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .property-location i {
+            color: var(--secondary);
+            font-size: 0.85rem;
+        }
+        
+        .property-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+        
+        .property-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+        }
+        
+        .property-stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        
+        .stat i {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+        
+        .property-action {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .view-property-btn {
+            padding: 8px 0;
+            width: 100%;
+            background: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .view-property-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Tokenization styles */
+        .tokenization-info {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .tokenization-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .tokenization-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .token-percentage {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .token-progress {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .token-progress-bar {
+            height: 100%;
+            background: var(--secondary);
+        }
+        
+        .token-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .token-price {
+            font-weight: 500;
+        }
+
+        /* Remove mock-data-controls styles */
+        .mock-data-controls,
+        .filter-group,
+        .filter-select,
+        .sort-group,
+        .sort-label,
+        .sort-select {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                height: 400px;
+            }
+            
+            .sidebar {
+                width: 160px;
+            }
+            
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .diagram-container {
+                height: 350px;
+            }
+            
+            .sidebar {
+                width: 130px;
+                font-size: 12px;
+            }
+            
+            .file {
+                font-size: 11px;
+            }
+            
+            .marketplace-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    
+    <script>
+        // This script will be used to show/hide the mock data and handle animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle View Mock Data button
+            const viewMockBtn = document.getElementById('viewMockData');
+            const mockDataContainer = document.getElementById('mockDataContainer');
+            const closeMockBtn = document.getElementById('closeMockData');
+            
+            if (viewMockBtn && mockDataContainer && closeMockBtn) {
+                viewMockBtn.addEventListener('click', function() {
+                    mockDataContainer.style.display = 'block';
+                    // Smooth scroll to the mock data container
+                    mockDataContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                closeMockBtn.addEventListener('click', function() {
+                    mockDataContainer.style.display = 'none';
+                });
+            }
+            
+            // Generate line numbers for the code editor
+            const codeLines = document.getElementById('codeLines');
+            if (codeLines) {
+                let linesHTML = '';
+                for (let i = 1; i <= 25; i++) {
+                    linesHTML += i + '<br>';
+                }
+                codeLines.innerHTML = linesHTML;
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- Include the header component -->
@@ -42,196 +550,247 @@
             });
     </script>
 
-    <section class="transactions">
-        <div class="container">
-            <h2 style="text-align: center; margin-top: 80px;" class="marketplace-title">Property Marketplace</h2>
+    <section class="coming-soon-container">
+        <span class="status-tag">Under Development</span>
+        <h1 class="marketplace-title">ReactJS Marketplace Coming Soon</h1>
+        <p class="development-status">We're building a modern, high-performance property marketplace using React and blockchain technology. Our developers are working hard to launch this feature soon.</p>
+        
+        <div class="diagram-container">
+            <div class="diagram-header">
+                <div class="diagram-controls">
+                    <div class="control-dot red"></div>
+                    <div class="control-dot yellow"></div>
+                    <div class="control-dot green"></div>
+                </div>
+            </div>
+            <div class="diagram-content">
+                <div class="sidebar">
+                    <div class="sidebar-title">PROJECT EXPLORER</div>
+                    <div class="folder">
+                        <div class="folder-name">
+                            <i class="fas fa-folder-open"></i> src
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> App.jsx
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> index.js
+                        </div>
+                        <div class="folder-name">
+                            <i class="fas fa-folder"></i> components
+                        </div>
+                        <div class="file active">
+                            <i class="fas fa-file-code"></i> Marketplace.jsx
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> PropertyCard.jsx
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> SearchBar.jsx
+                        </div>
+                        <div class="folder-name">
+                            <i class="fas fa-folder"></i> services
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> api.js
+                        </div>
+                        <div class="file">
+                            <i class="fas fa-file-code"></i> blockchain.js
+                        </div>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <div class="code-lines" id="codeLines">
+                        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>
+                        11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>
+                        21<br>22<br>23<br>24<br>25<br>
+                    </div>
+                    <div class="code-content">
+                        <div><span class="keyword">import</span> React, { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;</div>
+                        <div><span class="keyword">import</span> { fetchProperties } <span class="keyword">from</span> <span class="string">'../services/api'</span>;</div>
+                        <div><span class="keyword">import</span> <span class="component">PropertyCard</span> <span class="keyword">from</span> <span class="string">'./PropertyCard'</span>;</div>
+                        <div><span class="keyword">import</span> <span class="component">SearchBar</span> <span class="keyword">from</span> <span class="string">'./SearchBar'</span>;</div>
+                        <div><span class="keyword">import</span> <span class="string">'../styles/Marketplace.css'</span>;</div>
+                        <br>
+                        <div><span class="comment">// Marketplace component to display property listings</span></div>
+                        <div><span class="keyword">const</span> <span class="component">Marketplace</span> = () => {</div>
+                        <div>&nbsp;&nbsp;<span class="keyword">const</span> [properties, setProperties] = useState([]);</div>
+                        <div>&nbsp;&nbsp;<span class="keyword">const</span> [loading, setLoading] = useState(<span class="keyword">true</span>);</div>
+                        <div>&nbsp;&nbsp;<span class="keyword">const</span> [filters, setFilters] = useState({</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;type: <span class="string">''</span>,</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;priceRange: <span class="string">''</span>,</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;location: <span class="string">''</span></div>
+                        <div>&nbsp;&nbsp;});</div>
+                        <br>
+                        <div>&nbsp;&nbsp;<span class="function">useEffect</span>(() => {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> <span class="function">loadProperties</span> = <span class="keyword">async</span> () => {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span> {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> data = <span class="keyword">await</span> <span class="function">fetchProperties</span>(filters);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">setProperties</span>(data);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">setLoading</span>(<span class="keyword">false</span>);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">catch</span> (error) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.<span class="function">error</span>(<span class="string">'Error loading properties:'</span>, error);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;};</div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="viewMockData" class="view-mock-btn">
+            <i class="fas fa-database"></i> View Mock Data
+        </button>
+        
+        <!-- Mock Data Container (Initially Hidden) -->
+        <div id="mockDataContainer" class="mock-data-container">
+            <div class="mock-data-header">
+                <h3>Preview: Marketplace Properties</h3>
+                <button id="closeMockData" class="close-mock-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             
-            <!-- Marketplace View -->
-            <div class="view-content marketplace-view" id="marketplace-view">
-                <div class="search-container">
-                    <div class="search-bar">
-                        <input type="text" id="propertySearch" placeholder="Search by location, type, or price range...">
-                        <button class="search-btn">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                            </svg>
-                        </button>
+            <div class="property-grid">
+                <!-- Property Card 1 -->
+                <div class="property-card">
+                    <div class="property-status">Available</div>
+                    <div class="property-image">
+                        <img src="images/house_pictures/pexels-lina-3639542.jpg" alt="Luxury Penthouse">
                     </div>
-                    <div class="filter-options">
-                        <select id="propertyType">
-                            <option value="">Property Type</option>
-                            <option value="residential">Residential</option>
-                            <option value="commercial">Commercial</option>
-                            <option value="industrial">Industrial</option>
-                        </select>
-                        <select id="priceRange">
-                            <option value="">Price Range</option>
-                            <option value="2000000-4000000">$2M - $4M</option>
-                            <option value="4000000-6000000">$4M - $6M</option>
-                            <option value="6000000-8000000">$6M - $8M</option>
-                            <option value="8000000-10000000">$8M - $10M</option>
-                            <option value="10000000-20000000">$10M - $20M</option>
-                        </select>
-                        <select id="tokenization">
-                            <option value="">Tokenization Status</option>
-                            <option value="available">Available for Tokenization</option>
-                            <option value="in-progress">Tokenization in Progress</option>
-                            <option value="completed">Fully Tokenized</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="property-grid">
-                    <!-- First 6 property cards -->
-                    <div class="property-card"><!-- Property 1 --></div>
-                    <div class="property-card"><!-- Property 2 --></div>
-                    <div class="property-card"><!-- Property 3 --></div>
-                    <div class="property-card"><!-- Property 4 --></div>
-                    <div class="property-card"><!-- Property 5 --></div>
-                    <div class="property-card"><!-- Property 6 --></div>
-                </div>
-
-            
-
-            <!-- Property Lookup View -->
-            <div class="view-content lookup-view" id="lookup-view" style="display: none;">
-                <div class="lookup-form">
-                    <div class="form-group">
-                        <label for="address">Property Address</label>
-                        <input type="text" id="address" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" required>
+                    <div class="property-details">
+                        <h3 class="property-title">Luxury Downtown Penthouse</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i> Manhattan, New York
                         </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <select id="state" required>
-                                <option value="">Select State</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button id="lookupBtn" class="lookup-btn">Look Up Property</button>
-                </div>
-                
-                <div id="propertyResults" class="property-results" style="display: none;">
-                    <div class="dashboard-grid">
-                        <!-- Key Metrics Card -->
-                        <div class="dashboard-card metrics-card">
-                            <div class="metric-group">
-                                <div class="metric primary">
-                                    <span class="metric-value">$${data.propertyData.estimatedValue.toLocaleString()}</span>
-                                    <span class="metric-label">Property Value</span>
-                                    <div class="metric-trend">+12% vs Market Avg</div>
-                                </div>
-                                <div class="stats-row">
-                                    <div class="stat">
-                                        <span class="stat-label">Annual Rental Income</span>
-                                        <span class="stat-value">$${Math.round(data.propertyData.estimatedValue * 0.08).toLocaleString()}</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-label">Cap Rate</span>
-                                        <span class="stat-value">8%</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-label">5-Year ROI</span>
-                                        <span class="stat-value">47%</span>
-                                    </div>
-                                </div>
+                        <div class="property-price">$4,500,000</div>
+                        
+                        <div class="tokenization-info">
+                            <div class="tokenization-header">
+                                <div class="tokenization-title">Tokenization Status</div>
+                                <div class="token-percentage">0% / 100%</div>
+                            </div>
+                            <div class="token-progress">
+                                <div class="token-progress-bar" style="width: 0%"></div>
+                            </div>
+                            <div class="token-stats">
+                                <div>Token Price:</div>
+                                <div class="token-price">$4,500 per 0.1%</div>
                             </div>
                         </div>
-
-                        <!-- Property Details -->
-                        <div class="dashboard-card details-card">
-                            <div class="property-header">
-                                <div class="property-type">
-                                    <i class="fas fa-home"></i>
-                                    <span>${data.propertyData.propertyType}</span>
-                                </div>
-                                <div class="property-specs">
-                                    <span><i class="fas fa-bed"></i> ${data.propertyData.bedrooms}</span>
-                                    <span><i class="fas fa-bath"></i> ${data.propertyData.bathrooms}</span>
-                                    <span><i class="fas fa-ruler-combined"></i> ${data.propertyData.squareFootage.toLocaleString()} sqft</span>
-                                </div>
+                        
+                        <div class="property-divider"></div>
+                        <div class="property-stats">
+                            <div class="stat">
+                                <i class="fas fa-bed"></i> 3 beds
                             </div>
-                            <div class="property-features">
-                                <div class="feature">
-                                    <span class="feature-label">Year Built</span>
-                                    <span class="feature-value">${data.propertyData.yearBuilt}</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-label">Lot Size</span>
-                                    <span class="feature-value">${data.propertyData.lotSize}</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-label">Price per Sqft</span>
-                                    <span class="feature-value">$${Math.round(data.propertyData.estimatedValue / data.propertyData.squareFootage).toLocaleString()}</span>
-                                </div>
+                            <div class="stat">
+                                <i class="fas fa-bath"></i> 2.5 baths
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-ruler-combined"></i> 2,200 sqft
                             </div>
                         </div>
-
-                        <!-- Action Button -->
-                        <a href="/wallet.html" class="tokenize-btn" onclick="localStorage.setItem('propertyValue', '${data.propertyData.estimatedValue}')">
-                            Start Tokenization Process
-                        </a>
+                        <div class="property-action">
+                            <button class="view-property-btn">
+                                <i class="fas fa-coins"></i> Buy Tokens
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Fetching property data...</p>
+                <!-- Property Card 2 -->
+                <div class="property-card">
+                    <div class="property-status">Tokenizing</div>
+                    <div class="property-image">
+                        <img src="images/house_pictures/pexels-pixabay-259588.jpg" alt="Waterfront Villa">
+                    </div>
+                    <div class="property-details">
+                        <h3 class="property-title">Waterfront Villa with Pool</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i> Miami Beach, Florida
+                        </div>
+                        <div class="property-price">$6,750,000</div>
+                        
+                        <div class="tokenization-info">
+                            <div class="tokenization-header">
+                                <div class="tokenization-title">Tokenization Status</div>
+                                <div class="token-percentage">45% / 100%</div>
+                            </div>
+                            <div class="token-progress">
+                                <div class="token-progress-bar" style="width: 45%"></div>
+                            </div>
+                            <div class="token-stats">
+                                <div>Token Price:</div>
+                                <div class="token-price">$6,750 per 0.1%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="property-divider"></div>
+                        <div class="property-stats">
+                            <div class="stat">
+                                <i class="fas fa-bed"></i> 5 beds
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-bath"></i> 4 baths
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-ruler-combined"></i> 4,500 sqft
+                            </div>
+                        </div>
+                        <div class="property-action">
+                            <button class="view-property-btn">
+                                <i class="fas fa-coins"></i> Buy Tokens
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Property Card 3 -->
+                <div class="property-card">
+                    <div class="property-status">Tokenized</div>
+                    <div class="property-image">
+                        <img src="images/house_pictures/pexels-pixabay-277667.jpg" alt="Modern Office Building">
+                    </div>
+                    <div class="property-details">
+                        <h3 class="property-title">Modern Office Building</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i> Seattle, Washington
+                        </div>
+                        <div class="property-price">$12,300,000</div>
+                        
+                        <div class="tokenization-info">
+                            <div class="tokenization-header">
+                                <div class="tokenization-title">Tokenization Status</div>
+                                <div class="token-percentage">100% / 100%</div>
+                            </div>
+                            <div class="token-progress">
+                                <div class="token-progress-bar" style="width: 100%"></div>
+                            </div>
+                            <div class="token-stats">
+                                <div>Secondary Market:</div>
+                                <div class="token-price">$12,500 per 0.1%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="property-divider"></div>
+                        <div class="property-stats">
+                            <div class="stat">
+                                <i class="fas fa-building"></i> Commercial
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-ruler-combined"></i> 15,000 sqft
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-parking"></i> 45 spaces
+                            </div>
+                        </div>
+                        <div class="property-action">
+                            <button class="view-property-btn">
+                                <i class="fas fa-exchange-alt"></i> Trade Tokens
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,8 +808,5 @@
                 console.error('Error loading footer:', error);
             });
     </script>
-
-    <script src="js/marketplace.js"></script>
-    <script src="js/navigation.js"></script>
 </body>
 </html> 

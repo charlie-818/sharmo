@@ -38,7 +38,7 @@
             
             <!-- Wallet Connection Status -->
             
-                <div class="status-card not-connected">
+                <div id="walletStatus" class="status-card not-connected">
                     <h3>Connect with MetaMask</h3>
                     <div class="wallet-instructions">
                         <p>To connect your wallet and start investing in tokenized properties:</p>
@@ -68,6 +68,12 @@
                         <button class="connect-btn" onclick="connectWallet()">
                             <img src="images/metamask-logo.jpeg" alt="MetaMask">
                             Connect MetaMask
+                        </button>
+                        <button class="demo-btn" onclick="viewDemoWallet()">
+                            <svg viewBox="0 0 24 24" width="20" height="20" class="demo-icon">
+                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5z"/>
+                            </svg>
+                            View Demo Wallet
                         </button>
                     </div>
                     <p class="security-note">
@@ -127,8 +133,58 @@
             });
     </script>
 
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
-    <script src="js/wallet.js"></script>
+    <!-- Load ethers.js with multiple fallback sources -->
+    <script>
+        // Function to load ethers from different sources
+        function loadEthers(sources, currentIndex = 0) {
+            if (currentIndex >= sources.length) {
+                // All sources failed, show error message
+                const walletSection = document.querySelector('.wallet-section');
+                if (walletSection) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.textContent = 'Failed to load wallet functionality. Please try refreshing the page.';
+                    walletSection.appendChild(errorDiv);
+                }
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = sources[currentIndex];
+            script.onerror = function() {
+                console.error(`Failed to load ethers from ${sources[currentIndex]}, trying next source...`);
+                loadEthers(sources, currentIndex + 1);
+            };
+            script.onload = function() {
+                console.log(`Ethers.js loaded successfully from ${sources[currentIndex]}`);
+                // Check if ethers is actually defined
+                setTimeout(function() {
+                    if (typeof window.ethers !== 'undefined') {
+                        console.log('Ethers object is available in window');
+                        // Load wallet script
+                        const walletScript = document.createElement('script');
+                        walletScript.src = 'js/wallet.js';
+                        document.body.appendChild(walletScript);
+                    } else {
+                        console.error('Ethers object not found in window despite successful script load');
+                        loadEthers(sources, currentIndex + 1);
+                    }
+                }, 500);
+            };
+            document.body.appendChild(script);
+        }
+
+        // Try multiple CDNs for ethers
+        document.addEventListener('DOMContentLoaded', function() {
+            const ethersSources = [
+                'https://cdn.ethers.io/lib/ethers-5.7.umd.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.0/ethers.umd.min.js',
+                'https://unpkg.com/ethers@5.7.0/dist/ethers.umd.min.js'
+            ];
+            loadEthers(ethersSources);
+        });
+    </script>
+    
     <script src="js/navigation.js"></script>
 </body>
 </html> 

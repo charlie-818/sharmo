@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - Environment Setup</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #4f46e5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"], 
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d1fae5;
+            color: #047857;
+        }
+        .error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4f46e5;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sharmo Environment Setup</h1>
+        <p>Use this page to set up environment variables for the Sharmo application, including the Perplexity API key.</p>
+        
+        <div class="input-group">
+            <label for="apiKey">Perplexity API Key:</label>
+            <input type="password" id="apiKey" placeholder="Enter your Perplexity API key">
+        </div>
+        
+        <button id="saveBtn">Save Configuration</button>
+        <button id="clearBtn">Clear Saved Data</button>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <h2>Current Configuration</h2>
+        <pre id="currentConfig">Loading...</pre>
+        
+        <h2>How to Use</h2>
+        <ol>
+            <li>Enter your Perplexity API key in the field above</li>
+            <li>Click "Save Configuration" to store it securely in your browser</li>
+            <li>The Sharmo application will automatically use this key for API requests</li>
+        </ol>
+        
+        <h2>Implementation Details</h2>
+        <div class="code-block">
+            <p>The configuration is stored in localStorage and loaded when the application starts:</p>
+            <pre>// In your JavaScript code
+const storedApiKey = localStorage.getItem('PERPLEXITY_API_KEY');
+if (storedApiKey) {
+    initializeEnv({ PERPLEXITY_API_KEY: storedApiKey });
+}</pre>
+        </div>
+    </div>
+    
+    <!-- Load the configuration scripts -->
+    <script src="js/config.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiKeyInput = document.getElementById('apiKey');
+            const saveBtn = document.getElementById('saveBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const statusDiv = document.getElementById('status');
+            const currentConfigPre = document.getElementById('currentConfig');
+            
+            // Check for existing configuration
+            try {
+                const storedApiKey = localStorage.getItem('PERPLEXITY_API_KEY');
+                if (storedApiKey) {
+                    apiKeyInput.value = storedApiKey;
+                    updateStatus('Configuration loaded from localStorage', 'success');
+                    
+                    // Initialize environment with stored API key
+                    if (typeof initializeEnv === 'function') {
+                        initializeEnv({ PERPLEXITY_API_KEY: storedApiKey });
+                    }
+                }
+            } catch (error) {
+                updateStatus('Error accessing localStorage: ' + error.message, 'error');
+            }
+            
+            // Update current configuration display
+            updateConfigDisplay();
+            
+            // Save button click handler
+            saveBtn.addEventListener('click', function() {
+                const apiKey = apiKeyInput.value.trim();
+                
+                if (!apiKey) {
+                    updateStatus('Please enter a valid API key', 'error');
+                    return;
+                }
+                
+                try {
+                    // Save to localStorage
+                    localStorage.setItem('PERPLEXITY_API_KEY', apiKey);
+                    
+                    // Initialize environment
+                    if (typeof initializeEnv === 'function') {
+                        initializeEnv({ PERPLEXITY_API_KEY: apiKey });
+                        updateStatus('Configuration saved successfully!', 'success');
+                        updateConfigDisplay();
+                    } else {
+                        updateStatus('Error: initializeEnv function not found', 'error');
+                    }
+                } catch (error) {
+                    updateStatus('Error saving configuration: ' + error.message, 'error');
+                }
+            });
+            
+            // Clear button click handler
+            clearBtn.addEventListener('click', function() {
+                try {
+                    localStorage.removeItem('PERPLEXITY_API_KEY');
+                    apiKeyInput.value = '';
+                    updateStatus('Configuration cleared successfully', 'success');
+                    
+                    // Reset environment
+                    if (typeof ENV !== 'undefined') {
+                        ENV.PERPLEXITY_API_KEY = null;
+                        
+                        // Reset CONFIG API key
+                        if (typeof CONFIG !== 'undefined' && CONFIG.perplexity) {
+                            CONFIG.perplexity.apiKey = 'YOUR_PERPLEXITY_API_KEY';
+                        }
+                        
+                        updateConfigDisplay();
+                    }
+                } catch (error) {
+                    updateStatus('Error clearing configuration: ' + error.message, 'error');
+                }
+            });
+            
+            // Function to update status message
+            function updateStatus(message, type) {
+                statusDiv.textContent = message;
+                statusDiv.className = 'status ' + type;
+                statusDiv.style.display = 'block';
+                
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Function to update configuration display
+            function updateConfigDisplay() {
+                if (typeof CONFIG === 'undefined' || typeof ENV === 'undefined') {
+                    currentConfigPre.textContent = 'Configuration not loaded';
+                    return;
+                }
+                
+                let apiKey = 'Not set';
+                if (CONFIG.perplexity.apiKey && CONFIG.perplexity.apiKey !== 'YOUR_PERPLEXITY_API_KEY') {
+                    // Show only part of the key for security
+                    apiKey = CONFIG.perplexity.apiKey.substring(0, 4) + '...' + 
+                             CONFIG.perplexity.apiKey.substring(CONFIG.perplexity.apiKey.length - 4);
+                }
+                
+                const configDisplay = {
+                    'API Key': apiKey,
+                    'API URL': CONFIG.perplexity.apiUrl,
+                    'Model': CONFIG.perplexity.model,
+                    'Temperature': CONFIG.perplexity.temperature,
+                    'Max Tokens': CONFIG.perplexity.maxTokens,
+                    'ENV Variables Set': !!ENV.PERPLEXITY_API_KEY
+                };
+                
+                currentConfigPre.textContent = JSON.stringify(configDisplay, null, 2);
+            }
+        });
+    </script>
+</body>
+</html> 

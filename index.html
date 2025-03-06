@@ -191,10 +191,64 @@
             }
         }
     </style>
+    
+    <!-- Make sure the chat button is clearly visible -->
+    <style>
+        .open-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+        
+        .open-chat-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .open-chat-btn svg {
+            width: 28px;
+            height: 28px;
+            stroke: #fff;
+        }
+        
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 100;
+        }
+        
+        @media (max-width: 480px) {
+            .chat-container {
+                width: calc(100% - 40px);
+                height: 450px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Remove background lines -->
-    <!-- 
+    
+   
     <div class="bg-lines">
         <div class="bg-line" style="left: 5%;"></div>
         <div class="bg-line" style="left: 25%;"></div>
@@ -202,7 +256,7 @@
         <div class="bg-line" style="left: 65%;"></div>
         <div class="bg-line" style="left: 85%;"></div>
     </div>
-    -->
+   
 
     <!-- Include the header component -->
     <div id="header-container"></div>
@@ -235,7 +289,24 @@
         </div>
     </section>
 
-    
+    <!-- Whitepaper Banner -->
+    <div class="whitepaper-banner">
+        <div class="container">
+            <div class="whitepaper-content">
+                <h3>Learn about tokenized real estate</h3>
+                <p>Discover how Sharmo is revolutionizing property investment through blockchain technology.</p>
+                <a href="docs/sharmo-whitepaper.pdf" target="_blank" class="btn-primary">
+                    <span>Read Our Whitepaper</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Opportunities Section -->
     <section id="opportunities" class="opportunities">
         <div class="container">
             <p class="section-intro">Discover how tokenizing your property creates immediate financial opportunities for you as a homeowner without selling your house or taking on more debt.</p>
@@ -339,11 +410,11 @@
                                 <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </div>
+                    </div>
                         <h4>Asset Verification</h4>
                         <p><strong>Legal Due Diligence</strong><br>
                         We verify property titles, ownership history, and compliance to ensure complete legal certainty.</p>
-                    </div>
+                </div>
 
                     <div class="process-card">
                         <div class="card-icon">
@@ -351,22 +422,22 @@
                                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </div>
+                            </div>
                         <h4>Tokenization</h4>
                         <p><strong>Digital Ownership</strong><br>
                         Smart contracts create ERC-20 tokens representing legally-backed property shares with clear ownership rights.</p>
-                    </div>
+                        </div>
 
                     <div class="process-card">
                         <div class="card-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </div>
+                            </div>
                         <h4>Distribution</h4>
                         <p><strong>Instant Trading</strong><br>
                         Property tokens trade 24/7 on decentralized exchanges, reducing months-long transactions to seconds.</p>
-                    </div>
+                        </div>
 
                     <div class="process-card">
                         <div class="card-icon">
@@ -374,86 +445,86 @@
                                 <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </div>
+                            </div>
                         <h4>Management</h4>
                         <p><strong>Automated Governance</strong><br>
                         Blockchain smart contracts distribute rental income instantly and enable transparent property decisions.</p>
-                    </div>
                 </div>
+            </div>
 
                 <!-- Protocols section added back with cleaner design -->
                 <h3 class="section-subheading">Blockchain Standards We Use</h3>
-                <div class="protocol-grid">
-                    <div class="protocol-card">
-                        <div class="protocol-header">
-                            <div class="protocol-icon eth-black">
-                                <img src="images/ethereum/eth-black.png" alt="Ethereum Icon">
-                            </div>
-                            <h3>ERC-20</h3>
+            <div class="protocol-grid">
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-icon eth-black">
+                            <img src="images/ethereum/eth-black.png" alt="Ethereum Icon">
                         </div>
-                        <p>The most common token standard, perfect for creating fungible tokens that represent equal shares of an asset.</p>
-                        <ul>
-                            <li>Easily tradable on exchanges</li>
-                            <li>Widely supported by wallets</li>
-                            <li>Ideal for fractional ownership</li>
-                        </ul>
+                        <h3>ERC-20</h3>
                     </div>
-
-                    <div class="protocol-card">
-                        <div class="protocol-header">
-                            <div class="protocol-icon">
-                                <img src="images/ethereum/eth.png" alt="Ethereum Icon">
-                            </div>
-                            <h3>ERC-721</h3>
-                        </div>
-                        <p>Non-fungible tokens (NFTs) for unique assets with specific characteristics and ownership history.</p>
-                        <ul>
-                            <li>Unique property identifiers</li>
-                            <li>Individual asset tracking</li>
-                            <li>Complete ownership history</li>
-                        </ul>
-                    </div>
-
-                    <div class="protocol-card">
-                        <div class="protocol-header">
-                            <div class="protocol-icon eth-orange">
-                                <img src="images/ethereum/eth-orange.png" alt="Ethereum Icon">
-                            </div>
-                            <h3>ERC-1155</h3>
-                        </div>
-                        <p>Hybrid protocol supporting both fungible and non-fungible tokens in a single smart contract.</p>
-                        <ul>
-                            <li>Multiple token types</li>
-                            <li>Reduced gas costs</li>
-                            <li>Flexible asset management</li>
-                        </ul>
-                    </div>
+                    <p>The most common token standard, perfect for creating fungible tokens that represent equal shares of an asset.</p>
+                    <ul>
+                        <li>Easily tradable on exchanges</li>
+                        <li>Widely supported by wallets</li>
+                        <li>Ideal for fractional ownership</li>
+                    </ul>
                 </div>
 
-                <!-- Code showcase added back with cleaner design -->
-                <div class="code-showcase">
-                    <h3 class="section-subheading">Smart Contract Example</h3>
-                    <div class="code-container">
-                        <div class="code-editor-header">
-                            <div class="window-controls">
-                                <span class="control red"></span>
-                                <span class="control yellow"></span>
-                                <span class="control green"></span>
-                            </div>
-                            <div class="file-name">sharmoToken.sol</div>
-                            <div class="header-actions">
-                                <button id="copy-code-btn" onclick="copyCodeToClipboard()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg>
-                                    <span>Copy</span>
-                                </button>
-                            </div>
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-icon">
+                            <img src="images/ethereum/eth.png" alt="Ethereum Icon">
                         </div>
-                        <div class="code-editor-body">
-                            <div class="line-numbers">
-                                <pre>1
+                        <h3>ERC-721</h3>
+                    </div>
+                    <p>Non-fungible tokens (NFTs) for unique assets with specific characteristics and ownership history.</p>
+                    <ul>
+                        <li>Unique property identifiers</li>
+                        <li>Individual asset tracking</li>
+                        <li>Complete ownership history</li>
+                    </ul>
+                </div>
+
+                <div class="protocol-card">
+                    <div class="protocol-header">
+                        <div class="protocol-icon eth-orange">
+                            <img src="images/ethereum/eth-orange.png" alt="Ethereum Icon">
+                        </div>
+                        <h3>ERC-1155</h3>
+                    </div>
+                    <p>Hybrid protocol supporting both fungible and non-fungible tokens in a single smart contract.</p>
+                    <ul>
+                        <li>Multiple token types</li>
+                        <li>Reduced gas costs</li>
+                        <li>Flexible asset management</li>
+                    </ul>
+                </div>
+            </div>
+
+                <!-- Code showcase added back with cleaner design -->
+            <div class="code-showcase">
+                    <h3 class="section-subheading">Smart Contract Example</h3>
+                <div class="code-container">
+                    <div class="code-editor-header">
+                        <div class="window-controls">
+                            <span class="control red"></span>
+                            <span class="control yellow"></span>
+                            <span class="control green"></span>
+                        </div>
+                            <div class="file-name">sharmoToken.sol</div>
+                        <div class="header-actions">
+                            <button id="copy-code-btn" onclick="copyCodeToClipboard()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                    </div>
+                    </div>
+                    <div class="code-editor-body">
+                        <div class="line-numbers">
+                            <pre>1
 2
 3
 4
@@ -468,9 +539,9 @@
 13
 14
 15</pre>
-                            </div>
-                            <div class="code-content-wrapper">
-                                <pre class="code-content"><code id="solidity-code">// SPDX-License-Identifier: MIT
+                        </div>
+                        <div class="code-content-wrapper">
+                            <pre class="code-content"><code id="solidity-code">// SPDX-License-Identifier: MIT
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -725,34 +796,34 @@ contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyG
 
                 <!-- Script for syntax highlighting -->
                 <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const codeElement = document.getElementById('solidity-code');
+            document.addEventListener('DOMContentLoaded', function() {
+                const codeElement = document.getElementById('solidity-code');
                         if (codeElement) {
                             const solidity = codeElement.innerText;
                             let highlightedCode = solidity;
                             
                             // Highlight comments
                             highlightedCode = highlightedCode.replace(/(\/\/.*$|\/\*[\s\S]*?\*\/)/gm, 
-                                '<span class="comment">$1</span>');
-                                
+                        '<span class="comment">$1</span>');
+                    
                             // Highlight strings
                             highlightedCode = highlightedCode.replace(/("(?:\\.|[^"\\])*")/g, 
-                                '<span class="string">$1</span>');
-                                
+                        '<span class="string">$1</span>');
+                    
                             // Highlight keywords
                             const keywords = ['pragma', 'solidity', 'contract', 'function', 'public', 'private', 
                                 'internal', 'external', 'view', 'pure', 'returns', 'return', 'struct', 
                                 'mapping', 'memory', 'storage', 'import', 'is', 'for', 'while', 'if', 'else'];
                                 
-                            keywords.forEach(keyword => {
-                                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                    keywords.forEach(keyword => {
+                        const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
                                 highlightedCode = highlightedCode.replace(regex, '<span class="keyword">$1</span>');
-                            });
-                            
+                    });
+                    
                             // Highlight types
-                            const types = ['uint', 'uint256', 'int', 'bytes', 'string', 'address', 'bool'];
-                            types.forEach(type => {
-                                const regex = new RegExp(`\\b(${type})\\b`, 'g');
+                    const types = ['uint', 'uint256', 'int', 'bytes', 'string', 'address', 'bool'];
+                    types.forEach(type => {
+                        const regex = new RegExp(`\\b(${type})\\b`, 'g');
                                 highlightedCode = highlightedCode.replace(regex, '<span class="type">$1</span>');
                             });
                             
@@ -762,8 +833,8 @@ contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyG
                                 
                             // Highlight custom types (capitalized words)
                             highlightedCode = highlightedCode.replace(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 
-                                '<span class="custom-type">$1</span>');
-                            
+                        '<span class="custom-type">$1</span>');
+                    
                             codeElement.innerHTML = highlightedCode;
                         }
                     });
@@ -805,7 +876,7 @@ contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyG
                     });
                 }
             </script>
-        </div>
+                    </div>
     </section>
 
     <section id="benefits" class="benefits">
@@ -1179,47 +1250,58 @@ contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyG
     <!-- AI Chat Interface -->
     <div class="chat-container" style="display: none;">
         <div class="chat-header">
-            <div class="chat-title">
-                <div class="chat-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h3>TokenAI Assistant</h3>
-            </div>
-            <div class="chat-actions">
-                <button id="closeChat" aria-label="Close chat" style="overflow: visible;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
-                        <path d="M18 6L6 18" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M6 6L18 18" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
+            <!-- Will be populated by updateChatUIWithBranding() in chat.js -->
         </div>
         <div id="chatMessages" class="chat-messages"></div>
-        <div class="message-counter">
+        <div class="chat-footer">
             <span id="remainingMessages">5/5 questions remaining</span>
         </div>
         <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Ask about tokenization..." aria-label="Chat input">
-            <button id="sendMessage" aria-label="Send message" style="overflow: visible;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
-                    <path d="M22 2L11 13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <textarea id="userInput" placeholder="Ask about tokenization..." aria-label="Chat input"></textarea>
+            <button id="sendMessage" aria-label="Send message">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
         </div>
     </div>
 
-    <button id="openChat" class="open-chat-btn" aria-label="Open chat">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 8H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 12H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <button id="openChat" class="chat-button">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12a9 9 0 0 1-9 9.75h-1.5A11.25 11.25 0 0 1 2.636 4.5 9 9 0 0 1 21 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.5 12h.01" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M12 12h.01" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M16.5 12h.01" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
     </button>
     
     <!-- Chat functionality -->
-    <script src="js/chat.js"></script>
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/chat.js"></script>
+    
+    <!-- Whitepaper validator -->
+    <script src="js/whitepaper-loader.js"></script>
+    
+    <!-- Ensure chat button is visible and properly positioned -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Ensuring chat button visibility and position');
+            const chatBtn = document.getElementById('openChat');
+            if (chatBtn) {
+                // Set all required styles inline to override any conflicting CSS
+                chatBtn.style.display = 'flex';
+                chatBtn.style.visibility = 'visible';
+                chatBtn.style.opacity = '1';
+                chatBtn.style.position = 'fixed';
+                chatBtn.style.bottom = '30px';
+                chatBtn.style.right = '30px';
+                chatBtn.style.zIndex = '9999';
+                console.log('Chat button positioned in bottom right corner');
+            } else {
+                console.error('Chat button not found!');
+            }
+        });
+    </script>
 </body>
 </html>

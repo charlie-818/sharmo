@@ -56,7 +56,7 @@ const handler = async (event) => {
       };
     }
 
-    const { message } = messageBody;
+    const { message, history } = messageBody;
 
     if (!message) {
       return {
@@ -73,6 +73,25 @@ const handler = async (event) => {
     const timeoutId = setTimeout(() => controller.abort(), 30000); // 30-second timeout
 
     try {
+      // Prepare messages array with system prompt and conversation history
+      const messages = [
+        {
+          role: "system",
+          content: "You are TokenAI, an expert in blockchain-based real estate tokenization for sharmo platform. Keep answers concise but informative (2-3 sentences when possible). Always advocate for the benefits of real estate tokenization, emphasizing fractional ownership, liquidity, transparency, and accessibility. Focus on how tokenization solves traditional real estate investment barriers like high entry costs and illiquidity. Provide specific examples of how sharmo's platform democratizes real estate investing through blockchain technology. If asked about unrelated topics, briefly explain that you specialize in real estate tokenization and redirect to that topic."
+        }
+      ];
+      
+      // Add chat history if provided
+      if (history && Array.isArray(history) && history.length > 0) {
+        messages.push(...history);
+      } else {
+        // If no history, just add the current message
+        messages.push({
+          role: "user",
+          content: message
+        });
+      }
+      
       const response = await fetch('https://api.perplexity.ai/chat/completions', {
         method: 'POST',
         headers: {
@@ -81,16 +100,8 @@ const handler = async (event) => {
         },
         body: JSON.stringify({
           model: "sonar",
-          messages: [
-            {
-              role: "system",
-              content: "You are TokenAI, an expert in blockchain-based real estate tokenization for sharmo platform. Keep answers concise but informative (2-3 sentences when possible). Always advocate for the benefits of real estate tokenization, emphasizing fractional ownership, liquidity, transparency, and accessibility. Focus on how tokenization solves traditional real estate investment barriers like high entry costs and illiquidity. Provide specific examples of how sharmo's platform democratizes real estate investing through blockchain technology. If asked about unrelated topics, briefly explain that you specialize in real estate tokenization and redirect to that topic."
-            },
-            {
-              role: "user",
-              content: message
-            }
-          ]
+          messages: messages,
+          stream: true // Enable streaming
         }),
         signal: controller.signal
       });
@@ -115,26 +126,18 @@ const handler = async (event) => {
         };
       }
 
-      const data = await response.json();
-      const messageContent = data.choices?.[0]?.message?.content;
-
-      if (!messageContent) {
-        return {
-          statusCode: 502,
-          headers,
-          body: JSON.stringify({ error: 'No message content in API response' })
-        };
-      }
-
-      console.log('Successful response with message length:', messageContent.length);
-
+      // For streaming responses, we need to return a proper response format
+      // with the appropriate headers
       return {
         statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          message: messageContent,
-          citations: []
-        })
+        headers: {
+          ...headers,
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive'
+        },
+        body: response.body,
+        isBase64Encoded: false
       };
 
     } catch (fetchError) {

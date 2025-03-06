@@ -1,71 +1,85 @@
-# sharmo - Tokenized Real Estate Platform
+# Sharmo - Tokenized Real Estate Investment Platform
 
-A modern web interface demonstrating the concept of blockchain-based real estate tokenization. This project showcases how traditional real estate investment can be revolutionized using blockchain technology.
+Sharmo transforms property ownership through blockchain technology, enabling fractional ownership, instant liquidity, and global accessibility.
 
 ## Overview
 
-Sharmo presents a solution to the current real estate investment barriers, where traditional models limit accessibility and liquidity. The platform demonstrates how property ownership can be tokenized, making it more accessible, transparent, and efficient.
-
-### Key Features Demonstrated
-
-- **Tokenized Real Estate Concept**
-  - Fractional property ownership
-  - Automated income distribution
-  - Transparent property records
-  - Liquid real estate investment
-
-- **Modern UI/UX**
-  - Responsive design
-  - Interactive animations
-  - Web3 wallet integration
-  - Property marketplace
-  - Real-time transaction updates
-
-- **Technical Implementation**
-  - Modern CSS architecture
-  - Component-based design
-  - Web3 integration
-  - MetaMask connectivity
-  - Blockchain transactions
-
-## Project Status
-
-⚠️ **IMPORTANT: This is a demonstration project only**
-
-This is a conceptual demonstration and is not intended for actual deployment or use. The code and design showcase the potential of blockchain-based real estate tokenization but should not be used as a basis for a production system without significant additional development, security auditing, and regulatory compliance work.
-
-## Technical Details
-
-### Structure
-
-```
-/css
-  /components - Reusable UI components
-  /sections - Page-specific styles
-/js - JavaScript functionality
-/images - Asset files
-/components - HTML components
-```
-
-## Setup Instructions
-
-1. Clone the repository
-2. Open index.html in your browser
-3. No build process required - pure HTML, CSS, and JavaScript
+Sharmo is a modern platform that converts real estate into digital tokens on the Ethereum blockchain, allowing fractional ownership with minimal investment. Users can buy, sell, and trade property shares instantly while benefiting from real asset security.
 
 ## Features
 
-- Property tokenization demonstration
-- Web3 wallet connectivity
-- Property marketplace interface
-- Transaction history
-- Responsive design
-- Modern UI/UX
-- Mobile-friendly layout
+- **Fractional Ownership**: Invest in high-value properties with as little as $100
+- **Instant Liquidity**: Trade property tokens 24/7 on decentralized exchanges
+- **Smart Income Distribution**: Receive rental income automatically through smart contracts
+- **Portfolio Diversification**: Build a diverse real estate portfolio across multiple locations
+- **Transparent Transactions**: All property details and transaction history are recorded on the blockchain
+- **Global Accessibility**: Access real estate investments from anywhere in the world
 
-## Browser Support
+## Tech Stack
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+- HTML5
+- CSS3
+- JavaScript
+- Ethereum Blockchain
+- Solidity Smart Contracts
+
+## Blockchain Standards
+
+- **ERC-20**: Fungible tokens representing equal shares of a property
+- **ERC-721**: Non-fungible tokens for unique property identifiers
+- **ERC-1155**: Hybrid protocol supporting both fungible and non-fungible tokens
+
+## Getting Started
+
+1. Clone this repository
+2. Open `index.html` in your browser to view the site locally
+
+## Folder Structure
+
+```
+sharmo/
+├── css/                  # Stylesheets
+│   ├── components/       # Component-specific styles
+│   └── sections/         # Section-specific styles
+├── js/                   # JavaScript files
+├── images/               # Images and icons
+│   └── ethereum/         # Ethereum-related icons
+├── components/           # Reusable HTML components
+├── index.html            # Main landing page
+└── site.webmanifest      # Web app manifest
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+For questions or inquiries, please use the contact form on the website.
+
+## Whitepaper Setup
+
+The website includes a link to the Sharmo whitepaper in the footer navigation. To properly set up the whitepaper:
+
+1. Convert the Markdown file `shrmo-whitepaper (1).md` to PDF format:
+   - Option 1: Use an online Markdown to PDF converter like [md2pdf.com](https://md2pdf.com/)
+   - Option 2: Use a desktop app like Typora, Pandoc, or VS Code with a PDF export extension
+   - Option 3: Use command-line tools:
+     ```bash
+     # Using Pandoc (requires installation)
+     pandoc "shrmo-whitepaper (1).md" -o docs/sharmo-whitepaper.pdf --pdf-engine=wkhtmltopdf
+     
+     # Using npm markdown-pdf package
+     npm install -g markdown-pdf
+     markdown-pdf "shrmo-whitepaper (1).md" -o docs/sharmo-whitepaper.pdf
+     ```
+
+2. Ensure the PDF is properly formatted and includes any necessary branding elements
+3. Place the generated PDF in the `docs` directory as `sharmo-whitepaper.pdf`
+4. The whitepaper will be accessible via the URL: `https://yourdomain.com/docs/sharmo-whitepaper.pdf`
+
+Note: The whitepaper link in the footer is set to open in a new tab, allowing users to view the PDF directly in their browser rather than downloading it. If you need to change the URL or behavior, you can edit the link in the `components/footer.html` file.
