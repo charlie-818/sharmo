@@ -261,6 +261,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 behavior: 'smooth'
             });
         }, 50);
+        
+        // Set up tokenization button
+        const startTokenizationBtn = document.getElementById('startTokenizationBtn');
+        if (startTokenizationBtn) {
+            startTokenizationBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Prepare property data for the smart contract generator
+                const propertyParams = new URLSearchParams({
+                    address: address,
+                    city: city,
+                    state: state,
+                    value: data.estimatedValue || 0,
+                    potential: tokenPotential.textContent
+                });
+                
+                // Navigate to the smart contract generator page with property data
+                window.location.href = `/smart-contract.html?${propertyParams.toString()}`;
+            });
+        }
     }
     
     // Helper functions for calculations

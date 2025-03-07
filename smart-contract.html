@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sharmo - Smart Contract Generator</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/smart-contract.css">
+    <script src="js/common.js"></script>
+    <!-- Ensures proper crypto design colors -->
+    <style>
+        :root {
+            --crypto-purple-light: #a78bfa;
+            --crypto-purple: #8b5cf6;
+            --crypto-purple-dark: #7c3aed;
+            --crypto-indigo: #6366f1;
+            /* Smart contract styles */
+            --contract-primary: var(--crypto-purple);
+            --contract-secondary: var(--crypto-purple-dark);
+            --contract-accent: var(--crypto-indigo);
+            --editor-bg: #1e1e1e;
+            --editor-text: #d4d4d4;
+            --editor-line-num: #858585;
+            --editor-highlight: rgba(124, 58, 237, 0.1);
+            --editor-comment: #6a9955;
+            --editor-keyword: #569cd6;
+            --editor-string: #ce9178;
+            --editor-function: #dcdcaa;
+            --editor-type: #4ec9b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Include the header component -->
+        <div id="header-container"></div>
+        <script>
+            fetch('components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+        </script>
+
+        <!-- Main smart contract section -->
+        <section class="smart-contract-section">
+            <div class="container">
+                <div class="contract-header">
+                    <h2>Property Smart Contract Generator</h2>
+                    <p class="subtitle">Generate a tokenization smart contract for your property</p>
+                </div>
+                
+                <div class="property-summary">
+                    <h3>Property Summary</h3>
+                    <div class="property-summary-grid">
+                        <div class="summary-item">
+                            <span class="summary-label">Address</span>
+                            <span class="summary-value" id="summaryAddress">Loading...</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Property Value</span>
+                            <span class="summary-value" id="summaryValue">Loading...</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Token Potential</span>
+                            <span class="summary-value" id="summaryPotential">Loading...</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Token Supply</span>
+                            <span class="summary-value" id="summarySupply">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contract-options">
+                    <h3>Contract Configuration</h3>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <label for="contractName">Contract Name</label>
+                            <input type="text" id="contractName" value="PropertyToken">
+                        </div>
+                        <div class="option-item">
+                            <label for="tokenSymbol">Token Symbol</label>
+                            <input type="text" id="tokenSymbol" value="PROP">
+                        </div>
+                        <div class="option-item">
+                            <label for="contractStandard">Contract Standard</label>
+                            <select id="contractStandard">
+                                <option value="erc721">ERC-721 (NFT)</option>
+                                <option value="erc20" selected>ERC-20 (Fungible Token)</option>
+                                <option value="erc1155">ERC-1155 (Multi Token)</option>
+                            </select>
+                        </div>
+                        <div class="option-item">
+                            <label for="governanceType">Governance Type</label>
+                            <select id="governanceType">
+                                <option value="dao" selected>DAO Governance</option>
+                                <option value="multisig">Multi-signature</option>
+                                <option value="owner">Single Owner</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="generate-container">
+                        <button id="generateContractBtn" class="generate-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            Generate Smart Contract
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="code-editor-container">
+                    <div class="editor-header">
+                        <div class="file-tab active">PropertyToken.sol</div>
+                        <div class="editor-actions">
+                            <button id="copyCodeBtn" class="editor-action-btn" title="Copy Code">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                            <button id="downloadCodeBtn" class="editor-action-btn" title="Download">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Download</span>
+                            </button>
+                            <button id="deployBtn" class="editor-action-btn primary" title="Deploy">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 2L11 13"></path>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                                <span>Deploy Contract</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="line-numbers" id="lineNumbers"></div>
+                        <pre id="codeContent" class="code-content"><code>// Loading smart contract code...</code></pre>
+                    </div>
+                </div>
+                
+                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Generating smart contract...</p>
+                </div>
+                
+                <div class="deployment-section">
+                    <h3>Deployment Options</h3>
+                    <div class="deployment-networks">
+                        <div class="network-option">
+                            <input type="radio" name="network" id="networkEthereum" checked>
+                            <label for="networkEthereum">
+                                <img src="images/ethereum-logo.png" alt="Ethereum" class="network-icon">
+                                <span>Ethereum Mainnet</span>
+                            </label>
+                        </div>
+                        <div class="network-option">
+                            <input type="radio" name="network" id="networkPolygon">
+                            <label for="networkPolygon">
+                                <img src="images/polygon-logo.png" alt="Polygon" class="network-icon">
+                                <span>Polygon</span>
+                            </label>
+                        </div>
+                        <div class="network-option">
+                            <input type="radio" name="network" id="networkBSC">
+                            <label for="networkBSC">
+                                <img src="images/binance-logo.png" alt="BSC" class="network-icon">
+                                <span>Binance Smart Chain</span>
+                            </label>
+                        </div>
+                        <div class="network-option">
+                            <input type="radio" name="network" id="networkTestnet">
+                            <label for="networkTestnet">
+                                <img src="images/testnet-logo.png" alt="Testnet" class="network-icon">
+                                <span>Goerli Testnet</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="deployment-note">
+                        <p>Connect your wallet to deploy this smart contract to the blockchain. Deployment requires ETH for gas fees.</p>
+                        <p class="warning">Important: Please review the contract carefully before deploying. Smart contracts are immutable once deployed!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Include the footer component -->
+        <div id="footer-container"></div>
+        <script>
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        </script>
+    </div>
+
+    <!-- Load smart contract generator script -->
+    <script src="js/smart-contract.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html> 
