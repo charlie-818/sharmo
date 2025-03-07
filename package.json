@@ -1,19 +1,21 @@
 {
-  "name": "sharmo",
+  "name": "realtoken",
   "version": "1.0.0",
-  "description": "A modern web interface demonstrating the concept of blockchain-based insurance tokenization. This project showcases how traditional insurance models can be revolutionized using blockchain technology.",
+  "description": "RealToken - Property Tokenization Platform",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development netlify-cli dev --env=.env",
-    "start": "cross-env NODE_ENV=development netlify-cli dev --env=.env",
-    "login": "npx netlify-cli login",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
     "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
