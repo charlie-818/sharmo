@@ -554,52 +554,101 @@ section h2 {
 
 /* Whitepaper Banner */
 .whitepaper-banner {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 40px 0;
-    margin: 30px 0;
-    border-top: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6;
+    background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+    padding: 60px 0;
+    margin: 50px 0;
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.05);
+}
+
+.whitepaper-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    z-index: 1;
 }
 
 .whitepaper-content {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .whitepaper-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #000000;
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: #333;
+    font-weight: 600;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
 }
 
 .whitepaper-content p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    color: #000000;
+    font-size: 1.15rem;
+    margin-bottom: 28px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .whitepaper-content .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background-color: #4A80F0;
+    gap: 12px;
+    background: linear-gradient(135deg, #6366f1, #7c3aed);
     color: white;
-    padding: 12px 24px;
+    padding: 14px 28px;
     border-radius: 8px;
     font-weight: 600;
+    font-size: 1.05rem;
     text-decoration: none;
     transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.whitepaper-content .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 1s ease;
 }
 
 .whitepaper-content .btn-primary:hover {
-    background-color: #3a6fd8;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.whitepaper-content .btn-primary:hover::before {
+    transform: translateX(100%);
 }
 
 .whitepaper-content .btn-primary svg {
     transition: transform 0.3s ease;
+    width: 18px;
+    height: 18px;
 }
 
 .whitepaper-content .btn-primary:hover svg {
@@ -608,12 +657,89 @@ section h2 {
 
 /* Dark theme support */
 .dark-theme .whitepaper-banner {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+    background: linear-gradient(135deg, #1a1e2f 0%, #121525 100%);
+    border-top: 1px solid rgba(99, 102, 241, 0.15);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
 }
 
-.dark-theme .whitepaper-content h3,
 .dark-theme .whitepaper-content p {
-    color: #ffffff;
+    color: #ccc;
+}
+
+/* Decorative elements for whitepaper banner */
+.whitepaper-banner::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 150px;
+    height: 150px;
+    background-image: url('../images/decorative/document.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.07;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .whitepaper-banner {
+        padding: 40px 0;
+        margin: 40px 0;
+    }
+    
+    .whitepaper-content h3 {
+        font-size: 1.6rem;
+    }
+    
+    .whitepaper-content p {
+        font-size: 1rem;
+    }
+    
+    .whitepaper-content .btn-primary {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .whitepaper-banner::after {
+        width: 100px;
+        height: 100px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+/* Whitepaper Banner Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.whitepaper-content h3 {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.whitepaper-content p {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.whitepaper-content .btn-primary {
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.whitepaper-content h3 {
+    background-size: 200% auto;
+    background-position: 0% center;
+    animation: fadeInUp 0.6s ease-out, shine 3s linear infinite;
 }

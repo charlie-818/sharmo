@@ -132,6 +132,7 @@
 
 /* Search button - refined aesthetics */
 .lookup-btn {
+  top: -20px;
     padding: 0 18px !important;
     height: 46px !important; /* Match input height */
     grid-column: 3;

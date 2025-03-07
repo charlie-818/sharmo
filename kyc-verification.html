@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC/AML Verification - RealToken</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <!-- Section-specific styles -->
+    <link rel="stylesheet" href="css/sections/kyc-verification.css">
+    <script src="js/common.js"></script>
+</head>
+<body>
+    <!-- Include the header component -->
+    <div id="header-container"></div>
+    <script>
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    </script>
+
+    <!-- Main Content -->
+    <main>
+        <section class="kyc-section">
+            <div class="container">
+                <div class="kyc-header">
+                    <h1 class="kyc-title">KYC/AML Verification</h1>
+                    <p class="kyc-subtitle">Complete the verification process to unlock full access to Sharmo's investment opportunities and comply with regulatory requirements.</p>
+                </div>
+
+                <!-- Progress Tracker -->
+                <div class="progress-tracker">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="progress-step active">
+                            <div class="step-number"><span>1</span></div>
+                            <div class="step-label">Personal Information</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number"><span>2</span></div>
+                            <div class="step-label">Identity Documents</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number"><span>3</span></div>
+                            <div class="step-label">Address Verification</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number"><span>4</span></div>
+                            <div class="step-label">Review & Submit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Form -->
+                <div class="kyc-card">
+                    <!-- Step 1: Personal Information -->
+                    <div class="kyc-step step-1">
+                        <div class="step-header">
+                            <h3>Personal Information</h3>
+                            <p>Please provide your personal details as they appear on your official identification documents.</p>
+                        </div>
+                        <form class="kyc-form">
+                            <div class="form-grid">
+                                <div class="form-field">
+                                    <label for="firstName">First Name*</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="lastName">Last Name*</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="middleName">Middle Name (Optional)</label>
+                                    <input type="text" id="middleName" name="middleName">
+                                </div>
+                                <div class="form-field">
+                                    <label for="dateOfBirth">Date of Birth*</label>
+                                    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="nationality">Nationality*</label>
+                                    <select id="nationality" name="nationality" required>
+                                        <option value="">Select Country</option>
+                                        <option value="United States">United States</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <!-- More countries would be added here -->
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender">
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="email">Email Address*</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="phone">Phone Number*</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="validation-error" style="display: none; color: var(--kyc-error); margin-bottom: 20px; font-size: 14px;"></div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary">Cancel</button>
+                                <button type="button" class="btn-primary btn-next">Next Step</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 2: Identity Documents -->
+                    <div class="kyc-step step-2" style="display: none;">
+                        <div class="step-header">
+                            <h3>Identity Verification</h3>
+                            <p>Please upload clear images of your government-issued ID document.</p>
+                        </div>
+                        <form class="kyc-form">
+                            <div class="document-type">
+                                <label>Select ID Document Type*</label>
+                                <div class="document-options">
+                                    <div class="document-option">
+                                        <input type="radio" id="passport" name="documentType" value="passport">
+                                        <label for="passport">
+                                            <div class="option-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                    <rect width="18" height="21" x="3" y="2" rx="2"></rect>
+                                                    <path d="M8 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0M8 18h8"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="option-label">Passport</span>
+                                        </label>
+                                    </div>
+                                    <div class="document-option">
+                                        <input type="radio" id="drivingLicense" name="documentType" value="drivingLicense">
+                                        <label for="drivingLicense">
+                                            <div class="option-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                    <rect width="18" height="12" x="3" y="6" rx="2"></rect>
+                                                    <path d="M16 6v-1a2 2 0 0 0 -2 -2h-4a2 2 0 0 0 -2 2v1"></path>
+                                                    <path d="M9 11h6M12 14v-3"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="option-label">Driving License</span>
+                                        </label>
+                                    </div>
+                                    <div class="document-option">
+                                        <input type="radio" id="nationalId" name="documentType" value="nationalId">
+                                        <label for="nationalId">
+                                            <div class="option-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                    <rect width="18" height="16" x="3" y="4" rx="2"></rect>
+                                                    <path d="M7 9h10M7 13h2M7 17h2M14 13h3M14 17h3"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="option-label">National ID</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="document-upload">
+                                <div class="upload-field">
+                                    <label>Front of Document*</label>
+                                    <div class="upload-area">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                                            <path d="M12 3v12M7 9l5 -6l5 6"></path>
+                                            <path d="M3 12v3a3 3 0 0 0 3 3h12a3 3 0 0 0 3 -3v-3"></path>
+                                        </svg>
+                                        <p>Drag & drop file or click to browse</p>
+                                        <input type="file" id="frontDocument" name="frontDocument" accept="image/*">
+                                    </div>
+                                    <div class="file-requirements">
+                                        JPG, PNG or PDF format. Max 5MB.
+                                    </div>
+                                </div>
+                                <div class="upload-field">
+                                    <label>Back of Document*</label>
+                                    <div class="upload-area">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                                            <path d="M12 3v12M7 9l5 -6l5 6"></path>
+                                            <path d="M3 12v3a3 3 0 0 0 3 3h12a3 3 0 0 0 3 -3v-3"></path>
+                                        </svg>
+                                        <p>Drag & drop file or click to browse</p>
+                                        <input type="file" id="backDocument" name="backDocument" accept="image/*">
+                                    </div>
+                                    <div class="file-requirements">
+                                        JPG, PNG or PDF format. Max 5MB.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="selfie-upload">
+                                <label>Selfie with ID (Optional)</label>
+                                <p>For enhanced verification, you can upload a photo of yourself holding your ID document.</p>
+                                <div class="upload-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                                        <path d="M12 3v12M7 9l5 -6l5 6"></path>
+                                        <path d="M3 12v3a3 3 0 0 0 3 3h12a3 3 0 0 0 3 -3v-3"></path>
+                                    </svg>
+                                    <p>Drag & drop file or click to browse</p>
+                                    <input type="file" id="selfieDocument" name="selfieDocument" accept="image/*">
+                                </div>
+                                <div class="file-requirements">
+                                    JPG or PNG format. Max 5MB.
+                                </div>
+                            </div>
+
+                            <div class="validation-error" style="display: none; color: var(--kyc-error); margin-bottom: 20px; font-size: 14px;"></div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary btn-prev">Previous Step</button>
+                                <button type="button" class="btn-primary btn-next">Next Step</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 3: Address Verification -->
+                    <div class="kyc-step step-3" style="display: none;">
+                        <div class="step-header">
+                            <h3>Address Verification</h3>
+                            <p>Please provide your current residential address and upload a document as proof of address.</p>
+                        </div>
+                        <form class="kyc-form">
+                            <div class="form-grid">
+                                <div class="form-field full-width">
+                                    <label for="address">Street Address*</label>
+                                    <input type="text" id="address" name="address" required placeholder="Street, house/apartment number">
+                                </div>
+                                <div class="form-field">
+                                    <label for="city">City*</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="state">State/Province</label>
+                                    <input type="text" id="state" name="state">
+                                </div>
+                                <div class="form-field">
+                                    <label for="postalCode">Postal/ZIP Code*</label>
+                                    <input type="text" id="postalCode" name="postalCode" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="country">Country*</label>
+                                    <select id="country" name="country" required>
+                                        <option value="">Select Country</option>
+                                        <option value="United States">United States</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <!-- More countries would be added here -->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="address-proof">
+                                <label>Proof of Address Document*</label>
+                                <p>Please upload a document that shows your name and current address (utility bill, bank statement, etc. issued within the last 3 months).</p>
+                                <div class="upload-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                                        <path d="M12 3v12M7 9l5 -6l5 6"></path>
+                                        <path d="M3 12v3a3 3 0 0 0 3 3h12a3 3 0 0 0 3 -3v-3"></path>
+                                    </svg>
+                                    <p>Drag & drop file or click to browse</p>
+                                    <input type="file" id="addressProof" name="addressProof" accept="image/*, application/pdf">
+                                </div>
+                                <div class="file-requirements">
+                                    JPG, PNG or PDF format. Max 5MB.
+                                </div>
+                            </div>
+
+                            <div class="validation-error" style="display: none; color: var(--kyc-error); margin-bottom: 20px; font-size: 14px;"></div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary btn-prev">Previous Step</button>
+                                <button type="button" class="btn-primary btn-next">Next Step</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div class="kyc-step step-4" style="display: none;">
+                        <div class="step-header">
+                            <h3>Review & Submit</h3>
+                            <p>Please review your information before submitting your verification request.</p>
+                        </div>
+                        <form class="kyc-form">
+                            <div class="review-section">
+                                <!-- Personal Information Review -->
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <h4>Personal Information</h4>
+                                        <button type="button" class="edit-btn" data-step="1">Edit</button>
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-item">
+                                            <div class="review-label">Full Name</div>
+                                            <div class="review-value" id="review-name">John Doe</div>
+                                        </div>
+                                        <div class="review-item">
+                                            <div class="review-label">Date of Birth</div>
+                                            <div class="review-value" id="review-dob">1980-01-01</div>
+                                        </div>
+                                        <div class="review-item">
+                                            <div class="review-label">Nationality</div>
+                                            <div class="review-value" id="review-nationality">United States</div>
+                                        </div>
+                                        <div class="review-item">
+                                            <div class="review-label">Email</div>
+                                            <div class="review-value" id="review-email">john.doe@example.com</div>
+                                        </div>
+                                        <div class="review-item">
+                                            <div class="review-label">Phone</div>
+                                            <div class="review-value" id="review-phone">+1 234 567 8900</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Document Information Review -->
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <h4>Identity Documents</h4>
+                                        <button type="button" class="edit-btn" data-step="2">Edit</button>
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-item">
+                                            <div class="review-label">Document Type</div>
+                                            <div class="review-value" id="review-doc-type">Passport</div>
+                                        </div>
+                                        <div class="review-item document-preview">
+                                            <div class="review-label">Documents</div>
+                                            <div class="review-value">
+                                                <div class="document-thumbnails">
+                                                    <div class="document-thumbnail">
+                                                        <div class="thumbnail-placeholder">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                                                <path d="M3 7v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7"></path>
+                                                                <rect width="18" height="4" x="3" y="3" rx="2"></rect>
+                                                                <path d="M12 12h.01M16 12h.01M8 12h.01M12 16h.01M16 16h.01M8 16h.01"></path>
+                                                            </svg>
+                                                            <span>Front</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="document-thumbnail">
+                                                        <div class="thumbnail-placeholder">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                                                <path d="M3 7v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7"></path>
+                                                                <rect width="18" height="4" x="3" y="3" rx="2"></rect>
+                                                                <path d="M12 12h.01M16 12h.01M8 12h.01M12 16h.01M16 16h.01M8 16h.01"></path>
+                                                            </svg>
+                                                            <span>Back</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="document-thumbnail" id="selfie-thumbnail" style="display:none;">
+                                                        <div class="thumbnail-placeholder">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                                                <circle cx="12" cy="10" r="3"></circle>
+                                                                <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                                                                <path d="M18 7.3v.7M9 18c.952 0 1.65 -.195 2.4 -.594a4.13 4.13 0 0 0 1.2 -1.406M3 13l5 -1l2 2l5 -1"></path>
+                                                            </svg>
+                                                            <span>Selfie</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Address Information Review -->
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <h4>Address Information</h4>
+                                        <button type="button" class="edit-btn" data-step="3">Edit</button>
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-item">
+                                            <div class="review-label">Residential Address</div>
+                                            <div class="review-value" id="review-address">123 Main St, Anytown, NY 12345, United States</div>
+                                        </div>
+                                        <div class="review-item document-preview">
+                                            <div class="review-label">Proof of Address</div>
+                                            <div class="review-value">
+                                                <div class="document-thumbnails">
+                                                    <div class="document-thumbnail">
+                                                        <div class="thumbnail-placeholder">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                                                <path d="M9 9l1 0M9 13l6 0M9 17l6 0"></path>
+                                                            </svg>
+                                                            <span>Document</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="verification-notice">
+                                <div class="notice-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="9"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <div class="notice-content">
+                                    <h5>Verification Process</h5>
+                                    <p>Your verification request will be reviewed within 1-3 business days. You'll receive an email notification once the verification is complete.</p>
+                                </div>
+                            </div>
+
+                            <div class="legal-agreement">
+                                <div class="consent-field">
+                                    <input type="checkbox" id="terms" name="terms">
+                                    <label for="terms">I confirm that all information provided is accurate and authentic. I understand that providing false information may lead to rejection of my verification request and potential legal consequences.</label>
+                                </div>
+                                <div class="consent-field">
+                                    <input type="checkbox" id="dataProcessing" name="dataProcessing">
+                                    <label for="dataProcessing">I consent to the processing of my personal data in accordance with RealToken's <a href="#">Privacy Policy</a> and understand that my information will be used for KYC/AML verification purposes.</label>
+                                </div>
+                            </div>
+
+                            <div class="validation-error" style="display: none; color: var(--kyc-error); margin-bottom: 20px; font-size: 14px;"></div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary btn-prev">Previous Step</button>
+                                <button type="button" class="btn-primary btn-submit">Submit Verification</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Success Message (hidden initially) -->
+                    <div class="success-step" style="display: none;">
+                        <div class="success-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9 12l2 2l4 -4"></path>
+                            </svg>
+                        </div>
+                        <h3>Verification Submitted Successfully!</h3>
+                        <p>Thank you for completing the KYC/AML verification process. Your submission has been received and is now pending review.</p>
+                        <p class="verification-id">Verification ID: <span id="verification-id">KYC-XXXXXXXXXX</span></p>
+                        <p>We'll notify you via email once your verification has been processed. This typically takes 1-3 business days.</p>
+                        <div class="form-actions centered">
+                            <a href="index.html" class="btn-primary">Return to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include the footer component -->
+    <div id="footer-container"></div>
+    <script>
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+
+    <!-- Scripts -->
+    <script src="js/kyc-verification.js"></script>
+</body>
+</html> 

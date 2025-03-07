@@ -1,0 +1,773 @@
+/* KYC Verification Styles */
+:root {
+    --kyc-primary: #6366f1;
+    --kyc-primary-dark: #4f46e5;
+    --kyc-primary-light: #818cf8;
+    --kyc-success: #10b981;
+    --kyc-warning: #f59e0b;
+    --kyc-error: #ef4444;
+    --kyc-surface: #ffffff;
+    --kyc-background: #f8fafc;
+    --kyc-text: #1e293b;
+    --kyc-text-secondary: #64748b;
+    --kyc-border: #e2e8f0;
+    --kyc-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --kyc-radius: 12px;
+    --kyc-radius-sm: 6px;
+    --kyc-transition: all 0.3s ease;
+}
+
+.dark-theme {
+    --kyc-primary: #818cf8;
+    --kyc-primary-dark: #6366f1;
+    --kyc-primary-light: #a5b4fc;
+    --kyc-success: #34d399;
+    --kyc-warning: #fbbf24;
+    --kyc-error: #f87171;
+    --kyc-surface: #1e293b;
+    --kyc-background: #0f172a;
+    --kyc-text: #f1f5f9;
+    --kyc-text-secondary: #94a3b8;
+    --kyc-border: #334155;
+}
+
+/* Section Layout */
+.kyc-section {
+    padding: 50px 0;
+    background-color: var(--kyc-background);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.kyc-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.kyc-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--kyc-text);
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+}
+
+.kyc-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, var(--kyc-primary), var(--kyc-primary-light));
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.kyc-subtitle {
+    font-size: 18px;
+    color: var(--kyc-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Progress Tracker */
+.progress-tracker {
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 6px;
+    background-color: var(--kyc-border);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--kyc-primary), var(--kyc-primary-light));
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--kyc-background);
+    border: 2px solid var(--kyc-border);
+    color: var(--kyc-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--kyc-transition);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.step-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--kyc-text-secondary);
+    text-align: center;
+    transition: var(--kyc-transition);
+}
+
+.progress-step.active .step-number {
+    background-color: var(--kyc-primary);
+    border-color: var(--kyc-primary);
+    color: white;
+}
+
+.progress-step.active .step-label {
+    color: var(--kyc-primary);
+    font-weight: 600;
+}
+
+.progress-step.completed .step-number {
+    background-color: var(--kyc-success);
+    border-color: var(--kyc-success);
+    color: white;
+}
+
+.progress-step.completed .step-number::after {
+    content: '✓';
+}
+
+.progress-step.completed .step-number span {
+    display: none;
+}
+
+/* Card Styling */
+.kyc-card {
+    background-color: var(--kyc-surface);
+    border-radius: var(--kyc-radius);
+    box-shadow: var(--kyc-shadow);
+    overflow: hidden;
+    border: 1px solid var(--kyc-border);
+}
+
+.kyc-step {
+    padding: 32px;
+}
+
+.step-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.step-header h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--kyc-text);
+    margin-bottom: 8px;
+}
+
+.step-header p {
+    font-size: 16px;
+    color: var(--kyc-text-secondary);
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* Form Styling */
+.kyc-form {
+    max-width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field.full-width {
+    grid-column: span 2;
+}
+
+.form-field label {
+    font-weight: 500;
+    color: var(--kyc-text);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-field input,
+.form-field select {
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid var(--kyc-border);
+    border-radius: var(--kyc-radius-sm);
+    color: var(--kyc-text);
+    background-color: var(--kyc-surface);
+    transition: var(--kyc-transition);
+    font-size: 15px;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: var(--kyc-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: var(--kyc-radius-sm);
+    cursor: pointer;
+    transition: var(--kyc-transition);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--kyc-primary), var(--kyc-primary-dark));
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--kyc-text);
+    border: 1px solid var(--kyc-border);
+}
+
+.btn-secondary:hover {
+    background-color: var(--kyc-background);
+    border-color: var(--kyc-text-secondary);
+}
+
+/* Document Upload Styling */
+.document-type {
+    margin-bottom: 24px;
+}
+
+.document-type label {
+    display: block;
+    font-weight: 500;
+    color: var(--kyc-text);
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.document-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.document-option {
+    position: relative;
+    width: 130px;
+}
+
+.document-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.document-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 16px;
+    border: 1px solid var(--kyc-border);
+    border-radius: var(--kyc-radius-sm);
+    transition: var(--kyc-transition);
+}
+
+.document-option input[type="radio"]:checked + label {
+    border-color: var(--kyc-primary);
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(99, 102, 241, 0.1);
+    margin-bottom: 10px;
+}
+
+.option-icon svg {
+    stroke: var(--kyc-primary);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.option-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--kyc-text);
+}
+
+.document-upload {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.upload-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-field.full-width {
+    grid-column: span 2;
+}
+
+.upload-field label {
+    font-weight: 500;
+    color: var(--kyc-text);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.upload-area {
+    height: 160px;
+    border: 2px dashed var(--kyc-border);
+    border-radius: var(--kyc-radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: var(--kyc-transition);
+    padding: 16px;
+    background-color: var(--kyc-background);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-area svg {
+    stroke: var(--kyc-primary);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.upload-area p {
+    font-size: 14px;
+    color: var(--kyc-text-secondary);
+    text-align: center;
+    margin: 0;
+}
+
+.upload-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: -1;
+}
+
+.upload-area.dragover {
+    border-color: var(--kyc-primary);
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.upload-area.has-file {
+    border-style: solid;
+    border-color: var(--kyc-success);
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+.upload-area.has-file svg {
+    stroke: var(--kyc-success);
+}
+
+.file-requirements {
+    font-size: 12px;
+    color: var(--kyc-text-secondary);
+    margin-top: 8px;
+}
+
+.selfie-upload {
+    margin-bottom: 30px;
+}
+
+.selfie-upload label {
+    display: block;
+    font-weight: 500;
+    color: var(--kyc-text);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.selfie-upload p {
+    font-size: 14px;
+    color: var(--kyc-text-secondary);
+    margin-bottom: 16px;
+}
+
+.address-proof {
+    margin-bottom: 30px;
+}
+
+.address-proof label {
+    display: block;
+    font-weight: 500;
+    color: var(--kyc-text);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.address-proof p {
+    font-size: 14px;
+    color: var(--kyc-text-secondary);
+    margin-bottom: 16px;
+}
+
+/* Review Section Styling */
+.review-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.review-card {
+    border: 1px solid var(--kyc-border);
+    border-radius: var(--kyc-radius-sm);
+    overflow: hidden;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: rgba(99, 102, 241, 0.05);
+    border-bottom: 1px solid var(--kyc-border);
+}
+
+.review-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--kyc-text);
+    margin: 0;
+}
+
+.edit-btn {
+    background: transparent;
+    border: none;
+    color: var(--kyc-primary);
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    transition: var(--kyc-transition);
+}
+
+.edit-btn:hover {
+    color: var(--kyc-primary-dark);
+    text-decoration: underline;
+}
+
+.review-content {
+    padding: 16px;
+}
+
+.review-item {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.review-item:last-child {
+    margin-bottom: 0;
+}
+
+.review-label {
+    font-weight: 500;
+    color: var(--kyc-text-secondary);
+    width: 140px;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.review-value {
+    font-weight: 400;
+    color: var(--kyc-text);
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+.document-preview {
+    align-items: flex-start;
+}
+
+.document-thumbnails {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.document-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--kyc-radius-sm);
+    overflow: hidden;
+    background-color: var(--kyc-background);
+    border: 1px solid var(--kyc-border);
+}
+
+.thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.thumbnail-placeholder svg {
+    stroke: var(--kyc-text-secondary);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.thumbnail-placeholder span {
+    font-size: 12px;
+    color: var(--kyc-text-secondary);
+}
+
+.legal-agreement {
+    margin-bottom: 30px;
+}
+
+.consent-field {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.consent-field:last-child {
+    margin-bottom: 0;
+}
+
+.consent-field input[type="checkbox"] {
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+.consent-field label {
+    font-size: 14px;
+    color: var(--kyc-text);
+    line-height: 1.5;
+}
+
+.consent-field a {
+    color: var(--kyc-primary);
+    text-decoration: none;
+    transition: var(--kyc-transition);
+}
+
+.consent-field a:hover {
+    text-decoration: underline;
+}
+
+.verification-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background-color: rgba(245, 158, 11, 0.1);
+    border-radius: var(--kyc-radius-sm);
+    margin-bottom: 30px;
+}
+
+.notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notice-icon svg {
+    stroke: var(--kyc-warning);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.notice-content h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--kyc-text);
+    margin: 0 0 8px 0;
+}
+
+.notice-content p {
+    font-size: 14px;
+    color: var(--kyc-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.form-actions.centered {
+    justify-content: center;
+}
+
+/* Success Step Styling */
+.success-step {
+    text-align: center;
+    padding: 60px 32px;
+}
+
+.success-icon {
+    margin-bottom: 24px;
+}
+
+.success-icon svg {
+    stroke: var(--kyc-success);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.success-step h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--kyc-text);
+    margin-bottom: 16px;
+}
+
+.success-step p {
+    font-size: 16px;
+    color: var(--kyc-text-secondary);
+    max-width: 500px;
+    margin: 0 auto 24px;
+    line-height: 1.5;
+}
+
+.verification-id {
+    font-size: 14px !important;
+    background-color: var(--kyc-background);
+    padding: 12px 24px;
+    border-radius: var(--kyc-radius-sm);
+    display: inline-block;
+    margin: 0 auto 32px !important;
+}
+
+.verification-id span {
+    font-weight: 600;
+    font-family: monospace;
+    color: var(--kyc-text);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .kyc-step {
+        padding: 24px;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-field.full-width {
+        grid-column: span 1;
+    }
+    
+    .document-upload {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-step .step-label {
+        font-size: 12px;
+    }
+    
+    .review-item {
+        flex-direction: column;
+    }
+    
+    .review-label {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kyc-title {
+        font-size: 28px;
+    }
+    
+    .kyc-subtitle {
+        font-size: 16px;
+    }
+    
+    .step-header h3 {
+        font-size: 20px;
+    }
+    
+    .document-options {
+        gap: 8px;
+    }
+    
+    .document-option {
+        width: calc(50% - 4px);
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .btn-secondary {
+        order: 2;
+    }
+    
+    .btn-primary {
+        order: 1;
+    }
+} 

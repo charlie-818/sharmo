@@ -32,87 +32,202 @@
             });
     </script>
 
+    <!-- Modernized Wallet Section -->
     <section class="wallet-section">
         <div class="container">
-            <h2 class="wallet-title">Wallet Dashboard</h2>
+            <div class="wallet-header">
+                <h2 class="wallet-title">Wallet Dashboard</h2>
+                <div class="wallet-actions">
             
-            <!-- Wallet Connection Status -->
+                    </button>
+                </div>
+            </div>
             
-                <div id="walletStatus" class="status-card not-connected">
-                    <h3>Connect with MetaMask</h3>
-                    <div class="wallet-instructions">
-                        <p>To connect your wallet and start investing in tokenized properties:</p>
-                        <ol>
-                            <li>
-                                <span class="step">1</span>
-                                <span class="instruction">Install MetaMask 
-                                    <a href="https://metamask.io/download/" target="_blank" class="metamask-link">
-                                        from the official website
-                                        <svg class="external-link" viewBox="0 0 24 24" width="16" height="16">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                                        </svg>
-                                    </a>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="step">2</span>
-                                <span class="instruction">Create or import your Ethereum wallet in MetaMask</span>
-                            </li>
-                            <li>
-                                <span class="step">3</span>
-                                <span class="instruction">Click the connect button below</span>
-                            </li>
-                        </ol>
+            <!-- Wallet Connect Card (shown when disconnected) -->
+            <div id="walletStatus" class="wallet-card connect-card">
+                <div class="connect-content">
+                    <div class="connect-header">
+                        <div class="connect-icon">
+                            <svg viewBox="0 0 24 24" width="32" height="32">
+                                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                                <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
+                            </svg>
+                        </div>
+                        <div class="connect-title">
+                            <h3>Connect Your Wallet</h3>
+                            <p>Access your property tokens and portfolio</p>
+                        </div>
                     </div>
-                    <div class="wallet-buttons">
+                    
+                    <div class="connect-actions">
                         <button class="connect-btn" onclick="connectWallet()">
                             <img src="images/metamask-logo.jpeg" alt="MetaMask">
                             Connect MetaMask
                         </button>
                         <button class="demo-btn" onclick="viewDemoWallet()">
-                            <svg viewBox="0 0 24 24" width="20" height="20" class="demo-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
                                 <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5z"/>
                             </svg>
-                            View Demo Wallet
+                            View Demo
                         </button>
                     </div>
-                    <p class="security-note">
-                        <svg class="shield-icon" viewBox="0 0 24 24" width="16" height="16">
+                    
+                    <div class="connect-footer">
+                        <svg class="shield-icon" viewBox="0 0 24 24" width="14" height="14">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         </svg>
-                        Your wallet security is our priority. We only request connection permissions.
-                    </p>
+                        <span>Secure connection • Read-only access</span>
+                    </div>
                 </div>
-            
+            </div>
 
             <!-- Wallet Dashboard (Hidden until connected) -->
             <div class="wallet-dashboard" id="walletDashboard" style="display: none;">
-                <div class="dashboard-grid">
-                    <!-- Balance Card -->
-                    <div class="dashboard-card balance-card">
-                        <h3>Wallet Balance</h3>
-                        <div class="balance-info">
-                            <div class="eth-balance">
-                                <span class="balance-amount">0.00</span>
-                                <span class="currency">ETH</span>
+                <!-- Account Summary Card -->
+                <div class="wallet-card account-card">
+                    <div class="account-header">
+                        <div class="account-info">
+                            <div class="account-title">Account</div>
+                            <div class="account-address" id="walletAddress">
+                                <span>0x7F5E...8A9B</span>
+                                <button class="copy-btn" onclick="copyAddress()" title="Copy address">
+                                    <svg viewBox="0 0 24 24" width="14" height="14">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="usd-balance">≈ $0.00 USD</div>
+                        </div>
+                        <div class="network-badge" id="networkInfo">Ethereum Mainnet</div>
+                    </div>
+                    
+                    <div class="account-details">
+                        <div class="balance-primary">
+                            <span class="balance-value" id="ethBalance">0.00</span>
+                            <span class="balance-unit">ETH</span>
+                        </div>
+                        <div class="balance-secondary" id="usdBalance">≈ $0.00 USD</div>
+                    </div>
+                    
+                    <div class="account-actions">
+                        <button class="action-btn" onclick="sendTransaction()">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <polyline points="22 12 16 6 10 12"></polyline>
+                                <path d="M16 6v12"></path>
+                                <path d="M8 10V4H4v6"></path>
+                                <path d="M4 10h12"></path>
+                            </svg>
+                            <span>Send</span>
+                        </button>
+                        <button class="action-btn" onclick="receiveTransaction()">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <polyline points="22 12 16 18 10 12"></polyline>
+                                <path d="M16 6v12"></path>
+                                <path d="M8 14v6H4v-6"></path>
+                                <path d="M4 14h12"></path>
+                            </svg>
+                            <span>Receive</span>
+                        </button>
+                        <button class="action-btn secondary" onclick="disconnectWallet()">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Disconnect</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Assets Card -->
+                <div class="wallet-card assets-card">
+                    <div class="card-header">
+                        <h3>Property Tokens</h3>
+                        <a href="/marketplace.html" class="card-link">Browse Marketplace</a>
+                    </div>
+                    
+                    <div class="assets-list" id="assetsList">
+                        <!-- Empty state -->
+                        <div class="empty-assets" id="emptyAssets">
+                            <div class="empty-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </div>
+                            <p>No property tokens yet</p>
+                            <a href="/marketplace.html" class="btn-outline">Explore Properties</a>
+                        </div>
+                        
+                        <!-- Sample token (hidden by default, used as template) -->
+                        <div class="asset-item" style="display: none;">
+                            <div class="asset-icon">
+                                <img src="/images/property-icon.svg" alt="Property Token">
+                            </div>
+                            <div class="asset-details">
+                                <div class="asset-name">123 Main St, Miami</div>
+                                <div class="asset-meta">
+                                    <span class="asset-id">Token ID: PROP-1234</span>
+                                    <span class="asset-value">0.5 ETH</span>
+                                </div>
+                            </div>
+                            <div class="asset-actions">
+                                <button class="icon-btn" title="View token details">
+                                    <svg viewBox="0 0 24 24" width="16" height="16">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Property Tokens Card -->
-                    <div class="dashboard-card tokens-card">
-                        <h3>Your Property Tokens</h3>
-                        <div class="token-list">
-                            <!-- Token items will be inserted here -->
-                        </div>
+                </div>
+                
+                <!-- Recent Activity Card -->
+                <div class="wallet-card activity-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <button class="card-link" id="viewAllActivity">View All</button>
                     </div>
-
-                    <!-- Transaction History Card -->
-                    <div class="dashboard-card history-card">
-                        <h3>Transaction History</h3>
-                        <div class="transaction-list">
-                            <!-- Transactions will be inserted here -->
+                    
+                    <div class="activity-list" id="activityList">
+                        <!-- Empty state -->
+                        <div class="empty-activity" id="emptyActivity">
+                            <div class="empty-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <p>No transactions yet</p>
+                        </div>
+                        
+                        <!-- Sample transaction (hidden by default, used as template) -->
+                        <div class="activity-item" style="display: none;">
+                            <div class="activity-icon send">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <polyline points="19 12 12 19 5 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">Sent ETH</div>
+                                <div class="activity-meta">
+                                    <span class="activity-date">May 4, 2023</span>
+                                    <a href="#" class="activity-link" target="_blank">
+                                        <svg viewBox="0 0 24 24" width="12" height="12">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="activity-amount">
+                                0.05 ETH
+                            </div>
                         </div>
                     </div>
                 </div>
