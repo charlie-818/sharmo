@@ -19,7 +19,17 @@ app.use((req, res, next) => {
 });
 
 // API Routes
-app.post('/api/property-lookup', propertyLookup);
+app.post('/api/property-lookup', async (req, res) => {
+    try {
+        await propertyLookup(req, res);
+    } catch (error) {
+        console.error('Error handling property lookup:', error);
+        res.status(500).json({
+            error: 'Internal server error',
+            message: 'Failed to process property lookup request'
+        });
+    }
+});
 
 // Update your route that serves index.html to use template engine
 app.get('/', (req, res) => {
@@ -32,8 +42,10 @@ app.get('*', (req, res) => {
     const filePath = path.join(__dirname, req.path);
     res.sendFile(filePath, (err) => {
         if (err) {
-            // If file not found, serve index.html for SPA routing
-            res.sendFile(path.join(__dirname, 'index.html'));
+            // If file not found and not an API route, serve index.html
+            if (!req.path.startsWith('/api/')) {
+                res.sendFile(path.join(__dirname, 'index.html'));
+            }
         }
     });
 });
@@ -42,4 +54,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`Visit http://localhost:${port} to view the application`);
+    console.log(`Property lookup API available at http://localhost:${port}/api/property-lookup`);
 }); 

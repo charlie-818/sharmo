@@ -45,6 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Format currency values - moved to global scope
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(value);
+    };
+    
     // Main lookup function
     async function lookupProperty() {
         if (!validateForm()) {
@@ -212,16 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Display property data in the UI
     function displayPropertyData(data, address, city, state) {
-        // Format currency values
-        const formatCurrency = (value) => {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(value);
-        };
-        
         // Update basic property information
         resultAddress.textContent = address;
         resultCity.textContent = city;
