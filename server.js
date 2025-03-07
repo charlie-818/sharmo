@@ -28,10 +28,18 @@ app.get('/', (req, res) => {
 
 // Serve static files
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, req.path));
+    // Check if the requested file exists
+    const filePath = path.join(__dirname, req.path);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            // If file not found, serve index.html for SPA routing
+            res.sendFile(path.join(__dirname, 'index.html'));
+        }
+    });
 });
 
 // Start server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    console.log(`Visit http://localhost:${port} to view the application`);
 }); 
