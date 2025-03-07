@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const codeContent = document.getElementById('codeContent');
     const lineNumbers = document.getElementById('lineNumbers');
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const codeEditor = document.querySelector('.code-editor');
     
     // Set default property data
     let propertyData = {
@@ -82,11 +83,54 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generate line numbers for code editor
     function updateLineNumbers(codeString) {
         const linesCount = codeString.split('\n').length;
-        lineNumbers.innerHTML = Array.from({ length: linesCount }, (_, i) => `<div>${i + 1}</div>`).join('');
+        let lineNumbersHTML = '';
+        
+        // Create line numbers with the same line height as the code
+        for (let i = 1; i <= linesCount; i++) {
+            lineNumbersHTML += `<div class="line-number">${i}</div>`;
+        }
+        
+        lineNumbers.innerHTML = lineNumbersHTML;
+        
+        // Ensure line numbers and code are in sync
+        setTimeout(() => {
+            alignLineNumbers();
+        }, 50);
+    }
+    
+    // Ensure line numbers align with code lines
+    function alignLineNumbers() {
+        const codeLines = codeContent.querySelectorAll('.code-line');
+        const numberLines = lineNumbers.querySelectorAll('.line-number');
+        
+        // Make sure code lines and line numbers are properly aligned
+        if (codeLines.length === numberLines.length) {
+            codeLines.forEach((line, index) => {
+                const height = line.offsetHeight;
+                numberLines[index].style.height = `${height}px`;
+            });
+        }
     }
     
     // Apply syntax highlighting to code
     function applySyntaxHighlighting(code) {
+        // Split code into lines and maintain line endings
+        const lines = code.split('\n');
+        
+        // Process each line for syntax highlighting
+        const highlightedLines = lines.map(line => {
+            // Apply highlighting to each line
+            return highlightLine(line);
+        });
+        
+        // Create line-wrapped spans for proper alignment
+        return highlightedLines
+            .map(line => `<span class="code-line">${line}</span>`)
+            .join('\n');
+    }
+    
+    // Highlight a single line of code
+    function highlightLine(line) {
         // Replace Solidity keywords
         const keywords = ['pragma', 'contract', 'function', 'public', 'private', 'internal', 'external', 
                          'view', 'pure', 'returns', 'memory', 'storage', 'calldata', 'payable',
@@ -101,11 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const keywordPattern = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
         const typePattern = new RegExp(`\\b(${types.join('|')})\\b`, 'g');
         
-        // Replace keywords, strings, comments, etc.
-        let highlighted = code
+        // Replace keywords, strings, comments in order of precedence
+        let highlighted = line
             // Handle comments first (to prevent highlighting keywords in comments)
-            .replace(/\/\/(.*)$/gm, '<span class="comment">// $1</span>')
-            .replace(/\/\*[\s\S]*?\*\//g, match => `<span class="comment">${match}</span>`)
+            .replace(/\/\/(.*)$/, '<span class="comment">// $1</span>')
             // Handle strings
             .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
             .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
@@ -120,6 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Handle common Solidity built-ins
             .replace(/\b(msg|block|tx|abi|require|assert|revert)\b/g, '<span class="keyword">$1</span>');
             
+        // If line is empty, ensure it still takes up space
+        if (highlighted.trim() === '') {
+            highlighted = '&nbsp;';
+        }
+        
         return highlighted;
     }
     
@@ -133,6 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const tokenSymbol = tokenSymbolInput.value.trim() || 'PROP';
         const contractStandard = contractStandardSelect.value;
         const governanceType = governanceTypeSelect.value;
+        
+        // Update file tab name to match contract name
+        document.querySelector('.file-tab').textContent = `${contractName}.sol`;
         
         // Calculate token values
         const tokenSupply = Math.floor(propertyData.estimatedValue / 10);
@@ -158,9 +209,33 @@ document.addEventListener('DOMContentLoaded', function() {
             codeContent.parentElement.style.display = 'flex';
             
             // Update line numbers and code content
-            updateLineNumbers(code);
             codeContent.innerHTML = applySyntaxHighlighting(code);
+            updateLineNumbers(code);
+            
+            // Enable horizontal scrolling on code content
+            codeContent.addEventListener('scroll', function() {
+                // The line numbers don't need to scroll horizontally
+                lineNumbers.scrollTop = this.scrollTop;
+            });
+            
+            // Ensure proper rendering of multi-line comments
+            processMultiLineComments();
         }, 1500);
+    }
+    
+    // Process multi-line comments after rendering
+    function processMultiLineComments() {
+        const codeText = codeContent.innerHTML;
+        
+        // Find and wrap multi-line comments
+        const wrappedText = codeText.replace(
+            /\/\*[\s\S]*?\*\//g, 
+            match => `<span class="comment">${match}</span>`
+        );
+        
+        if (wrappedText !== codeText) {
+            codeContent.innerHTML = wrappedText;
+        }
     }
     
     // Generate ERC20 contract for property tokenization
@@ -691,7 +766,9 @@ contract ${name} is ERC1155, Ownable, ERC1155Supply {
     
     // Copy code to clipboard
     function copyToClipboard() {
-        const code = codeContent.textContent;
+        // Get the raw code without HTML formatting
+        const code = codeContent.textContent || codeContent.innerText;
+        
         navigator.clipboard.writeText(code)
             .then(() => {
                 // Show success feedback
@@ -717,12 +794,14 @@ contract ${name} is ERC1155, Ownable, ERC1155Supply {
             })
             .catch(err => {
                 console.error('Error copying to clipboard:', err);
+                alert('Failed to copy code to clipboard. Please try again.');
             });
     }
     
     // Download contract file
     function downloadContractFile() {
-        const code = codeContent.textContent;
+        // Get the raw code without HTML formatting
+        const code = codeContent.textContent || codeContent.innerText;
         const contractName = contractNameInput.value.trim() || 'PropertyToken';
         const fileName = `${contractName}.sol`;
         
@@ -767,6 +846,13 @@ contract ${name} is ERC1155, Ownable, ERC1155Supply {
     copyCodeBtn.addEventListener('click', copyToClipboard);
     downloadCodeBtn.addEventListener('click', downloadContractFile);
     deployBtn.addEventListener('click', connectWallet);
+    
+    // Handle window resize to realign lines
+    window.addEventListener('resize', function() {
+        if (codeContent.childNodes.length > 0) {
+            alignLineNumbers();
+        }
+    });
     
     // Generate initial contract on page load
     generateSmartContract();
