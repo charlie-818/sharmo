@@ -214,53 +214,13 @@ const sanitizePropertyData = (data) => {
     }
 };
 
-// Generate mock property data as fallback
-function generateMockPropertyData(address, city, state) {
-    console.log(`\n🤖 Generating mock data for ${address}, ${city}, ${state}`);
-    
-    // Create property types
-    const propertyTypes = ['Single Family Home', 'Townhouse', 'Condominium', 'Duplex', 'Multi-Family Home'];
-    
-    // Random year from 1960 to 2020
-    const yearBuilt = Math.floor(Math.random() * (2020 - 1960 + 1)) + 1960;
-    
-    // Random square footage (1000 to 4500)
-    const squareFootage = Math.floor(Math.random() * (4500 - 1000 + 1)) + 1000;
-    
-    // Random property value ($150,000 to $1,200,000)
-    const estimatedValue = Math.floor(Math.random() * (1200000 - 150000 + 1)) + 150000;
-    
-    // Random days on market (5 to 120)
-    const daysOnMarket = Math.floor(Math.random() * (120 - 5 + 1)) + 5;
-    
-    // Random appreciation (1% to 8%)
-    const appreciation = (Math.floor(Math.random() * 70) + 10) / 10;
-    
-    console.log(`✅ Generated mock data with estimated value: $${estimatedValue.toLocaleString()}`);
-    
+// No longer generating mock data as fallback
+function generatePropertyNotFoundResponse(address, city, state) {
     return {
-        propertyData: {
-            propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
-            squareFootage: squareFootage,
-            yearBuilt: yearBuilt,
-            estimatedValue: estimatedValue,
-            bedrooms: Math.floor(Math.random() * 5) + 1,
-            bathrooms: Math.floor(Math.random() * 3) + 1,
-            lastSalePrice: Math.floor(estimatedValue * 0.9),
-            lastSaleDate: "2020-05-15",
-            lotSize: Math.floor(Math.random() * 10000) + 5000 + " sq ft",
-            neighborhood: {
-                rating: Math.floor(Math.random() * 10) + 1,
-                description: "Vibrant neighborhood with good schools and parks",
-                amenities: ["Parks", "Schools", "Shopping", "Restaurants"],
-                trend: ["Declining", "Stable", "Appreciating", "Rapidly Appreciating"][Math.floor(Math.random() * 4)]
-            },
-            marketTrends: {
-                yearlyAppreciation: appreciation.toFixed(1) + "%",
-                medianPrice: Math.floor(estimatedValue * 1.1),
-                daysOnMarket: daysOnMarket
-            }
-        }
+        error: 'Property not found',
+        message: `Could not find property information for ${address}, ${city}, ${state}`,
+        timestamp: new Date().toISOString(),
+        requestData: { address, city, state }
     };
 }
 
@@ -304,10 +264,12 @@ module.exports = async (req, res) => {
         
         // Check if API key is available
         if (!apiKey) {
-            console.warn('⚠️ PERPLEXITY_API_KEY not set. Using mock data.');
+            console.warn('⚠️ PERPLEXITY_API_KEY not set.');
             console.warn('⚠️ Check your .env file configuration!');
-            const mockData = generateMockPropertyData(address, city, state);
-            return res.status(200).json(mockData);
+            return res.status(500).json({
+                error: 'API configuration error',
+                message: 'Property lookup service is currently unavailable'
+            });
         }
         
         console.log(`\n🔑 Using API key: ${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 5)}`);
@@ -320,7 +282,7 @@ module.exports = async (req, res) => {
                 messages: [
                     {
                         role: "system",
-                        content: `You are a real estate data expert. When given a property address, provide realistic property details in JSON format. The response MUST include estimatedValue as a direct number in propertyData. Format must be:
+                        content: `You are a real estate data expert. When given a property address, provide realistic property details in JSON format. If you cannot find specific data for the address, respond with {"propertyData": null, "error": "Property not found"}. The response format for found properties must be:
                         {
                             "propertyData": {
                                 "estimatedValue": number,  // Direct property value, not in marketTrends
@@ -348,7 +310,7 @@ module.exports = async (req, res) => {
                     },
                     {
                         role: "user",
-                        content: `Find property details for ${address}, ${city}, ${state}. Include a realistic estimated value.`
+                        content: `Find property details for ${address}, ${city}, ${state}. If you cannot find this property, return {"propertyData": null, "error": "Property not found"}.`
                     }
                 ]
             };
@@ -370,18 +332,22 @@ module.exports = async (req, res) => {
             console.log(`\n📥 Received response from Perplexity API - Status: ${response.status}`);
             
             if (!response.ok) {
-                console.warn(`❌ API request failed: ${response.status}. Using mock data.`);
-                const mockData = generateMockPropertyData(address, city, state);
-                return res.status(200).json(mockData);
+                console.warn(`❌ API request failed: ${response.status}`);
+                return res.status(500).json({
+                    error: 'Property data service unavailable',
+                    message: 'Unable to retrieve property information at this time'
+                });
             }
 
             const data = await response.json();
             console.log(`\n📦 Response data received, content length: ${JSON.stringify(data).length}`);
             
             if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
-                console.error('❌ Invalid API response structure:', JSON.stringify(data).substring(0, 300));
-                const mockData = generateMockPropertyData(address, city, state);
-                return res.status(200).json(mockData);
+                console.error('❌ Invalid API response structure');
+                return res.status(500).json({
+                    error: 'Invalid response from property data service',
+                    message: 'Unable to process property information at this time'
+                });
             }
             
             console.log(`\n📜 Message content sample: ${data.choices[0].message.content.substring(0, 200)}...`);
@@ -390,6 +356,12 @@ module.exports = async (req, res) => {
                 const rawData = extractJSONFromResponse(data.choices[0].message.content);
                 console.log(`\n📊 Extracted data:`, JSON.stringify(rawData).substring(0, 200) + '...');
                 
+                // Check if the API found the property
+                if (!rawData.propertyData || rawData.error === 'Property not found') {
+                    console.log(`❌ Property not found in database: ${address}, ${city}, ${state}`);
+                    return res.status(404).json(generatePropertyNotFoundResponse(address, city, state));
+                }
+                
                 const sanitizedData = sanitizePropertyData(rawData);
                 console.log(`\n🏡 Final property data:`, JSON.stringify(sanitizedData).substring(0, 200) + '...');
 
@@ -397,15 +369,17 @@ module.exports = async (req, res) => {
                 return res.status(200).json(sanitizedData);
             } catch (parseError) {
                 console.error('❌ Failed to parse API response:', parseError);
-                // Fallback to mock data
-                const mockData = generateMockPropertyData(address, city, state);
-                return res.status(200).json(mockData);
+                return res.status(500).json({
+                    error: 'Failed to parse property data',
+                    message: 'Unable to process property information at this time'
+                });
             }
         } catch (apiError) {
             console.error('❌ API call error:', apiError);
-            // Fallback to mock data
-            const mockData = generateMockPropertyData(address, city, state);
-            return res.status(200).json(mockData);
+            return res.status(500).json({
+                error: 'Property lookup service error',
+                message: 'Unable to connect to property data service'
+            });
         }
     } catch (error) {
         console.error('❌ Error in property lookup:', error);

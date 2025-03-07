@@ -177,10 +177,6 @@
     border-radius: 4px 4px 0 0;
     font-size: 0.85rem;
     font-family: 'Consolas', 'Monaco', monospace;
-    white-space: nowrap;
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .file-tab.active {
@@ -221,44 +217,26 @@
     background: var(--contract-secondary);
 }
 
-.editor-action-btn.success {
-    background: #10b981;
-    color: white;
-}
-
 .code-editor {
     display: flex;
     background: var(--editor-bg);
-    overflow: auto;
+    overflow-x: auto;
     min-height: 500px;
     max-height: 600px;
     font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.5;
-    position: relative;
 }
 
 .line-numbers {
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 15px 10px;
     background: #1a1a1a;
     color: var(--editor-line-num);
     text-align: right;
-    min-width: 45px;
+    min-width: 40px;
     user-select: none;
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-.line-number {
-    padding: 0 10px;
-    position: relative;
-    height: 1.5em;
 }
 
 .code-content {
@@ -268,15 +246,6 @@
     color: var(--editor-text);
     white-space: pre;
     overflow-x: auto;
-    tab-size: 4;
-    position: relative;
-    z-index: 1;
-}
-
-.code-line {
-    display: block;
-    min-height: 1.5em;
-    padding-right: 15px;
 }
 
 /* Syntax highlighting */
@@ -294,7 +263,6 @@
 
 .code-content .comment {
     color: var(--editor-comment);
-    font-style: italic;
 }
 
 .code-content .function {
@@ -422,18 +390,6 @@
     font-weight: 500;
 }
 
-/* Default network logo styles */
-.network-icon[src="images/ethereum-logo.png"],
-.network-icon[src="images/polygon-logo.png"],
-.network-icon[src="images/binance-logo.png"],
-.network-icon[src="images/testnet-logo.png"] {
-    filter: brightness(0.95);
-    opacity: 0.9;
-    background-color: #f5f5f5;
-    border-radius: 50%;
-    padding: 5px;
-}
-
 /* Responsive Styles */
 @media (max-width: 768px) {
     .smart-contract-section {
@@ -450,7 +406,6 @@
     
     .code-editor {
         min-height: 400px;
-        font-size: 0.85rem;
     }
     
     .deployment-networks {

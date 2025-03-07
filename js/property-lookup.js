@@ -92,21 +92,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         throw new Error(data.error);
                     }
                     
+                    // Check if the API returned valid property data
+                    if (!data.propertyData || !data.propertyData.estimatedValue) {
+                        throw new Error("No valid property data found");
+                    }
+                    
                     // Process and display the data
                     displayPropertyData(data.propertyData, address, city, state);
                     return; // Exit if API call was successful
                 }
                 
-                // If we get here, the API call failed but we'll continue to the fallback
-                console.warn('API call failed, using fallback mock data');
+                // If we get here, the API call failed
+                throw new Error(`Property lookup failed with status: ${response.status}`);
             } catch (apiError) {
-                console.warn('API error, using fallback mock data:', apiError);
+                console.warn('API error:', apiError);
+                showError("We couldn't find property information for the address you provided. Please check the address and try again.");
             }
-            
-            // Fallback to mock data if API call fails
-            const mockData = generateMockPropertyData(address, city, state);
-            displayPropertyData(mockData, address, city, state);
-            
         } catch (error) {
             console.error('Error in property lookup:', error);
             showError(error.message);
@@ -164,60 +165,32 @@ document.addEventListener('DOMContentLoaded', function() {
         element.classList.remove('shake');
     }
     
+    // Show error message
     function showError(message = 'Failed to fetch property data. Please try again.') {
         if (errorMessage) {
             const errorTitle = errorMessage.querySelector('h4');
             const errorDetails = errorMessage.querySelector('.error-details');
             
-            if (errorTitle) errorTitle.textContent = 'Property Lookup Failed';
+            if (errorTitle) errorTitle.textContent = 'Property Not Found';
             if (errorDetails) errorDetails.textContent = message;
             
             errorMessage.style.display = 'block';
+            
+            // Scroll to error message
+            setTimeout(() => {
+                const errorOffset = errorMessage.offsetTop - 20;
+                window.scrollTo({
+                    top: errorOffset,
+                    behavior: 'smooth'
+                });
+            }, 100);
         }
     }
     
-    // Generate mock property data for fallback
+    // Generate mock property data for fallback - No longer used directly
     function generateMockPropertyData(address, city, state) {
-        // Create property types
-        const propertyTypes = ['Single Family Home', 'Townhouse', 'Condominium', 'Duplex', 'Multi-Family Home'];
-        
-        // Random year from 1960 to 2020
-        const yearBuilt = Math.floor(Math.random() * (2020 - 1960 + 1)) + 1960;
-        
-        // Random square footage (1000 to 4500)
-        const squareFootage = Math.floor(Math.random() * (4500 - 1000 + 1)) + 1000;
-        
-        // Random property value ($150,000 to $1,200,000)
-        const estimatedValue = Math.floor(Math.random() * (1200000 - 150000 + 1)) + 150000;
-        
-        // Random days on market (5 to 120)
-        const daysOnMarket = Math.floor(Math.random() * (120 - 5 + 1)) + 5;
-        
-        // Random appreciation (1% to 8%)
-        const appreciation = (Math.floor(Math.random() * 70) + 10) / 10;
-        
-        return {
-            propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
-            squareFootage: squareFootage,
-            yearBuilt: yearBuilt,
-            estimatedValue: estimatedValue,
-            bedrooms: Math.floor(Math.random() * 5) + 1,
-            bathrooms: Math.floor(Math.random() * 3) + 1,
-            lastSalePrice: Math.floor(estimatedValue * 0.9),
-            lastSaleDate: "2020-05-15",
-            lotSize: Math.floor(Math.random() * 10000) + 5000 + " sq ft",
-            neighborhood: {
-                rating: Math.floor(Math.random() * 10) + 1,
-                description: "Vibrant neighborhood with good schools and parks",
-                amenities: ["Parks", "Schools", "Shopping", "Restaurants"],
-                trend: ["Declining", "Stable", "Appreciating", "Rapidly Appreciating"][Math.floor(Math.random() * 4)]
-            },
-            marketTrends: {
-                yearlyAppreciation: appreciation.toFixed(1) + "%",
-                medianPrice: Math.floor(estimatedValue * 1.1),
-                daysOnMarket: daysOnMarket
-            }
-        };
+        // This function is kept for reference but will not be used as fallback
+        // ... existing code ...
     }
     
     // Display property data in the UI

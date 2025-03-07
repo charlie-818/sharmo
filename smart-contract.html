@@ -55,10 +55,10 @@
         </script>
 
         <!-- Main smart contract section -->
-        <section class="smart-contract-section">
+        <section style="top: -70px;" class="smart-contract-section">
             <div class="container">
                 <div class="contract-header">
-                    <h2>Property Smart Contract Generator</h2>
+                  <h2 style="text-align: center; position: relative; left: 250px;">Property Smart Contract Generator</h2>
                     <p class="subtitle">Generate a tokenization smart contract for your property</p>
                 </div>
                 
@@ -168,29 +168,29 @@
                         <div class="network-option">
                             <input type="radio" name="network" id="networkEthereum" checked>
                             <label for="networkEthereum">
-                                <img src="images/ethereum-logo.png" alt="Ethereum" class="network-icon">
-                                <span>Ethereum Mainnet</span>
+                                <img src="images/ethereum/eth-black.png" alt="Ethereum" class="network-icon">
+                                <span style="color: black !important;">Ethereum Mainnet</span>
                             </label>
                         </div>
                         <div class="network-option">
                             <input type="radio" name="network" id="networkPolygon">
                             <label for="networkPolygon">
                                 <img src="images/polygon-logo.png" alt="Polygon" class="network-icon">
-                                <span>Polygon</span>
+                                <span style="color: black !important;">Polygon</span>
                             </label>
                         </div>
                         <div class="network-option">
                             <input type="radio" name="network" id="networkBSC">
                             <label for="networkBSC">
                                 <img src="images/binance-logo.png" alt="BSC" class="network-icon">
-                                <span>Binance Smart Chain</span>
+                                <span style="color: black !important;">Binance Smart Chain</span>
                             </label>
                         </div>
                         <div class="network-option">
                             <input type="radio" name="network" id="networkTestnet">
                             <label for="networkTestnet">
                                 <img src="images/testnet-logo.png" alt="Testnet" class="network-icon">
-                                <span>Goerli Testnet</span>
+                                <span style="color: black !important;">Goerli Testnet</span>
                             </label>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
         </section>
 
         <!-- Include the footer component -->
-        <div id="footer-container"></div>
+        <div style="top: -100px;" id="footer-container"></div>
         <script>
             fetch('components/footer.html')
                 .then(response => response.text())
@@ -218,7 +218,6 @@
 
     <!-- Load smart contract generator script -->
     <script src="js/smart-contract.js"></script>
-    <script src="js/network-placeholder.js"></script>
     <script src="js/navigation.js"></script>
 </body>
 </html> 
