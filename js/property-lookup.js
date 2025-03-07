@@ -172,17 +172,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const errorDetails = errorMessage.querySelector('.error-details');
             
             if (errorTitle) errorTitle.textContent = 'Property Not Found';
-            if (errorDetails) errorDetails.textContent = message;
             
+            // Don't update the error details if we want to keep the formatted HTML with bullet points
+            // Only update it for custom error messages
+            if (errorDetails && message !== "We couldn't find property information for the address you provided. Please check the address and try again.") {
+                errorDetails.innerHTML = message;
+            }
+            
+            // Hide results and ensure error is visible
+            propertyResults.style.display = 'none';
             errorMessage.style.display = 'block';
             
-            // Scroll to error message
+            // Ensure error message is visible by scrolling to it
             setTimeout(() => {
-                const errorOffset = errorMessage.offsetTop - 20;
-                window.scrollTo({
-                    top: errorOffset,
-                    behavior: 'smooth'
-                });
+                const lookupForm = document.querySelector('.lookup-form');
+                if (lookupForm) {
+                    const formBottom = lookupForm.offsetTop + lookupForm.offsetHeight;
+                    window.scrollTo({
+                        top: formBottom - 30, // Position the window just below the form
+                        behavior: 'smooth'
+                    });
+                }
             }, 100);
         }
     }

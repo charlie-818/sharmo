@@ -22,6 +22,8 @@
     padding: 40px 20px 0 !important; /* Optimized spacing */
     box-sizing: border-box;
     background-color: transparent !important;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Improved heading style */
@@ -36,6 +38,7 @@
     text-align: left;
     width: 100%;
     letter-spacing: -0.01em;
+    order: 0;
 }
 
 /* Heading underline - cleaner look */
@@ -62,6 +65,7 @@
     grid-gap: 18px !important; /* Increased for better spacing */
     align-items: end !important;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04) !important; /* Subtle shadow */
+    order: 1;
 }
 
 /* Address field - improved spacing */
@@ -176,6 +180,7 @@
     transition: all 0.5s ease;
     margin: 0 !important;
     background-color: transparent !important;
+    order: 3;
 }
 
 .property-results h3 {
@@ -330,6 +335,7 @@
     padding: 40px 0;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
+    order: 2;
 }
 
 .spinner {
@@ -359,6 +365,9 @@
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 10;
+    order: 2; /* Ensure the error message comes after the form but before results */
 }
 
 .error-message h4 {
