@@ -29,7 +29,10 @@
     <link rel="stylesheet" href="css/components/benefits.css">
     <link rel="stylesheet" href="css/components/property-lookup.css">
     <link rel="stylesheet" href="css/components/code-showcase.css">
-    <link rel="stylesheet" href="css/components/chat.css">
+    <link rel="stylesheet" href="css/components/accordion.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/counter.css">
+    <link rel="stylesheet" href="css/components/property.css">
     <link rel="stylesheet" href="css/components/footer.css">
     <link rel="stylesheet" href="css/components/footer-fix.css">
     
@@ -48,33 +51,9 @@
     <!-- Scripts -->
     <script src="js/code-showcase.js" defer></script>
     
-    <!-- Chat button visibility fix -->
+    <!-- Any additional styles can be added here -->
     <style>
-        .chat-actions button,
-        .chat-input button {
-            min-width: unset !important;
-            min-height: unset !important;
-            padding: 0 !important;
-            background-image: none !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-        
-        .chat-actions button svg,
-        .chat-input button svg {
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-        }
-        
-        /* Override any button hover effects */
-        .chat-actions button::before,
-        .chat-input button::before {
-            display: none !important;
-        }
+        /* Custom styles */
     </style>
     
     <!-- Custom style overrides -->
@@ -237,6 +216,251 @@
             z-index: 1001 !important;
         }
     </style>
+
+    <!-- Add additional styles for the tokenization section -->
+    <style>
+        /* Enhanced styles for the new How It Works section */
+        .process-flow-container {
+            margin-top: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .process-hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(124, 58, 237, 0.08));
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1;
+        }
+        
+        .process-hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(124, 58, 237, 0.1));
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+        }
+        
+        .process-hero h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #6366F1, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .process-hero p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #4B5563;
+        }
+        
+        .process-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .process-stat {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease;
+        }
+        
+        .process-stat:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #6366F1;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6B7280;
+        }
+        
+        .process-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-track {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+            opacity: 0.3;
+        }
+        
+        .timeline-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-step.step-active {
+            z-index: 2;
+        }
+        
+        .timeline-step::after {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 40px);
+            background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .timeline-step:last-child::after {
+            display: none;
+        }
+        
+        .step-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            z-index: 2;
+            color: #6366F1;
+            transition: all 0.3s ease;
+        }
+        
+        .step-active .step-icon {
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            color: white;
+        }
+        
+        .step-content {
+            padding: 0 0 0 15px;
+        }
+        
+        .timeline-step h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .timeline-step p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #6B7280;
+            margin: 0;
+        }
+        
+        /* Interactive functionality */
+        .timeline-step {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-step:hover .step-icon {
+            transform: scale(1.1);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+        
+        .timeline-step:hover h4 {
+            color: #6366F1;
+        }
+        
+        /* Media queries for responsive design */
+        @media (max-width: 1024px) {
+            .process-flow-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .process-hero {
+                height: auto;
+            }
+            
+            .process-stats {
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .process-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .timeline-step {
+                padding-left: 50px;
+            }
+            
+            .timeline-track {
+                left: 18px;
+            }
+            
+            .step-icon {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .timeline-step::after {
+                left: 18px;
+                top: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .process-hero {
+                padding: 20px;
+            }
+            
+            .process-hero h3 {
+                font-size: 1.5rem;
+            }
+            
+            .process-stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .timeline-step {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+
+                <!-- Protocols section added back with cleaner design -->
 </head>
 <body>
     
@@ -256,46 +480,462 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
+      <div class="particles-container" id="particles-js"></div>
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
         <div class="container">
-            <h1 style="margin-top: 100px !important;">Making Real Estate <span class="animated-word">Accessible</span> Through Tokenization</h1>
-            <p>Sharmo transforms property ownership through blockchain technology, enabling fractional ownership, instant liquidity, and global accessibility.</p>
+          <div class="hero-content">
+              <h1 class="glitch-heading"><span class="glitch-text" data-text="Making Real Estate">Making Real Estate</span> <span class="animated-gradient-text">Accessible</span> <span class="glitch-text" data-text="Through Tokenization">Through Tokenization</span></h1>
+              <p class="hero-description">Sharmo transforms property ownership through <span class="highlight">blockchain technology</span>, enabling fractional ownership, instant liquidity, and global accessibility.</p>
             
             <div class="crypto-stats">
-                <div class="hero-stat">
-                    <span>$143M+</span>
+                  <div class="hero-stat animated-counter">
+                      <div class="stat-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+                      <span class="counter" data-target="143" data-prefix="$" data-suffix="M+">$0M+</span>
                     <strong>Total Asset Value</strong>
                         </div> 
-                <div class="hero-stat">
-                    <span>12,400+</span>
+                  <div class="hero-stat animated-counter">
+                      <div class="stat-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                      <span class="counter" data-target="12400" data-suffix="+">0+</span>
                     <strong>Global Investors</strong>
                     </div>
-                <div class="hero-stat">
-                    <span>8.2%</span>
+                  <div class="hero-stat animated-counter">
+                      <div class="stat-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 6l-9.5 9.5-5-5L1 18"></path><path d="M17 6h6v6"></path></svg></div>
+                      <span class="counter" data-target="8.2" data-suffix="%">0%</span>
                     <strong>Average Annual Yield</strong>
                 </div>
             </div>
 
             <div class="hero-cta">
-                <a href="#tokenization" class="btn">Start Tokenizing</a>
+                  <a href="#tokenization" class="btn primary-btn">
+                      <span class="btn-text">Start Tokenizing</span>
+                      <span class="btn-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg></span>
+                  </a>
+                  <a href="/docs/sharmo-whitepaper.pdf" class="btn secondary-btn">
+                      <span class="btn-text">Read Whitepaper</span>
+                      <span class="btn-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></span>
+                  </a>
         </div>
         </div>
+          
+          <div class="hero-graphic">
+              <div class="property-card-grid">
+                  <div class="floating-property-card">
+                      <div class="property-card-image" style="background-image: url('images/properties/luxury-apartment.jpg')"></div>
+                      <div class="property-card-content">
+                          <div class="property-title">Luxury Apartment</div>
+                          <div class="property-stats">
+                              <div class="property-price">$450,000</div>
+                              <div class="property-token-price">$100 / token</div>
+                          </div>
+                          <div class="property-progress">
+                              <div class="progress-bar"><div class="progress-fill" style="width: 76%"></div></div>
+                              <div class="progress-text">76% Tokenized</div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="floating-property-card">
+                      <div class="property-card-image" style="background-image: url('images/properties/beach-villa.jpg')"></div>
+                      <div class="property-card-content">
+                          <div class="property-title">Beach Villa</div>
+                          <div class="property-stats">
+                              <div class="property-price">$875,000</div>
+                              <div class="property-token-price">$250 / token</div>
+                          </div>
+                          <div class="property-progress">
+                              <div class="progress-bar"><div class="progress-fill" style="width: 42%"></div></div>
+                              <div class="progress-text">42% Tokenized</div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="floating-property-card">
+                      <div class="property-card-image" style="background-image: url('images/properties/downtown-condo.jpg')"></div>
+                      <div class="property-card-content">
+                          <div class="property-title">Downtown Condo</div>
+                          <div class="property-stats">
+                              <div class="property-price">$320,000</div>
+                              <div class="property-token-price">$80 / token</div>
+                          </div>
+                          <div class="property-progress">
+                              <div class="progress-bar"><div class="progress-fill" style="width: 89%"></div></div>
+                              <div class="progress-text">89% Tokenized</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="blockchain-nodes">
+                  <div class="node node-1"></div>
+                  <div class="node node-2"></div>
+                  <div class="node node-3"></div>
+                  <div class="node node-4"></div>
+                  <div class="node node-5"></div>
+                  <div class="connection connection-1-2"></div>
+                  <div class="connection connection-2-3"></div>
+                  <div class="connection connection-3-4"></div>
+                  <div class="connection connection-4-5"></div>
+                  <div class="connection connection-5-1"></div>
+              </div>
+          </div>
+      </div>
+      <div class="scroll-indicator">
+          <span>Scroll to explore</span>
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg>
+        </div>
+        
+        <style>
+            /* Light Theme Enhancements for Hero Section */
+            .hero {
+                background: linear-gradient(160deg, #f0f4ff 0%, #eef1ff 100%);
+                color: #1E293B;
+            }
+            
+            .hero::before {
+                display: none;
+            }
+            
+            .hero h1, .hero p {
+                color: #1E293B;
+            }
+            
+            .glitch-text {
+                color: #1E293B;
+            }
+            
+            .animated-gradient-text {
+                background: linear-gradient(to right, #6366F1, #8B5CF6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: none;
+            }
+            
+            .hero-description {
+                color: #475569;
+                font-size: 1.2rem;
+                max-width: 600px;
+            }
+            
+            .highlight {
+                color: #6366F1;
+                font-weight: 600;
+            }
+            
+            .hero-stat {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(99, 102, 241, 0.1);
+            }
+            
+            .hero-stat .stat-icon {
+                color: #6366F1;
+            }
+            
+            .hero-stat strong {
+                color: #475569;
+            }
+            
+            .property-card-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                max-width: 100%;
+                margin-top: 20px;
+            }
+            
+            .floating-property-card {
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                transition: all 0.4s ease;
+                transform: translateY(0);
+                border: 1px solid rgba(99, 102, 241, 0.1);
+                width: 100%;
+                height: auto;
+                position: relative;
+                animation: float 5s ease-in-out infinite alternate;
+                animation-delay: calc(var(--delay, 0) * 1s);
+            }
+            
+            .floating-property-card:nth-child(1) {
+                --delay: 0;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+            
+            .floating-property-card:nth-child(2) {
+                --delay: 0.5;
+                grid-column: 2 / 3;
+                grid-row: 1 / 2;
+            }
+            
+            .floating-property-card:nth-child(3) {
+                --delay: 1;
+                grid-column: 1 / 3;
+                grid-row: 2 / 3;
+            }
+            
+            .property-card-image {
+                height: 150px;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+            }
+            
+            .property-card-image::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            }
+            
+            .property-card-content {
+                padding: 16px;
+            }
+            
+            .property-title {
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: 8px;
+                color: #1E293B;
+            }
+            
+            .property-stats {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+            
+            .property-price {
+                font-weight: 700;
+                color: #6366F1;
+                font-size: 1rem;
+            }
+            
+            .property-token-price {
+                font-size: 0.85rem;
+                color: #64748B;
+            }
+            
+            .property-progress {
+                margin-top: 12px;
+            }
+            
+            .progress-bar {
+                height: 6px;
+                background: #F1F5F9;
+                border-radius: 3px;
+                overflow: hidden;
+                margin-bottom: 5px;
+            }
+            
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(to right, #6366F1, #8B5CF6);
+                border-radius: 3px;
+                width: 0;
+                animation: progressFill 2s ease forwards;
+            }
+            
+            .progress-text {
+                font-size: 0.8rem;
+                color: #64748B;
+                text-align: right;
+            }
+            
+            .blockchain-nodes {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                opacity: 0.4;
+            }
+            
+            .glow-orb {
+                opacity: 0.3;
+            }
+            
+            @media (max-width: 1024px) {
+                .property-card-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .floating-property-card:nth-child(1),
+                .floating-property-card:nth-child(2),
+                .floating-property-card:nth-child(3) {
+                    grid-column: 1 / 2;
+                    grid-row: auto;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .hero-content {
+                    padding-bottom: 30px;
+                }
+                
+                .property-card-grid {
+                    margin-top: 40px;
+                }
+            }
+        </style>
     </section>
 
-    <!-- Whitepaper Banner -->
-    <div class="whitepaper-banner">
-        <div class="container">
-            <div class="whitepaper-content">
-                <h3>Learn about tokenized real estate</h3>
-                <p>Discover how Sharmo is revolutionizing property investment through blockchain technology and making real estate accessible to everyone through our innovative tokenization platform.</p>
-                <a href="docs/sharmo-whitepaper.pdf" target="_blank" class="btn-primary">
-                    <span>Read Our Whitepaper</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-            </div>
-        </div>
+    
+        
+        <!-- Fix whitepaper banner styling -->
+        <style>
+            .whitepaper-banner {
+                padding: 70px 0;
+                background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                position: relative;
+                overflow: hidden;
+                text-align: center !important;
+                width: 100%;
+                display: block;
+            }
+            
+            .whitepaper-banner::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('images/patterns/dots.svg') repeat;
+                opacity: 0.1;
+            }
+            
+            .whitepaper-banner .container {
+                position: relative;
+                z-index: 2;
+                max-width: 1000px;
+                margin: 0 auto !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                flex-direction: column !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            .whitepaper-content {
+                max-width: 800px;
+                text-align: center !important;
+                margin: 0 auto !important;
+                padding: 0;
+                width: 100%;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .whitepaper-content h3 {
+                color: white;
+                font-size: 2.2rem;
+                margin-bottom: 20px;
+                font-weight: 700;
+                text-align: center !important;
+                width: 100% !important;
+            }
+            
+            .whitepaper-content p {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 30px;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                text-align: center !important;
+                max-width: 700px;
+                width: 100%;
+            }
+            
+            .whitepaper-content .btn-primary {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 10px;
+                background: white;
+                color: #6366F1;
+                padding: 15px 28px;
+                border-radius: 10px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                margin: 0 auto !important;
+                text-align: center !important;
+                position: relative !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .whitepaper-content .btn-primary svg {
+                transition: transform 0.3s ease;
+            }
+            
+            .whitepaper-content .btn-primary:hover svg {
+                transform: translateX(4px);
+            }
+            
+            .whitepaper-content .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            
+            /* Override any conflicting styles from other sections */
+            .whitepaper-banner a,
+            .whitepaper-banner a:hover,
+            .whitepaper-banner a:visited {
+                float: none !important;
+                display: inline-flex !important;
+                clear: both !important;
+            }
+            
+            /* Fix common conflicting properties */
+            .whitepaper-banner * {
+                box-sizing: border-box !important;
+            }
+            
+            @media (max-width: 768px) {
+                .whitepaper-banner {
+                    padding: 50px 0;
+                }
+                
+                .whitepaper-content h3 {
+                    font-size: 1.8rem;
+                }
+                
+                .whitepaper-content p {
+                    font-size: 1rem;
+                }
+                
+                .whitepaper-content .btn-primary {
+                    padding: 12px 22px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .whitepaper-content h3 {
+                    font-size: 1.6rem;
+                }
+                
+                .whitepaper-content .btn-primary {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        </style>
     </div>
 
     <!-- Opportunities Section -->
@@ -387,65 +1027,310 @@
     <section id="tokenization" class="tokenization">
         <div class="container">
             <h2>How It Works</h2>
-            <div class="tokenization-container">
-                <!-- Streamlined explanation -->
-                <div class="intro-card">
-                    <p>Sharmo converts real estate into digital tokens on Ethereum blockchain, allowing fractional ownership with minimal investment. Buy, sell, and trade property shares instantly while benefiting from real asset security.</p>
-                    <p>Our process is simple yet powerful: First, we verify each property's legal status and value. Then we tokenize it into digital shares, distribute these tokens on decentralized exchanges, and manage the ongoing administration through smart contracts. The entire process makes real estate investing as easy as buying stocks.</p>
-                </div>
-
-                <!-- Simplified process cards -->
-                <div class="process-grid">
-                    <div class="process-card">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+          
+          <!-- Modern process flow -->
+          <div class="process-flow-container">
+              <!-- Featured explanation -->
+              <div class="process-hero">
+                  <h3>Real Estate Tokenization Made Simple</h3>
+                  <p>Sharmo transforms property ownership by securely converting real estate into digital tokens on the Ethereum blockchain. This enables fractional ownership with minimal investment, providing instant liquidity and global access to property markets.</p>
+                  <div class="process-stats">
+                      <div class="process-stat">
+                          <div class="stat-number">4-step</div>
+                          <div class="stat-label">Simple Process</div>
+                      </div>
+                      <div class="process-stat">
+                          <div class="stat-number">24/7</div>
+                          <div class="stat-label">Token Trading</div>
+                      </div>
+                      <div class="process-stat">
+                          <div class="stat-number">100%</div>
+                          <div class="stat-label">Transparency</div>
+                      </div>
                     </div>
-                        <h4>Asset Verification</h4>
-                        <p><strong>Legal Due Diligence</strong><br>
-                        We verify property titles, ownership history, and compliance to ensure complete legal certainty.</p>
                 </div>
 
-                    <div class="process-card">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Visual process timeline -->
+              <div class="process-timeline">
+                  <div class="timeline-track"></div>
+                  
+                  <div class="timeline-step step-active" data-step="1">
+                      <div class="step-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"></path>
+                              <path d="M9 22V12H15V22"></path>
                             </svg>
+                      </div>
+                            <div class="step-content">
+                                <h4>Asset Verification</h4>
+                          <p>We conduct thorough legal due diligence to verify property titles, ownership history, and regulatory compliance to ensure complete legal certainty.</p>
                             </div>
-                        <h4>Tokenization</h4>
-                        <p><strong>Digital Ownership</strong><br>
-                        Smart contracts create ERC-20 tokens representing legally-backed property shares with clear ownership rights.</p>
                         </div>
-
-                    <div class="process-card">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  
+                  <div class="timeline-step" data-step="2">
+                      <div class="step-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"></circle>
+                              <path d="M12 6V12L16 14"></path>
                             </svg>
+                      </div>
+                            <div class="step-content">
+                                <h4>Tokenization</h4>
+                          <p>Our smart contracts create blockchain tokens that represent legally-backed shares of the property with transparent ownership rights and automated governance.</p>
                             </div>
-                        <h4>Distribution</h4>
-                        <p><strong>Instant Trading</strong><br>
-                        Property tokens trade 24/7 on decentralized exchanges, reducing months-long transactions to seconds.</p>
                         </div>
-
-                    <div class="process-card">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  
+                  <div class="timeline-step" data-step="3">
+                      <div class="step-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M22 12H18L15 21L9 3L6 12H2"></path>
                             </svg>
+                      </div>
+                            <div class="step-content">
+                                <h4>Distribution</h4>
+                          <p>Property tokens are listed on decentralized exchanges for 24/7 trading, transforming the traditional months-long real estate transactions into seconds.</p>
                             </div>
-                        <h4>Management</h4>
-                        <p><strong>Automated Governance</strong><br>
-                        Blockchain smart contracts distribute rental income instantly and enable transparent property decisions.</p>
+                        </div>
+                  
+                  <div class="timeline-step" data-step="4">
+                      <div class="step-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8"></path>
+                              <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z"></path>
+                          </svg>
+                      </div>
+                      <div class="step-content">
+                          <h4>Management</h4>
+                          <p>Automated smart contracts handle all aspects of property administration, including rental income distribution and transparent decision-making.</p>
+                      </div>
+                    </div>
                 </div>
             </div>
 
+          <style>
+            /* Optimized layout styles for the process flow */
+            .process-flow-container {
+                display: grid;
+                grid-template-columns: minmax(300px, 1fr) minmax(400px, 1.5fr);
+                gap: 30px;
+                margin: 40px 0 50px;
+                align-items: start;
+            }
+            
+            .process-hero {
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(124, 58, 237, 0.08));
+                border-radius: 16px;
+                padding: 30px;
+                border: 1px solid rgba(99, 102, 241, 0.15);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                z-index: 1;
+                position: sticky;
+                top: 90px;
+            }
+            
+            .process-hero h3 {
+                font-size: 1.7rem;
+                margin-bottom: 12px;
+                background: linear-gradient(to right, #6366F1, #8B5CF6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                line-height: 1.3;
+            }
+            
+            .process-hero p {
+                font-size: 1rem;
+                line-height: 1.55;
+                margin-bottom: 25px;
+                color: #4B5563;
+            }
+            
+            .process-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                margin-top: auto;
+            }
+            
+            .process-stat {
+                background: white;
+                border-radius: 12px;
+                padding: 12px 10px;
+                text-align: center;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+                transition: transform 0.3s ease;
+            }
+            
+            .stat-number {
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #6366F1;
+                margin-bottom: 3px;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+                color: #6B7280;
+            }
+            
+            .process-timeline {
+                position: relative;
+                padding: 10px 0;
+                min-height: 450px;
+            }
+            
+            .timeline-track {
+                position: absolute;
+                left: 24px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+                opacity: 0.3;
+            }
+            
+            .timeline-step {
+                position: relative;
+                padding-left: 60px;
+                margin-bottom: 32px;
+            }
+            
+            .timeline-step:last-child {
+                margin-bottom: 0;
+            }
+            
+            .timeline-step::after {
+                content: '';
+                position: absolute;
+                left: 24px;
+                top: 24px;
+                width: 2px;
+                height: calc(100% + 32px);
+                background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+                z-index: 1;
+                opacity: 0.3;
+            }
+            
+            .step-icon {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                border: 2px solid rgba(99, 102, 241, 0.2);
+                z-index: 2;
+                color: #6366F1;
+                transition: all 0.3s ease;
+            }
+            
+            .step-active .step-icon {
+                background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                color: white;
+                transform: scale(1.05);
+            }
+            
+            .step-content {
+                padding: 0 0 0 15px;
+            }
+            
+            .timeline-step h4 {
+                font-size: 1.15rem;
+                margin-bottom: 6px;
+                font-weight: 600;
+                color: #374151;
+            }
+            
+            .timeline-step p {
+                font-size: 0.95rem;
+                line-height: 1.45;
+                color: #6B7280;
+                margin: 0;
+            }
+            
+            /* Responsive adjustments */
+            @media (max-width: 1100px) {
+                .process-flow-container {
+                    grid-template-columns: minmax(280px, 1fr) minmax(350px, 1.3fr);
+                    gap: 25px;
+                }
+                
+                .process-hero {
+                    padding: 25px;
+                }
+                
+                .process-hero h3 {
+                    font-size: 1.5rem;
+                }
+            }
+            
+            @media (max-width: 850px) {
+                .process-flow-container {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+                
+                .process-hero {
+                    position: relative;
+                    top: 0;
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+                
+                .process-timeline {
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .process-hero {
+                    padding: 20px;
+                }
+                
+                .process-hero h3 {
+                    font-size: 1.4rem;
+                }
+                
+                .process-stats {
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                }
+                
+                .timeline-step {
+                    margin-bottom: 25px;
+                    padding-left: 50px;
+                }
+                
+                .timeline-track {
+                    left: 20px;
+                }
+                
+                .step-icon {
+                    width: 40px;
+                    height: 40px;
+                }
+                
+                .timeline-step::after {
+                    left: 20px;
+                    top: 20px;
+                    height: calc(100% + 25px);
+                }
+            }
+          </style>
+
                 <!-- Protocols section added back with cleaner design -->
-                <h3 class="section-subheading">Blockchain Standards We Use</h3>
+            <h3 class="section-subheading">Blockchain Standards We Use</h3>
             <div class="protocol-grid">
                 <div class="protocol-card">
                     <div class="protocol-header">
@@ -493,933 +1378,1267 @@
                 </div>
             </div>
 
+            <style>
+                /* Enhanced styling for the protocol section */
+                .section-subheading {
+                    font-size: 1.8rem;
+                    text-align: center;
+                    margin: 60px 0 40px;
+                    position: relative;
+                    color: #374151;
+                }
+
+                .section-subheading:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -12px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80px;
+                    height: 4px;
+                    background: linear-gradient(to right, #6366F1, #8B5CF6);
+                    border-radius: 2px;
+                }
+
+                .protocol-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 25px;
+                    margin-bottom: 50px;
+                }
+
+                .protocol-card {
+                    background: white;
+                    border-radius: 16px;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+                    overflow: hidden;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    border: 1px solid rgba(99, 102, 241, 0.1);
+                }
+
+                .protocol-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.12);
+                }
+
+                .protocol-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    padding: 25px 25px 15px;
+                    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+                }
+
+                .protocol-icon {
+                    width: 45px;
+                    height: 45px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 12px;
+                    background: rgba(99, 102, 241, 0.06);
+                }
+
+                .protocol-icon img {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .protocol-card h3 {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    color: #374151;
+                    margin: 0;
+                }
+
+                .protocol-card p {
+                    padding: 20px 25px 15px;
+                    margin: 0;
+                    color: #4B5563;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                }
+
+                .protocol-card ul {
+                    list-style: none;
+                    padding: 0 25px 25px;
+                    margin: 0;
+                }
+
+                .protocol-card ul li {
+                    padding: 8px 0 8px 28px;
+                    position: relative;
+                    font-size: 0.95rem;
+                    color: #6B7280;
+                }
+
+                .protocol-card ul li:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 12px;
+                    width: 18px;
+                    height: 18px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236366F1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'%3E%3C/path%3E%3Cpolyline points='22 4 12 14.01 9 11.01'%3E%3C/polyline%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain;
+                }
+
+                @media (max-width: 1024px) {
+                    .protocol-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 20px;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .protocol-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                    
+                    .section-subheading {
+                        margin: 40px 0 30px;
+                        font-size: 1.6rem;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .protocol-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .protocol-card p {
+                        padding: 15px 20px 10px;
+                    }
+                    
+                    .protocol-card ul {
+                        padding: 0 20px 20px;
+                    }
+                }
+            </style>
+                
                 <!-- Code showcase added back with cleaner design -->
             <div class="code-showcase">
-                    <h3 class="section-subheading">Smart Contract Example</h3>
-                <div class="code-container">
-                    <div class="code-editor-header">
-                        <div class="window-controls">
-                            <span class="control red"></span>
-                            <span class="control yellow"></span>
-                            <span class="control green"></span>
-                        </div>
-                            <div class="file-name">sharmoToken.sol</div>
-                        <div class="header-actions">
-                            <button id="copy-code-btn" onclick="copyCodeToClipboard()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                <h3 class="section-subheading">Smart Contract Functions</h3>
+                <p class="section-description">Our secure blockchain contracts enable transparent tokenization of real estate assets with these key functions:</p>
+                
+                <div class="functions-grid">
+                    <div class="function-card">
+                        <div class="function-header">
+                            <div class="function-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                    <path d="M16.5 9.4L7.55 4.24"></path>
                                 </svg>
-                                <span>Copy</span>
-                            </button>
-                    </div>
-                    </div>
-                    <div class="code-editor-body">
-                        <div class="line-numbers">
-                            <pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15</pre>
-                        </div>
-                        <div class="code-content-wrapper">
-                            <pre class="code-content"><code id="solidity-code">// SPDX-License-Identifier: MIT
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-/* OpenZeppelin Imports for Security & Standards */
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-
-/* Main Contract Definition */
-contract sharmoToken is ERC721URIStorage, ERC721Enumerable, Ownable, ReentrancyGuard {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-    
-    /* Property Data Structure */
-    struct Property {
-        uint256 id;          // Unique property identifier
-        string location;     // Physical location of the property
-        uint256 valuation;   // Current market value
-        bool forSale;        // Whether property is listed for sale
-        uint256 salePrice;   // Price if listed for sale
-        string propertyType; // Residential, Commercial, etc.
-        uint256 sqFootage;   // Square footage of the property
-        uint256 createdAt;   // Timestamp when property was tokenized
-        address originalOwner; // Original owner of the property
-    }
-    
-    // Mapping from token ID to Property
-    mapping(uint256 => Property) public properties;
-    
-    // Mapping from token ID to sale price
-    mapping(uint256 => uint256) public propertyPrices;
-    
-    // Events
-    event PropertyMinted(uint256 indexed tokenId, address indexed owner, string location, uint256 valuation);
-    event PropertyListed(uint256 indexed tokenId, uint256 price);
-    event PropertyUnlisted(uint256 indexed tokenId);
-    event PropertySold(uint256 indexed tokenId, address indexed from, address indexed to, uint256 price);
-    event PropertyValuationUpdated(uint256 indexed tokenId, uint256 oldValuation, uint256 newValuation);
-    
-    // Modifiers
-    modifier onlyTokenOwner(uint256 tokenId) {
-        require(ownerOf(tokenId) == msg.sender, "Not the owner of this property token");
-        _;
-    }
-    
-    modifier propertyExists(uint256 tokenId) {
-        require(_exists(tokenId), "Property does not exist");
-        _;
-    }
-    
-    constructor() ERC721("Sharmo Real Estate Token", "SRET") Ownable(msg.sender) {}
-    
-    /**
-     * @dev Mint a new property token
-     * @param to Address that will own the property token
-     * @param location Physical location of the property
-     * @param valuation Initial valuation of the property
-     * @param propertyType Type of property (Residential, Commercial, etc.)
-     * @param sqFootage Square footage of the property
-     * @param tokenURI URI for property metadata
-     */
-    function mintProperty(
-        address to,
-        string memory location,
-        uint256 valuation,
-        string memory propertyType,
-        uint256 sqFootage,
-        string memory tokenURI
-    ) public onlyOwner returns (uint256) {
-        uint256 newTokenId = _tokenIds.current();
-        _mint(to, newTokenId);
-        _setTokenURI(newTokenId, tokenURI);
-        
-        properties[newTokenId] = Property({
-            id: newTokenId,
-            location: location,
-            valuation: valuation,
-            forSale: false,
-            salePrice: 0,
-            propertyType: propertyType,
-            sqFootage: sqFootage,
-            createdAt: block.timestamp,
-            originalOwner: to
-        });
-        
-        emit PropertyMinted(newTokenId, to, location, valuation);
-        
-        _tokenIds.increment();
-        return newTokenId;
-    }
-    
-    /**
-     * @dev List a property for sale
-     * @param tokenId ID of the property token
-     * @param price Sale price in wei
-     */
-    function listPropertyForSale(uint256 tokenId, uint256 price) 
-        public 
-        onlyTokenOwner(tokenId) 
-        propertyExists(tokenId) 
-    {
-        require(price > 0, "Price must be greater than zero");
-        
-        properties[tokenId].forSale = true;
-        properties[tokenId].salePrice = price;
-        propertyPrices[tokenId] = price;
-        
-        emit PropertyListed(tokenId, price);
-    }
-    
-    /**
-     * @dev Remove property from sale
-     * @param tokenId ID of the property token
-     */
-    function unlistProperty(uint256 tokenId) 
-        public 
-        onlyTokenOwner(tokenId) 
-        propertyExists(tokenId) 
-    {
-        require(properties[tokenId].forSale, "Property is not for sale");
-        
-        properties[tokenId].forSale = false;
-        properties[tokenId].salePrice = 0;
-        delete propertyPrices[tokenId];
-        
-        emit PropertyUnlisted(tokenId);
-    }
-    
-    /**
-     * @dev Buy a property that is for sale
-     * @param tokenId ID of the property token
-     */
-    function buyProperty(uint256 tokenId) 
-        public 
-        payable 
-        propertyExists(tokenId) 
-        nonReentrant 
-    {
-        Property storage property = properties[tokenId];
-        require(property.forSale, "Property is not for sale");
-        require(msg.value >= property.salePrice, "Insufficient funds sent");
-        require(ownerOf(tokenId) != msg.sender, "Cannot buy your own property");
-        
-        address seller = ownerOf(tokenId);
-        
-        // Transfer ownership
-        _transfer(seller, msg.sender, tokenId);
-        
-        // Update property details
-        property.forSale = false;
-        uint256 salePrice = property.salePrice;
-        property.salePrice = 0;
-        delete propertyPrices[tokenId];
-        
-        // Transfer funds to seller
-        (bool success, ) = payable(seller).call{value: msg.value}("");
-        require(success, "Transfer failed");
-        
-        emit PropertySold(tokenId, seller, msg.sender, salePrice);
-    }
-    
-    /**
-     * @dev Update property valuation
-     * @param tokenId ID of the property token
-     * @param newValuation New valuation amount
-     */
-    function updateValuation(uint256 tokenId, uint256 newValuation) 
-        public 
-        onlyOwner 
-        propertyExists(tokenId) 
-    {
-        require(newValuation > 0, "Valuation must be greater than zero");
-        
-        uint256 oldValuation = properties[tokenId].valuation;
-        properties[tokenId].valuation = newValuation;
-        
-        emit PropertyValuationUpdated(tokenId, oldValuation, newValuation);
-    }
-    
-    /**
-     * @dev Get all properties owned by an address
-     * @param owner Address to check
-     * @return Array of property token IDs
-     */
-    function getPropertiesOfOwner(address owner) public view returns (uint256[] memory) {
-        uint256 balance = balanceOf(owner);
-        uint256[] memory result = new uint256[](balance);
-        
-        for (uint256 i = 0; i < balance; i++) {
-            result[i] = tokenOfOwnerByIndex(owner, i);
-        }
-        
-        return result;
-    }
-    
-    /**
-     * @dev Get property details
-     * @param tokenId ID of the property token
-     * @return Property struct with details
-     */
-    function getPropertyDetails(uint256 tokenId) 
-        public 
-        view 
-        propertyExists(tokenId) 
-        returns (Property memory) 
-    {
-        return properties[tokenId];
-    }
-    
-    /**
-     * @dev Override functions to make ERC721URIStorage and ERC721Enumerable compatible
-     */
-    function _update(address to, uint256 tokenId, address auth)
-        internal
-        override(ERC721, ERC721Enumerable)
-        returns (address)
-    {
-        return super._update(to, tokenId, auth);
-    }
-
-    function _increaseBalance(address account, uint128 value)
-        internal
-        override(ERC721, ERC721Enumerable)
-    {
-        super._increaseBalance(account, value);
-    }
-
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
-        return super.tokenURI(tokenId);
-    }
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721Enumerable, ERC721URIStorage)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
-    }
-}</code></pre>
+                            </div>
+                            <div>
+                                <h4>tokenizeProperty()</h4>
+                                <span class="function-tag">onlyOwner</span>
                             </div>
                         </div>
+                        <div class="function-code">
+                            <pre><code>function tokenizeProperty(
+  string location,
+  uint256 valuation,
+  uint256 tokenSupply
+) public onlyOwner returns (uint256)</code></pre>
+                        </div>
+                        <p class="function-description">Creates a tokenized property divided into multiple shares with verified ownership and legal compliance.</p>
+                    </div>
+                    
+                    <div class="function-card">
+                        <div class="function-header">
+                            <div class="function-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>purchaseTokens()</h4>
+                                <span class="function-tag">payable</span>
+                            </div>
+                        </div>
+                        <div class="function-code">
+                            <pre><code>function purchaseTokens(
+  uint256 propertyId,
+  uint256 tokenAmount
+) public payable nonReentrant</code></pre>
+                        </div>
+                        <p class="function-description">Allows investors to buy property tokens with reentrancy protection and automatic validation.</p>
+                    </div>
+                    
+                    <div class="function-card">
+                        <div class="function-header">
+                            <div class="function-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>listTokensForSale()</h4>
+                                <span class="function-tag">public</span>
+                            </div>
+                        </div>
+                        <div class="function-code">
+                            <pre><code>function listTokensForSale(
+  uint256 propertyId,
+  uint256 tokenAmount,
+  uint256 pricePerToken
+) public</code></pre>
+                        </div>
+                        <p class="function-description">Lists tokens for sale with escrow locking and ownership verification for secure trading.</p>
+                    </div>
+                    
+                    <div class="function-card">
+                        <div class="function-header">
+                            <div class="function-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>distributeReturns()</h4>
+                                <span class="function-tag">onlyOwner</span>
+                            </div>
+                        </div>
+                        <div class="function-code">
+                            <pre><code>function distributeReturns(
+  uint256 propertyId,
+  uint256 totalAmount
+) public onlyOwner</code></pre>
+                        </div>
+                        <p class="function-description">Distributes rental income proportionally to token holders based on ownership percentage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                /* Enhanced styling for code showcase */
+                .code-showcase {
+                    margin: 40px auto;
+                    max-width: 1000px;
+                    padding: 0 20px;
+                }
+                
+                .section-description {
+                    text-align: center;
+                    max-width: 600px;
+                    margin: 0 auto 30px;
+                    color: #64748B;
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                }
+                
+                .section-subheading {
+                    margin-bottom: 15px;
+                    text-align: center;
+                    background: linear-gradient(90deg, #6366F1, #8B5CF6);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 600;
+                    font-size: 1.7rem;
+                }
+                
+                .functions-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                    width: 100%;
+                }
+                
+                .function-card {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 20px;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+                    text-align: left;
+                    border: 1px solid rgba(99, 102, 241, 0.08);
+                    transition: all 0.3s ease;
+                }
+                
+                .function-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.1);
+                    border-color: rgba(99, 102, 241, 0.2);
+                }
+                
+                .function-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 15px;
+                }
+                
+                .function-icon {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(99, 102, 241, 0.08);
+                    border-radius: 10px;
+                }
+                
+                .function-header h4 {
+                    font-size: 1.1rem;
+                    margin: 0 0 5px;
+                    color: #1E293B;
+                    font-weight: 600;
+                }
+                
+                .function-tag {
+                    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+                    padding: 3px 8px;
+                    border-radius: 50px;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    color: #6366F1;
+                }
+                
+                .function-code {
+                    background: #F8FAFC;
+                    border-radius: 8px;
+                    padding: 12px;
+                    margin-bottom: 12px;
+                    border: 1px solid #E2E8F0;
+                    overflow-x: auto;
+                }
+                
+                .function-code pre {
+                    margin: 0;
+                    white-space: pre;
+                }
+                
+                .function-code code {
+                    font-family: 'Fira Code', monospace;
+                    font-size: 0.8rem;
+                    color: #334155;
+                }
+                
+                .function-description {
+                    color: #64748B;
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                    margin: 0;
+                }
+                
+                @media (max-width: 768px) {
+                    .functions-grid {
+                        grid-template-columns: 1fr;
+                        gap: 15px;
+                    }
+                    
+                    .section-subheading {
+                        font-size: 1.5rem;
+                    }
+                }
+            </style>
+
+                    <!-- CTA Button -->
+                    <div class="token-action">
+                        <a href="/marketplace.html" class="btn-primary">
+                            <span>Explore Available Properties</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Script for syntax highlighting -->
+                <!-- Script for code copy functionality -->
                 <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const codeElement = document.getElementById('solidity-code');
-                        if (codeElement) {
-                            const solidity = codeElement.innerText;
-                            let highlightedCode = solidity;
+                    function copyCodeToClipboard() {
+                        const codeElement = document.querySelector('.code-content code');
+                        const textToCopy = codeElement.innerText;
+                        
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            const copyBtn = document.getElementById('copy-code-btn');
+                            const originalText = copyBtn.innerHTML;
                             
-                            // Highlight comments
-                            highlightedCode = highlightedCode.replace(/(\/\/.*$|\/\*[\s\S]*?\*\/)/gm, 
-                        '<span class="comment">$1</span>');
-                    
-                            // Highlight strings
-                            highlightedCode = highlightedCode.replace(/("(?:\\.|[^"\\])*")/g, 
-                        '<span class="string">$1</span>');
-                    
-                            // Highlight keywords
-                            const keywords = ['pragma', 'solidity', 'contract', 'function', 'public', 'private', 
-                                'internal', 'external', 'view', 'pure', 'returns', 'return', 'struct', 
-                                'mapping', 'memory', 'storage', 'import', 'is', 'for', 'while', 'if', 'else'];
-                                
-                    keywords.forEach(keyword => {
-                        const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-                                highlightedCode = highlightedCode.replace(regex, '<span class="keyword">$1</span>');
-                    });
-                    
-                            // Highlight types
-                    const types = ['uint', 'uint256', 'int', 'bytes', 'string', 'address', 'bool'];
-                    types.forEach(type => {
-                        const regex = new RegExp(`\\b(${type})\\b`, 'g');
-                                highlightedCode = highlightedCode.replace(regex, '<span class="type">$1</span>');
-                            });
+                            copyBtn.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>Copied!</span>
+                            `;
                             
-                            // Highlight numbers
-                            highlightedCode = highlightedCode.replace(/\b(\d+)\b/g, 
-                                '<span class="number">$1</span>');
-                                
-                            // Highlight custom types (capitalized words)
-                            highlightedCode = highlightedCode.replace(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 
-                        '<span class="custom-type">$1</span>');
-                    
-                            codeElement.innerHTML = highlightedCode;
-                        }
-                    });
+                            setTimeout(() => {
+                                copyBtn.innerHTML = originalText;
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    }
                 </script>
+                        </div>
+        </section>
 
-                <!-- CTA Button -->
-                <div class="token-action">
-                    <a href="/marketplace.html" class="btn-primary">
-                        <span>Explore Available Properties</span>
-                        <svg viewBox="0 0 24 24" width="16" height="16">
-                            <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+        <section id="benefits" class="benefits">
+            <div class="container">
+                <h2>Key Benefits of Tokenization</h2>
+                <p class="section-intro">Real estate tokenization transforms property investment with these powerful advantages:</p>
+                
+                <!-- Replace repetitive card grid with a more varied, modern layout -->
+                <div class="benefits-container">
+                    <!-- Left column - Featured benefits -->
+                    <div class="benefits-featured">
+                        <div class="benefit-hero">
+                            <div class="benefit-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 12L12 12L15 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>Smart Income Distribution</h3>
+                                <p>Receive rental income automatically through smart contracts with instant settlement. Our transparent payment tracking eliminates delays and middlemen.</p>
+                                <div class="benefit-stat">
+                                    <div class="stat-value">Instant</div>
+                                    <div class="stat-label">Settlement time</div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="benefits-stats">
+                            <div class="stat-block">
+                                <div class="stat-value">$100</div>
+                                <div class="stat-label">Minimum investment</div>
+                            </div>
+                            <div class="stat-block">
+                                <div class="stat-value">24/7</div>
+                                <div class="stat-label">Global trading</div>
+                        </div>
+                            <div class="stat-block">
+                                <div class="stat-value">100%</div>
+                                <div class="stat-label">Transparency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right column - Benefits grid -->
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 12L12 14.01L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Fractional Ownership</h4>
+                        </div>
+                            <p>Invest in high-value properties with minimal capital, removing traditional barriers to real estate.</p>
+                            </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Instant Liquidity</h4>
+                        </div>
+                            <p>Trade property tokens 24/7 on exchanges, eliminating the months-long real estate selling process.</p>
+                    </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18457 2.99721 7.13633 4.39828 5.49707C5.79935 3.85782 7.69279 2.71538 9.79619 2.24015C11.8996 1.76491 14.1003 1.98234 16.07 2.86" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Portfolio Diversification</h4>
+                        </div>
+                            <p>Build a diverse real estate portfolio across multiple locations without geographic constraints.</p>
+                </div>
+                    
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Transparent Transactions</h4>
+                            </div>
+                            <p>All property details and transaction history are permanently recorded on the blockchain.</p>
+                    </div>
+                    
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.31 8L20.05 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9.69 8L3.95 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 2V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Global Accessibility</h4>
+                            </div>
+                            <p>Access real estate investments from anywhere, breaking down geographical barriers to property ownership.</p>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h4>Risk Mitigation</h4>
+                        </div>
+                            <p>Spread investment across multiple properties to reduce exposure to market volatility in any single location.</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!-- CTA Banner -->
+                <div class="benefits-cta">
+                    <h3>Experience these benefits yourself</h3>
+                    <p>Start exploring tokenized properties and discover a new way to build wealth through real estate.</p>
+                    <a href="/marketplace.html" class="btn primary-btn">
+                        <span class="btn-text">Browse Properties</span>
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
                     </a>
                 </div>
             </div>
-
-            <!-- Script for code copy functionality -->
-            <script>
-                function copyCodeToClipboard() {
-                    const codeElement = document.querySelector('.code-content code');
-                    const textToCopy = codeElement.innerText;
+            
+            <!-- Animated background elements (kept for consistency) -->
+            <div class="blockchain-nodes">
+                <div class="node-element n1"></div>
+                <div class="node-element n2"></div>
+                <div class="node-element n3"></div>
+                <div class="node-element n4"></div>
+            </div>
+            
+            <!-- Add this style block to support the new design -->
+            <style>
+                .benefits {
+                    position: relative;
+                    overflow: hidden;
+                    padding: 80px 0;
+                }
+                
+                .benefits h2 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                
+                .benefits-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1.5fr;
+                    gap: 30px;
+                    margin-top: 40px;
+                }
+                
+                .benefits-featured {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+                
+                .benefit-hero {
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(124, 58, 237, 0.1));
+                    border-radius: 16px;
+                    padding: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    border: 1px solid rgba(99, 102, 241, 0.2);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                    height: 100%;
+                }
+                
+                .benefit-icon {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #6366F1, #7C3AED);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    margin-bottom: 20px;
+                }
+                
+                .benefit-content h3 {
+                    font-size: 1.8rem;
+                    margin-bottom: 15px;
+                    background: linear-gradient(to right, #6366F1, #7C3AED);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                
+                .benefit-content p {
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                    margin-bottom: 25px;
+                }
+                
+                .benefit-stat {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 12px;
+                    padding: 15px;
+                    border: 1px solid rgba(99, 102, 241, 0.2);
+                }
+                
+                .benefit-stat .stat-value {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    color: #6366F1;
+                    margin-bottom: 5px;
+                }
+                
+                .benefit-stat .stat-label {
+                    font-size: 0.9rem;
+                    color: #64748B;
+                }
+                
+                .benefits-stats {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 15px;
+                }
+                
+                .stat-block {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 20px;
+                    text-align: center;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                    transition: transform 0.3s ease;
+                }
+                
+                .stat-block:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .stat-block .stat-value {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #6366F1;
+                    margin-bottom: 5px;
+                }
+                
+                .stat-block .stat-label {
+                    font-size: 0.85rem;
+                    color: #64748B;
+                }
+                
+                .benefits-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                }
+                
+                .benefit-item {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                    transition: all 0.3s ease;
+                    height: 100%;
+                }
+                
+                .benefit-item:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                }
+                
+                .benefit-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 15px;
+                }
+                
+                .benefit-header svg {
+                    color: #6366F1;
+                }
+                
+                .benefit-header h4 {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    margin: 0;
+                }
+                
+                .benefit-item p {
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                    color: #64748B;
+                    margin: 0;
+                }
+                
+                .benefits-cta {
+                    margin-top: 60px;
+                    background: linear-gradient(135deg, #6366F1, #7C3AED);
+                    border-radius: 16px;
+                    padding: 40px;
+                    text-align: center;
+                    color: white;
+                }
+                
+                .benefits-cta h3 {
+                    font-size: 1.8rem;
+                    margin-bottom: 15px;
+                    color: white;
+                }
+                
+                .benefits-cta p {
+                    font-size: 1.1rem;
+                    margin-bottom: 25px;
+                    max-width: 600px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    opacity: 0.9;
+                }
+                
+                .benefits-cta .btn {
+                    background: white;
+                    color: #6366F1;
+                    border: none;
+                }
+                
+                .benefits-cta .btn:hover {
+                    background: rgba(255, 255, 255, 0.9);
+                    transform: translateY(-2px);
+                }
+                
+                .benefits-cta .btn .btn-icon {
+                    color: #6366F1;
+                }
+                
+                @media (max-width: 1024px) {
+                    .benefits-container {
+                        grid-template-columns: 1fr;
+                    }
                     
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const copyBtn = document.getElementById('copy-code-btn');
-                        const originalText = copyBtn.innerHTML;
+                    .benefits-stats {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+                
+                @media (max-width: 768px) {
+                    .benefits-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .benefits-cta {
+                        padding: 30px 20px;
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .benefits-stats {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .benefit-hero {
+                        padding: 20px;
+                    }
+                }
+            </style>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-header" style="text-align: center; width: 100%;">
+                    <h2 style="color: #6366f1 !important; -webkit-text-fill-color: #6366f1 !important; background: none !important; text-align: center !important; width: 100%; margin: 0 auto 20px auto !important;">Connect With Us</h2>
+                </div>
+                
+                <div class="contact-card">
+                    <form class="crypto-form" id="contactForm">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="name">Full Name</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="name" placeholder="Your name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label for="email">Email Address</label>
+                                <div class="input-wrapper">
+                                    <input type="email" id="email" placeholder="Your email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label for="investmentType">Investment Interest</label>
+                                <div class="input-wrapper">
+                                    <select id="investmentType">
+                                        <option value="" disabled selected>Select interest</option>
+                                        <option value="buy">Buy Tokens</option>
+                                        <option value="sell">Tokenize Property</option>
+                                        <option value="learn">Learn More</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label for="budget">Investment Budget</label>
+                                <div class="input-wrapper">
+                                    <select id="budget">
+                                        <option value="" disabled selected>Select range</option>
+                                        <option value="under10k">Under $10,000</option>
+                                        <option value="10k-50k">$10,000 - $50,000</option>
+                                        <option value="50k-100k">$50,000 - $100,000</option>
+                                        <option value="100k-plus">$100,000+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         
-                        copyBtn.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27c93f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Copied!</span>
-                        `;
+                        <div class="form-field full-width">
+                            <label for="message">Message</label>
+                            <div class="input-wrapper">
+                                <textarea id="message" placeholder="Tell us how we can help you" rows="3"></textarea>
+                            </div>
+                        </div>
                         
+                        <div class="form-consent">
+                            <label class="checkbox-container">
+                                <input type="checkbox" required>
+                                <span class="checkmark"></span>
+                                <span class="consent-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">
+                            <span class="button-text">Submit Request</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Enhanced Contact Section Styling -->
+            <style>
+                .contact-section {
+                    padding: 80px 0;
+                    position: relative;
+                    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.8));
+                    overflow: hidden;
+                }
+                
+                .contact-section::before {
+                    content: '';
+                    position: absolute;
+                    width: 500px;
+                    height: 500px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(124, 58, 237, 0.05));
+                    top: -250px;
+                    right: -200px;
+                    z-index: 0;
+                }
+                
+                .contact-section::after {
+                    content: '';
+                    position: absolute;
+                    width: 400px;
+                    height: 400px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(124, 58, 237, 0.05));
+                    bottom: -200px;
+                    left: -150px;
+                    z-index: 0;
+                }
+                
+                .contact-section .container {
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .contact-section h2 {
+                    position: relative;
+                    display: inline-block;
+                }
+                
+                .contact-section h2::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 80px;
+                    height: 4px;
+                    background: linear-gradient(to right, #6366F1, #8B5CF6);
+                    border-radius: 2px;
+                }
+                
+                .contact-card {
+                    background: white;
+                    border-radius: 16px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                    padding: 40px;
+                    max-width: 800px;
+                    margin: 40px auto 0;
+                    border: 1px solid rgba(99, 102, 241, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+                
+                .contact-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
+                }
+                
+                .form-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                    margin-bottom: 20px;
+                }
+                
+                .form-field {
+                    margin-bottom: 20px;
+                }
+                
+                .form-field label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 500;
+                    color: #374151;
+                    font-size: 0.95rem;
+                }
+                
+                .input-wrapper {
+                    position: relative;
+                }
+                
+                .input-wrapper input,
+                .input-wrapper select,
+                .input-wrapper textarea {
+                    width: 100%;
+                    padding: 12px 16px;
+                    border: 1px solid rgba(99, 102, 241, 0.2);
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.9);
+                    color: #1F2937;
+                    font-size: 1rem;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                }
+                
+                .input-wrapper input::placeholder,
+                .input-wrapper select::placeholder,
+                .input-wrapper textarea::placeholder {
+                    color: #9CA3AF;
+                }
+                
+                .input-wrapper input:focus,
+                .input-wrapper select:focus,
+                .input-wrapper textarea:focus {
+                    outline: none;
+                    border-color: #6366F1;
+                    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+                    background: white;
+                }
+                
+                textarea {
+                    min-height: 120px;
+                    resize: vertical;
+                }
+                
+                .form-consent {
+                    margin: 25px 0;
+                }
+                
+                .checkbox-container {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    cursor: pointer;
+                    user-select: none;
+                    padding-left: 35px;
+                    color: #4B5563;
+                    font-size: 0.95rem;
+                }
+                
+                .checkbox-container input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+                
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 22px;
+                    width: 22px;
+                    background-color: #F9FAFB;
+                    border: 1px solid rgba(99, 102, 241, 0.3);
+                    border-radius: 6px;
+                    transition: all 0.2s ease;
+                }
+                
+                .checkbox-container:hover input ~ .checkmark {
+                    background-color: #F3F4F6;
+                }
+                
+                .checkbox-container input:checked ~ .checkmark {
+                    background-color: #6366F1;
+                    border-color: #6366F1;
+                }
+                
+                .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+                
+                .checkbox-container input:checked ~ .checkmark:after {
+                    display: block;
+                }
+                
+                .checkbox-container .checkmark:after {
+                    left: 8px;
+                    top: 4px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
+                
+                .consent-text a {
+                    color: #6366F1;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.2s ease;
+                }
+                
+                .consent-text a:hover {
+                    color: #4F46E5;
+                    text-decoration: underline;
+                }
+                
+                .submit-button {
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                    color: white;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 14px 28px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    width: 100%;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .submit-button::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.7s ease;
+                }
+                
+                .submit-button:hover {
+                    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+                    transform: translateY(-2px);
+                }
+                
+                .submit-button:hover::before {
+                    left: 100%;
+                }
+                
+                .full-width {
+                    grid-column: 1 / -1;
+                }
+                
+                @media (max-width: 768px) {
+                    .contact-section {
+                        padding: 60px 0;
+                    }
+                    
+                    .contact-card {
+                        padding: 30px;
+                        margin-top: 30px;
+                    }
+                    
+                    .form-grid {
+                        grid-template-columns: 1fr;
+                        gap: 15px;
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .contact-card {
+                        padding: 25px 20px;
+                        border-radius: 12px;
+                    }
+                    
+                    .input-wrapper input,
+                    .input-wrapper select,
+                    .input-wrapper textarea {
+                        padding: 10px 14px;
+                        font-size: 0.95rem;
+                    }
+                    
+                    .submit-button {
+                        padding: 12px 20px;
+                    }
+                }
+            </style>
+        </section>
+
+        <!-- Navigation JS -->
+        <script src="js/navigation.js"></script>
+
+        <!-- Code Showcase JS -->
+        <script>
+            function copyCode() {
+                const code = document.querySelector('.code-content').textContent;
+                navigator.clipboard.writeText(code)
+                    .then(() => {
+                        const copyBtn = document.querySelector('.copy-btn');
+                        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>';
                         setTimeout(() => {
-                            copyBtn.innerHTML = originalText;
+                            copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
                         }, 2000);
-                    }).catch(err => {
+                    })
+                    .catch(err => {
                         console.error('Failed to copy: ', err);
                     });
+            }
+            
+            // Add hover effect for explanation items
+            document.addEventListener('DOMContentLoaded', function() {
+                const explanationItems = document.querySelectorAll('.explanation-item');
+                explanationItems.forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        item.style.transform = 'translateX(5px)';
+                    });
+                    item.addEventListener('mouseleave', function() {
+                        item.style.transform = '';
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            // Create blockchain connections and data particles
+            document.addEventListener('DOMContentLoaded', function() {
+                const blockchain = document.querySelector('.blockchain-animation');
+                const nodes = document.querySelectorAll('.node');
+                
+                // Connect nodes with lines
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        if (Math.random() > 0.3) { // 70% chance to create a connection
+                            createConnection(nodes[i], nodes[j], blockchain);
+                        }
+                    }
                 }
-            </script>
-                    </div>
-    </section>
-
-    <section id="benefits" class="benefits">
-        <div class="container">
-            
-            <p class="section-intro">Learn all the ways that you can use tokenization to your advantage!</p>
-            
-            <div class="card-grid">
-                <div class="feature-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2 12L12 14.01L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Fractional Ownership</h3>
-                        </div>
-                    <div class="card-content">
-                        <p>Invest in high-value properties with as little as $100, removing traditional barriers to real estate investing.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">100x</div>
-                            <div class="crypto-label">Lower barrier to entry</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Instant Liquidity</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Trade property tokens 24/7 on decentralized exchanges, eliminating the typical months-long real estate selling process.</p>
-                        </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">24/7</div>
-                            <div class="crypto-label">Global trading</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card card-highlight">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9 12L12 12L15 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                    </div>
-                        <h3>Smart Income Distribution</h3>
-                        </div>
-                    <div class="card-content">
-                        <p>Receive rental income automatically through smart contracts, with transparent payment tracking and instant settlement.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">0s</div>
-                            <div class="crypto-label">Settlement time</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18457 2.99721 7.13633 4.39828 5.49707C5.79935 3.85782 7.69279 2.71538 9.79619 2.24015C11.8996 1.76491 14.1003 1.98234 16.07 2.86" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                    </div>
-                        <h3>Portfolio Diversification</h3>
-                        </div>
-                    <div class="card-content">
-                        <p>Build a diverse real estate portfolio across multiple locations and property types without geographic constraints.</p>
-                        </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">Global</div>
-                            <div class="crypto-label">Investment reach</div>
-                    </div>
-                </div>
-            </div>
                 
-                <div class="feature-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Transparent Transactions</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>All property details and transaction history are permanently recorded on the blockchain, providing complete transparency.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">100%</div>
-                            <div class="crypto-label">Verifiable records</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M14.31 8L20.05 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.69 8L3.95 17.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 2V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Global Accessibility</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Access real estate investments from anywhere in the world, breaking down geographical barriers to property ownership.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="crypto-stat small">
-                            <div class="crypto-value">5 mins</div>
-                            <div class="crypto-label">Investment process</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Add animated background elements -->
-        <div class="blockchain-nodes">
-            <div class="node-element n1"></div>
-            <div class="node-element n2"></div>
-            <div class="node-element n3"></div>
-            <div class="node-element n4"></div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="contact-header" style="text-align: center; width: 100%;">
-                <h2 style="color: #6366f1 !important; -webkit-text-fill-color: #6366f1 !important; background: none !important; text-align: center !important; width: 100%; margin: 0 auto 20px auto !important;">Connect With Us</h2>
-            </div>
+                // Create data particles flowing between nodes
+                setInterval(() => {
+                    const startNode = nodes[Math.floor(Math.random() * nodes.length)];
+                    const endNode = nodes[Math.floor(Math.random() * nodes.length)];
+                    
+                    if (startNode !== endNode) {
+                        createDataParticle(startNode, endNode, blockchain);
+                    }
+                }, 2000);
+            });
             
-            <div class="contact-card">
-                <form class="crypto-form" id="contactForm">
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label for="name">Full Name</label>
-                            <div class="input-wrapper">
-                                <input type="text" id="name" placeholder="Your name" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-field">
-                            <label for="email">Email Address</label>
-                            <div class="input-wrapper">
-                                <input type="email" id="email" placeholder="Your email" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-field">
-                            <label for="investmentType">Investment Interest</label>
-                            <div class="input-wrapper">
-                                <select id="investmentType">
-                                    <option value="" disabled selected>Select interest</option>
-                                    <option value="buy">Buy Tokens</option>
-                                    <option value="sell">Tokenize Property</option>
-                                    <option value="learn">Learn More</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-field">
-                            <label for="budget">Investment Budget</label>
-                            <div class="input-wrapper">
-                                <select id="budget">
-                                    <option value="" disabled selected>Select range</option>
-                                    <option value="under10k">Under $10,000</option>
-                                    <option value="10k-50k">$10,000 - $50,000</option>
-                                    <option value="50k-100k">$50,000 - $100,000</option>
-                                    <option value="100k-plus">$100,000+</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-field full-width">
-                        <label for="message">Message</label>
-                        <div class="input-wrapper">
-                            <textarea id="message" placeholder="Tell us how we can help you" rows="3"></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="form-consent">
-                        <label class="checkbox-container">
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            <span class="consent-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="submit-button">
-                        <span class="button-text">Submit Request</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+            function createConnection(node1, node2, parent) {
+                const connection = document.createElement('div');
+                connection.className = 'connection';
+                
+                const rect1 = node1.getBoundingClientRect();
+                const rect2 = node2.getBoundingClientRect();
+                
+                const x1 = rect1.left + rect1.width/2;
+                const y1 = rect1.top + rect1.height/2;
+                const x2 = rect2.left + rect2.width/2;
+                const y2 = rect2.top + rect2.height/2;
+                
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                
+                connection.style.width = `${length}px`;
+                connection.style.height = '2px';
+                connection.style.position = 'absolute';
+                connection.style.top = `${y1}px`;
+                connection.style.left = `${x1}px`;
+                connection.style.transformOrigin = '0 0';
+                connection.style.transform = `rotate(${angle}deg)`;
+                
+                parent.appendChild(connection);
+            }
+            
+            function createDataParticle(startNode, endNode, parent) {
+                const particle = document.createElement('div');
+                particle.className = 'data-particle';
+                
+                const rect1 = startNode.getBoundingClientRect();
+                const rect2 = endNode.getBoundingClientRect();
+                
+                const x1 = rect1.left + rect1.width/2;
+                const y1 = rect1.top + rect1.height/2;
+                const x2 = rect2.left + rect2.width/2;
+                const y2 = rect2.top + rect2.height/2;
+                
+                const flowX = x2 - x1;
+                const flowY = y2 - y1;
+                
+                particle.style.top = `${y1}px`;
+                particle.style.left = `${x1}px`;
+                particle.style.setProperty('--flow-x', `${flowX}px`);
+                particle.style.setProperty('--flow-y', `${flowY}px`);
+                
+                parent.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, 5000);
+            }
+        </script>
 
-    <!-- Navigation JS -->
-    <script src="js/navigation.js"></script>
-
-    <!-- Code Showcase JS -->
-    <script>
-        function copyCode() {
-            const code = document.querySelector('.code-content').textContent;
-            navigator.clipboard.writeText(code)
-                .then(() => {
-                    const copyBtn = document.querySelector('.copy-btn');
-                    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>';
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
-                    }, 2000);
+        <!-- Include the footer component -->
+        <div id="footer-container"></div>
+        <script>
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
                 })
-                .catch(err => {
-                    console.error('Failed to copy: ', err);
+                .catch(error => {
+                    console.error('Error loading footer:', error);
                 });
-        }
+        </script>
+
+        <!-- Particles.js for background effects -->
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         
-        // Add hover effect for explanation items
-        document.addEventListener('DOMContentLoaded', function() {
-            const explanationItems = document.querySelectorAll('.explanation-item');
-            explanationItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    item.style.transform = 'translateX(5px)';
-                });
-                item.addEventListener('mouseleave', function() {
-                    item.style.transform = '';
-                });
-            });
-        });
-    </script>
+        <!-- Three.js for 3D effects (optional) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script>
-        // Create blockchain connections and data particles
-        document.addEventListener('DOMContentLoaded', function() {
-            const blockchain = document.querySelector('.blockchain-animation');
-            const nodes = document.querySelectorAll('.node');
-            
-            // Connect nodes with lines
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    if (Math.random() > 0.3) { // 70% chance to create a connection
-                        createConnection(nodes[i], nodes[j], blockchain);
-                    }
-                }
-            }
-            
-            // Create data particles flowing between nodes
-            setInterval(() => {
-                const startNode = nodes[Math.floor(Math.random() * nodes.length)];
-                const endNode = nodes[Math.floor(Math.random() * nodes.length)];
-                
-                if (startNode !== endNode) {
-                    createDataParticle(startNode, endNode, blockchain);
-                }
-            }, 2000);
-        });
-        
-        function createConnection(node1, node2, parent) {
-            const connection = document.createElement('div');
-            connection.className = 'connection';
-            
-            const rect1 = node1.getBoundingClientRect();
-            const rect2 = node2.getBoundingClientRect();
-            
-            const x1 = rect1.left + rect1.width/2;
-            const y1 = rect1.top + rect1.height/2;
-            const x2 = rect2.left + rect2.width/2;
-            const y2 = rect2.top + rect2.height/2;
-            
-            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-            
-            connection.style.width = `${length}px`;
-            connection.style.height = '2px';
-            connection.style.position = 'absolute';
-            connection.style.top = `${y1}px`;
-            connection.style.left = `${x1}px`;
-            connection.style.transformOrigin = '0 0';
-            connection.style.transform = `rotate(${angle}deg)`;
-            
-            parent.appendChild(connection);
-        }
-        
-        function createDataParticle(startNode, endNode, parent) {
-            const particle = document.createElement('div');
-            particle.className = 'data-particle';
-            
-            const rect1 = startNode.getBoundingClientRect();
-            const rect2 = endNode.getBoundingClientRect();
-            
-            const x1 = rect1.left + rect1.width/2;
-            const y1 = rect1.top + rect1.height/2;
-            const x2 = rect2.left + rect2.width/2;
-            const y2 = rect2.top + rect2.height/2;
-            
-            const flowX = x2 - x1;
-            const flowY = y2 - y1;
-            
-            particle.style.top = `${y1}px`;
-            particle.style.left = `${x1}px`;
-            particle.style.setProperty('--flow-x', `${flowX}px`);
-            particle.style.setProperty('--flow-y', `${flowY}px`);
-            
-            parent.appendChild(particle);
-            
-            // Remove particle after animation completes
-            setTimeout(() => {
-                particle.remove();
-            }, 5000);
-        }
-    </script>
-
-    <!-- Include the footer component -->
-    <div id="footer-container"></div>
-    <script>
-        fetch('components/footer.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('footer-container').innerHTML = html;
-                
-                // Ensure footer visibility
-                setTimeout(() => {
-                    const footer = document.querySelector('.footer');
-                    if (footer) {
-                        footer.style.display = 'block';
-                        footer.style.visibility = 'visible';
-                        footer.style.opacity = '1';
-                        
-                        // Make sure disclaimer is visible
-                        const disclaimer = document.querySelector('.legal-disclaimer');
-                        if (disclaimer) {
-                            disclaimer.style.display = 'block';
-                            disclaimer.style.visibility = 'visible';
-                            disclaimer.style.opacity = '1';
-                        }
-                    }
-                }, 100);
-            })
-            .catch(error => {
-                console.error('Error loading footer:', error);
-            });
-    </script>
-
-    <!-- AI Chat Interface -->
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="chat-title">
-                <div class="chat-logo">
-                    <!-- Simplified message icon -->
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                </div>
-                <h3>Chat with Sharmo</h3>
-            </div>
-            <div class="chat-actions">
-                <button id="closeChat" aria-label="Close chat">
-                    <!-- Simplified X icon -->
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div id="chatMessages" class="chat-messages"></div>
-        <div class="chat-footer">
-            <span id="remainingMessages">5/5 questions remaining</span>
-        </div>
-        <div class="chat-input">
-            <textarea id="userInput" placeholder="Ask about tokenization..." aria-label="Chat input"></textarea>
-            <button id="sendMessage" aria-label="Send message">
-                <!-- Simplified send icon -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    <!-- Chat button (floating) -->
-    <button id="openChat" class="chat-button">
-        <!-- Simplified chat icon -->
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-    </button>
-    
-    <!-- Chat functionality -->
-    <script type="module" src="js/config.js"></script>
-    <script type="module" src="js/chat.js"></script>
-    
-    <!-- Whitepaper validator -->
-    <script src="js/whitepaper-loader.js"></script>
-    
-    <!-- Simple Chat Initialization -->
-    <script>
-        // Wait until the page is fully loaded
-        window.addEventListener('load', function() {
-            // Get elements
-            const chatBtn = document.getElementById('openChat');
-            const closeBtn = document.getElementById('closeChat');
-            const chatContainer = document.querySelector('.chat-container');
-            const chatMessages = document.getElementById('chatMessages');
-            
-            console.log('Chat elements loaded:', { 
-                chatBtn: !!chatBtn, 
-                closeBtn: !!closeBtn, 
-                chatContainer: !!chatContainer 
-            });
-            
-            // Very simple approach - directly manipulate CSS properties
-            
-            // Make button visible on page load
-            if (chatBtn) {
-                chatBtn.style.display = 'flex';
-                chatBtn.style.visibility = 'visible';
-                chatBtn.style.opacity = '1';
-                chatBtn.classList.add('has-notification');
-                console.log('Chat button should be visible now');
-            }
-            
-            // Hide button when opening chat
-            if (chatBtn && chatContainer) {
-                chatBtn.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Prevent event bubbling
-                    console.log('Chat button clicked - opening chat');
-                    
-                    // Show chat window
-                    chatContainer.classList.add('active');
-                    
-                    // Hide chat button - multiple approaches for redundancy
-                    chatBtn.style.display = 'none';
-                    chatBtn.style.visibility = 'hidden';
-                    chatBtn.style.opacity = '0';
-                    
-                    console.log('Chat opened, button hidden');
-                });
-            }
-            
-            // Show button when closing chat
-            if (closeBtn && chatContainer && chatBtn) {
-                closeBtn.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Prevent event bubbling
-                    console.log('Close button clicked - closing chat');
-                    
-                    // Hide chat window
-                    chatContainer.classList.remove('active');
-                    
-                    // Show chat button - multiple approaches for redundancy
-                    chatBtn.style.display = 'flex';
-                    chatBtn.style.visibility = 'visible';
-                    chatBtn.style.opacity = '1';
-                    
-                    console.log('Chat closed, button should be visible');
-                    
-                    // Debug check after a short delay
-                    setTimeout(() => {
-                        console.log('Button visibility check:', {
-                            display: chatBtn.style.display,
-                            visibility: chatBtn.style.visibility,
-                            opacity: chatBtn.style.opacity,
-                            computedStyle: window.getComputedStyle(chatBtn).display
-                        });
-                    }, 100);
-                });
-            }
-            
-            // Add initial message
-            if (chatMessages && chatMessages.children.length === 0) {
-                setTimeout(() => {
-                    const aiMessage = document.createElement('div');
-                    aiMessage.className = 'message ai-message';
-                    aiMessage.innerHTML = '<div class="message-content">Hello! How can I help you with tokenized real estate investment today?</div>';
-                    chatMessages.appendChild(aiMessage);
-                }, 500);
-            }
-        });
-    </script>
-
-    <!-- Failsafe for button visibility -->
-    <script>
-        // This script will run as the last thing on the page
-        (function() {
-            // Force check for chat window state every 2 seconds
-            setInterval(function() {
-                const chatBtn = document.getElementById('openChat');
-                const chatContainer = document.querySelector('.chat-container');
-                
-                if (chatBtn && chatContainer) {
-                    // If chat is not active, ensure button is visible
-                    if (!chatContainer.classList.contains('active')) {
-                        chatBtn.style.display = 'flex';
-                        chatBtn.style.visibility = 'visible';
-                        chatBtn.style.opacity = '1';
-                        
-                        // Debug logging
-                        console.log('Failsafe: Chat is closed, forcing button visibility');
-                    }
-                }
-            }, 2000); // Check every 2 seconds
-            
-            // Also add event listener to ESC key to close chat and show button
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const chatBtn = document.getElementById('openChat');
-                    const chatContainer = document.querySelector('.chat-container');
-                    
-                    if (chatContainer && chatContainer.classList.contains('active')) {
-                        // Close chat
-                        chatContainer.classList.remove('active');
-                        
-                        // Show button
-                        if (chatBtn) {
-                            chatBtn.style.display = 'flex';
-                            chatBtn.style.visibility = 'visible';
-                            chatBtn.style.opacity = '1';
-                            console.log('ESC pressed: Chat closed, button made visible');
-                        }
-                    }
-                }
-            });
-        })();
-    </script>
-</body>
+        <!-- Home page animations -->
+        <script src="js/home-animations.js"></script>
+    </body>
 </html>
