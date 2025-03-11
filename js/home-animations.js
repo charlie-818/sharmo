@@ -194,20 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, Math.random() * 2000 + 1000); // Random interval between 1-3 seconds
     });
     
-    // Animate the heading text with typewriter effect
-    const glitchTexts = document.querySelectorAll('.glitch-text');
-    glitchTexts.forEach(text => {
-        const randomGlitch = () => {
-            text.classList.add('glitching');
-            setTimeout(() => {
-                text.classList.remove('glitching');
-            }, 200);
-        };
-        
-        // Occasionally trigger a glitch effect
-        setInterval(randomGlitch, Math.random() * 5000 + 3000);
-    });
-
     // Scroll-triggered animations
     const animateOnScroll = () => {
         const elements = document.querySelectorAll('.fade-in, .fade-up, .fade-right, .fade-left');

@@ -232,7 +232,8 @@ section:not(:first-of-type)::after {
 
 /* Ensure navigation bar doesn't overlap content */
 .nav {
-    position: fixed;
+    /* Removing these conflicting styles that override navigation.css */
+    /* position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -241,7 +242,7 @@ section:not(:first-of-type)::after {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
-    height: 60px;
+    height: 60px; */
 }
 
 /* Loading indicator styles */

@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const externalLinks = document.querySelectorAll('.nav-links a[href*="marketplace"], .nav-links a[href*="wallet"]');
         externalLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                e.preventDefault();
                 window.location.href = link.getAttribute('href');
             });
         });

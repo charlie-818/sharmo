@@ -320,24 +320,11 @@
 
 /* Section subheading styles */
 .section-subheading {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.35rem;
     color: #1f2937;
     text-align: center;
     margin: 2rem 0 1.5rem;
     position: relative;
-}
-
-.section-subheading::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(to right, #6366f1, #8b5cf6);
-    border-radius: 2px;
 }
 
 /* Protocol grid - compact version */

@@ -67,7 +67,7 @@
     max-width: 600px;
 }
 
-.glitch-heading {
+.vibrant-heading {
     font-size: 3.5rem;
     font-weight: 800;
     line-height: 1.1;
@@ -76,33 +76,18 @@
     position: relative;
 }
 
-.glitch-text {
+.vibrant-text {
     position: relative;
     display: inline-block;
+    transition: color 0.3s ease;
 }
 
-.glitch-text::before,
-.glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.vibrant-text.primary-color {
+    color: #6366F1;
 }
 
-.glitch-text::before {
-    color: rgba(239, 68, 68, 0.7);
-    animation: glitch-effect 3s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-5px, -3px);
-}
-
-.glitch-text::after {
-    color: rgba(99, 102, 241, 0.7);
-    animation: glitch-effect 2s infinite reverse;
-    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-    transform: translate(5px, 3px);
+.vibrant-text.secondary-color {
+    color: #8B5CF6;
 }
 
 .animated-gradient-text {
@@ -143,13 +128,13 @@
 }
 
 .hero-stat {
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 20px;
     border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -175,13 +160,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.08), rgba(0, 0, 0, 0));
+    background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.08), rgba(255, 255, 255, 0));
     z-index: -1;
 }
 
 .hero-stat:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
     border-color: rgba(99, 102, 241, 0.4);
 }
 
@@ -193,20 +178,21 @@
 .hero-stat .counter {
     font-size: 2rem;
     font-weight: 800;
-    color: white;
     display: block;
     margin-bottom: 8px;
     font-family: 'Inter', sans-serif;
     line-height: 1;
-    background: linear-gradient(to right, #fff, #a5b4fc);
+    background: linear-gradient(to right, #1E293B, #334155);
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .hero-stat strong {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1E293B;
     display: block;
 }
 
@@ -545,30 +531,12 @@
     }
 }
 
-@keyframes glitch-effect {
-    0% {
-        transform: translate(-5px, -3px);
-    }
-    25% {
-        transform: translate(-4px, 2px);
-    }
-    50% {
-        transform: translate(5px, -5px);
-    }
-    75% {
-        transform: translate(2px, 4px);
-    }
-    100% {
-        transform: translate(-5px, -3px);
-    }
-}
-
 @keyframes float {
     0% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-15px);
+        transform: translateY(-5px);
     }
     100% {
         transform: translateY(0);
@@ -658,7 +626,7 @@
         margin-right: auto;
     }
     
-    .glitch-heading {
+    .vibrant-heading {
         font-size: 2.8rem;
     }
     
@@ -672,7 +640,7 @@
         padding: 100px 0 60px;
     }
     
-    .glitch-heading {
+    .vibrant-heading {
         font-size: 2.2rem;
     }
     
@@ -697,7 +665,7 @@
 }
 
 @media (max-width: 480px) {
-    .glitch-heading {
+    .vibrant-heading {
         font-size: 1.8rem;
     }
     

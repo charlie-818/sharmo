@@ -28,6 +28,10 @@
     <script src="js/main.js" defer></script>
 
     <style>
+        body {
+            padding-top: 80px; /* Add padding to account for fixed header */
+        }
+        
         .coming-soon-container {
             display: flex;
             flex-direction: column;
@@ -36,6 +40,7 @@
             min-height: calc(100vh - 160px);
             padding: 30px;
             background: var(--primary);
+            margin-top: 0; /* Ensure there's no extra top margin */
         }
         
         .diagram-container {
@@ -256,88 +261,141 @@
         
         .property-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
         }
         
+        /* New high-tech property card design */
         .property-card {
-            background: var(--primary);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
+            background: rgba(240, 242, 245, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(99, 102, 241, 0.1);
         }
         
         .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border-color: var(--secondary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(99, 102, 241, 0.5);
         }
         
-        .property-status {
+        .property-card::after {
+            content: '';
             position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            background: var(--secondary);
-            color: white;
-            z-index: 10;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
         
         .property-image {
-            height: 180px;
-            overflow: hidden;
             position: relative;
+            height: 220px;
+            overflow: hidden;
         }
         
-        .property-image::after {
+        .property-image::before {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            right: 0;
-            height: 50%;
-            background: rgba(0,0,0,0.4);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+            z-index: 1;
         }
         
         .property-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s ease;
         }
         
         .property-card:hover .property-image img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         
-        .property-details {
-            padding: 15px;
+        .crypto-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            color: var(--secondary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 6px 10px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .crypto-badge i {
+            font-size: 10px;
+        }
+        
+        .property-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(99, 102, 241, 0.95);
+            backdrop-filter: blur(4px);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .property-content {
+            padding: 24px;
+            position: relative;
+        }
+        
+        .property-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+        }
+        
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #121212 !important;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
         
         .property-title {
             font-size: 1.1rem;
-            margin: 0 0 8px 0;
-            color: var(--text);
-            line-height: 1.3;
+            color: #121212 !important;
             font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
         }
         
         .property-location {
             display: flex;
             align-items: center;
             gap: 6px;
-            color: var(--text-secondary);
             font-size: 0.85rem;
-            margin-bottom: 10px;
+            color: #333333 !important;
+            margin-top: 6px;
         }
         
         .property-location i {
@@ -345,119 +403,236 @@
             font-size: 0.85rem;
         }
         
-        .property-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin: 10px 0;
+        .property-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 15px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+            margin-bottom: 16px;
         }
         
-        .property-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 10px 0;
-        }
-        
-        .property-stats {
+        .property-detail {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .stat {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-        }
-        
-        .stat i {
-            color: var(--secondary);
-            font-size: 0.8rem;
-        }
-        
-        .property-action {
-            margin-top: 15px;
             text-align: center;
         }
         
-        .view-property-btn {
-            padding: 8px 0;
-            width: 100%;
-            background: transparent;
-            color: var(--secondary);
-            border: 1px solid var(--secondary);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        .detail-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212 !important;
+            margin-bottom: 4px;
         }
         
-        .view-property-btn:hover {
-            background: var(--secondary);
-            color: white;
+        .detail-label {
+            font-size: 0.7rem;
+            color: #444444 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        /* Tokenization styles */
-        .tokenization-info {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+        .tokenization-container {
+            margin-bottom: 20px;
         }
         
         .tokenization-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .tokenization-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-        
-        .token-percentage {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            font-weight: 600;
-        }
-        
-        .token-progress {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
             margin-bottom: 10px;
         }
         
-        .token-progress-bar {
-            height: 100%;
-            background: var(--secondary);
+        .tokenization-title {
+            font-size: 0.85rem;
+            color: #333333 !important;
+            font-weight: 500;
         }
         
         .token-stats {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            align-items: center;
+            gap: 10px;
         }
         
         .token-price {
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #121212 !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        
+        .token-market {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+        }
+        
+        .token-market.up {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+        }
+        
+        .token-market.down {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+        
+        .token-market i {
+            font-size: 10px;
+        }
+        
+        .progress-container {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1) !important;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, #6366f1 100%);
+            border-radius: 4px;
+            transition: width 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #333333 !important;
+        }
+        
+        .funded-percentage {
+            color: #121212 !important;
+            font-weight: 600;
+        }
+        
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .metrics {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: #333333 !important;
+        }
+        
+        .metric-value {
+            color: #121212 !important;
+            font-weight: 600;
+        }
+        
+        .metric.roi .metric-value {
+            color: #097d32 !important;
+        }
+        
+        .action-button {
+            padding: 8px 16px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background: #5254cc;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .activity-pulse {
+            position: absolute;
+            bottom: 25px;
+            right: 24px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .activity-high {
+            background: #2ed573;
+            box-shadow: 0 0 0 rgba(46, 213, 115, 0.4);
+            animation: pulse-green 2s infinite;
+        }
+        
+        .activity-medium {
+            background: #ffa502;
+            box-shadow: 0 0 0 rgba(255, 165, 2, 0.4);
+            animation: pulse-orange 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 213, 115, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 213, 115, 0);
+            }
+        }
+        
+        @keyframes pulse-orange {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 165, 2, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 165, 2, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 165, 2, 0);
+            }
         }
 
         /* Remove mock-data-controls styles */
@@ -636,7 +811,7 @@
                     </div>
                 </div>
             </div>
-                </div>
+        </div>
 
         <button id="viewMockData" class="view-mock-btn">
             <i class="fas fa-database"></i> View Mock Data
@@ -654,142 +829,202 @@
             <div class="property-grid">
                 <!-- Property Card 1 -->
                 <div class="property-card">
-                    <div class="property-status">Available</div>
                     <div class="property-image">
                         <img src="images/house_pictures/pexels-lina-3639542.jpg" alt="Luxury Penthouse">
                     </div>
-                    <div class="property-details">
-                        <h3 class="property-title">Luxury Downtown Penthouse</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i> Manhattan, New York
+                    <div class="crypto-badge"><i class="fas fa-shield-alt"></i> Verified</div>
+                    <div class="property-tag">New Listing</div>
+                    
+                    <div class="property-content">
+                        <div class="property-header">
+                            <div class="property-price">$4,500,000</div>
+                            <div class="property-title">Luxury Downtown Penthouse</div>
+                            <div class="property-location"><i class="fas fa-map-marker-alt"></i> Beverly Hills, CA</div>
                         </div>
-                        <div class="property-price">$4,500,000</div>
                         
-                        <div class="tokenization-info">
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <div class="detail-value">3</div>
+                                <div class="detail-label">Bedrooms</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">2.5</div>
+                                <div class="detail-label">Bathrooms</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">2,200</div>
+                                <div class="detail-label">Sq. Feet</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tokenization-container">
                             <div class="tokenization-header">
                                 <div class="tokenization-title">Tokenization Status</div>
-                                <div class="token-percentage">0% / 100%</div>
+                                <div class="token-stats">
+                                    <div class="token-price">$4,500/token</div>
+                                    <div class="token-market up"><i class="fas fa-arrow-up"></i> 3.7%</div>
+                                </div>
                             </div>
-                            <div class="token-progress">
-                                <div class="token-progress-bar" style="width: 0%"></div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-fill" style="width: 0%"></div>
                             </div>
-                            <div class="token-stats">
-                                <div>Token Price:</div>
-                                <div class="token-price">$4,500 per 0.1%</div>
+                            
+                            <div class="progress-text">
+                                <div>4,500 tokens available</div>
+                                <div><span class="funded-percentage">0%</span> funded</div>
                             </div>
                         </div>
                         
-                        <div class="property-divider"></div>
-                        <div class="property-stats">
-                            <div class="stat">
-                                <i class="fas fa-bed"></i> 3 beds
+                        <div class="card-footer">
+                            <div class="metrics">
+                                <div class="metric roi">
+                                    <span>ROI:</span>
+                                    <span class="metric-value">7.2%</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Cap:</span>
+                                    <span class="metric-value">$450K</span>
+                                </div>
                             </div>
-                            <div class="stat">
-                                <i class="fas fa-bath"></i> 2.5 baths
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-ruler-combined"></i> 2,200 sqft
-                            </div>
+                            <button class="action-button">Buy Tokens</button>
                         </div>
-                        <div class="property-action">
-                            <button class="view-property-btn">
-                                <i class="fas fa-coins"></i> Buy Tokens
-                            </button>
-                        </div>
+                        
+                        <div class="activity-pulse activity-high"></div>
                     </div>
                 </div>
                 
                 <!-- Property Card 2 -->
                 <div class="property-card">
-                    <div class="property-status">Tokenizing</div>
                     <div class="property-image">
                         <img src="images/house_pictures/pexels-pixabay-259588.jpg" alt="Waterfront Villa">
-                                </div>
-                    <div class="property-details">
-                        <h3 class="property-title">Waterfront Villa with Pool</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i> Miami Beach, Florida
-                                    </div>
-                        <div class="property-price">$6,750,000</div>
+                    </div>
+                    <div class="crypto-badge"><i class="fas fa-shield-alt"></i> Verified</div>
+                    <div class="property-tag">Featured</div>
+                    
+                    <div class="property-content">
+                        <div class="property-header">
+                            <div class="property-price">$6,750,000</div>
+                            <div class="property-title">Waterfront Villa with Pool</div>
+                            <div class="property-location"><i class="fas fa-map-marker-alt"></i> Malibu, CA</div>
+                        </div>
                         
-                        <div class="tokenization-info">
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <div class="detail-value">5</div>
+                                <div class="detail-label">Bedrooms</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">4</div>
+                                <div class="detail-label">Bathrooms</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">4,500</div>
+                                <div class="detail-label">Sq. Feet</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tokenization-container">
                             <div class="tokenization-header">
                                 <div class="tokenization-title">Tokenization Status</div>
-                                <div class="token-percentage">45% / 100%</div>
-                                    </div>
-                            <div class="token-progress">
-                                <div class="token-progress-bar" style="width: 45%"></div>
-                                    </div>
-                            <div class="token-stats">
-                                <div>Token Price:</div>
-                                <div class="token-price">$6,750 per 0.1%</div>
-                            </div>
-                        </div>
-
-                        <div class="property-divider"></div>
-                        <div class="property-stats">
-                            <div class="stat">
-                                <i class="fas fa-bed"></i> 5 beds
+                                <div class="token-stats">
+                                    <div class="token-price">$6,750/token</div>
+                                    <div class="token-market up"><i class="fas fa-arrow-up"></i> 5.2%</div>
                                 </div>
-                            <div class="stat">
-                                <i class="fas fa-bath"></i> 4 baths
                             </div>
-                            <div class="stat">
-                                <i class="fas fa-ruler-combined"></i> 4,500 sqft
+                            
+                            <div class="progress-container">
+                                <div class="progress-fill" style="width: 45%"></div>
+                            </div>
+                            
+                            <div class="progress-text">
+                                <div>3,712 tokens available</div>
+                                <div><span class="funded-percentage">45%</span> funded</div>
                             </div>
                         </div>
-                        <div class="property-action">
-                            <button class="view-property-btn">
-                                <i class="fas fa-coins"></i> Buy Tokens
-                            </button>
+                        
+                        <div class="card-footer">
+                            <div class="metrics">
+                                <div class="metric roi">
+                                    <span>ROI:</span>
+                                    <span class="metric-value">8.5%</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Cap:</span>
+                                    <span class="metric-value">$675K</span>
+                                </div>
+                            </div>
+                            <button class="action-button">Buy Tokens</button>
                         </div>
+                        
+                        <div class="activity-pulse activity-medium"></div>
                     </div>
                 </div>
                 
                 <!-- Property Card 3 -->
                 <div class="property-card">
-                    <div class="property-status">Tokenized</div>
                     <div class="property-image">
                         <img src="images/house_pictures/pexels-pixabay-277667.jpg" alt="Modern Office Building">
                     </div>
-                    <div class="property-details">
-                        <h3 class="property-title">Modern Office Building</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i> Seattle, Washington
+                    <div class="crypto-badge"><i class="fas fa-shield-alt"></i> Verified</div>
+                    <div class="property-tag">Tokenized</div>
+                    
+                    <div class="property-content">
+                        <div class="property-header">
+                            <div class="property-price">$12,300,000</div>
+                            <div class="property-title">Modern Office Building</div>
+                            <div class="property-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</div>
                         </div>
-                        <div class="property-price">$12,300,000</div>
                         
-                        <div class="tokenization-info">
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <div class="detail-value">Commercial</div>
+                                <div class="detail-label">Property Type</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">15,000</div>
+                                <div class="detail-label">Sq. Feet</div>
+                            </div>
+                            <div class="property-detail">
+                                <div class="detail-value">45</div>
+                                <div class="detail-label">Parking</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tokenization-container">
                             <div class="tokenization-header">
                                 <div class="tokenization-title">Tokenization Status</div>
-                                <div class="token-percentage">100% / 100%</div>
+                                <div class="token-stats">
+                                    <div class="token-price">$12,300/token</div>
+                                    <div class="token-market up"><i class="fas fa-arrow-up"></i> 4.1%</div>
+                                </div>
                             </div>
-                            <div class="token-progress">
-                                <div class="token-progress-bar" style="width: 100%"></div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-fill" style="width: 100%"></div>
                             </div>
-                            <div class="token-stats">
-                                <div>Secondary Market:</div>
-                                <div class="token-price">$12,500 per 0.1%</div>
+                            
+                            <div class="progress-text">
+                                <div>0 tokens available</div>
+                                <div><span class="funded-percentage">100%</span> funded</div>
                             </div>
                         </div>
                         
-                        <div class="property-divider"></div>
-                        <div class="property-stats">
-                            <div class="stat">
-                                <i class="fas fa-building"></i> Commercial
+                        <div class="card-footer">
+                            <div class="metrics">
+                                <div class="metric roi">
+                                    <span>ROI:</span>
+                                    <span class="metric-value">9.3%</span>
+                                </div>
+                                <div class="metric">
+                                    <span>Cap:</span>
+                                    <span class="metric-value">$1.2M</span>
+                                </div>
                             </div>
-                            <div class="stat">
-                                <i class="fas fa-ruler-combined"></i> 15,000 sqft
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-parking"></i> 45 spaces
-                            </div>
+                            <button class="action-button">Trade Tokens</button>
                         </div>
-                        <div class="property-action">
-                            <button class="view-property-btn">
-                                <i class="fas fa-exchange-alt"></i> Trade Tokens
-                            </button>
-                        </div>
+                        
+                        <div class="activity-pulse activity-high"></div>
                     </div>
                 </div>
             </div>

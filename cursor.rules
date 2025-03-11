@@ -1,0 +1,119 @@
+{
+  "priority": "functionality",
+  "rules": [
+    {
+      "name": "error-handling-first",
+      "description": "Always implement robust error handling in all functions",
+      "priority": "critical"
+    },
+    {
+      "name": "api-fallbacks",
+      "description": "Ensure API calls have fallback mechanisms for failed requests",
+      "priority": "critical"
+    },
+    {
+      "name": "responsive-design",
+      "description": "Implement responsive design patterns for all UI components",
+      "priority": "high"
+    },
+    {
+      "name": "accessibility",
+      "description": "Maintain accessibility standards across the application",
+      "priority": "high"
+    },
+    {
+      "name": "performance",
+      "description": "Optimize performance for core functionality",
+      "priority": "high"
+    },
+    {
+      "name": "cross-browser",
+      "description": "Ensure cross-browser compatibility for all features",
+      "priority": "high"
+    },
+    {
+      "name": "validation",
+      "description": "Implement thorough input validation on both client and server",
+      "priority": "critical"
+    },
+    {
+      "name": "session-handling",
+      "description": "Implement secure and reliable session management",
+      "priority": "critical"
+    },
+    {
+      "name": "mock-data-fallback",
+      "description": "Use mock data when APIs are unavailable to maintain functionality",
+      "priority": "high"
+    },
+    {
+      "name": "load-time-optimization",
+      "description": "Prioritize fast loading of critical functionality components",
+      "priority": "high"
+    },
+    {
+      "name": "environment-handling",
+      "description": "Ensure proper environment variable handling with defaults",
+      "priority": "critical"
+    },
+    {
+      "name": "consistent-logging",
+      "description": "Implement consistent logging for debugging and monitoring",
+      "priority": "medium"
+    },
+    {
+      "name": "cache-strategy",
+      "description": "Implement effective caching strategies for improved performance",
+      "priority": "medium"
+    },
+    {
+      "name": "rate-limiting",
+      "description": "Implement rate limiting for API endpoints to prevent abuse",
+      "priority": "medium"
+    },
+    {
+      "name": "security-headers",
+      "description": "Set appropriate security headers for all responses",
+      "priority": "high"
+    }
+  ],
+  "enforcementLevels": {
+    "critical": {
+      "action": "block",
+      "message": "This change violates a critical functionality rule and cannot be merged."
+    },
+    "high": {
+      "action": "warn",
+      "message": "This change may impact core functionality. Please review carefully."
+    },
+    "medium": {
+      "action": "notify",
+      "message": "Consider reviewing this change for potential functionality impacts."
+    }
+  },
+  "ignorePaths": [
+    "node_modules/",
+    ".git/",
+    "Saves/",
+    "OLD FILES/"
+  ],
+  "functionality": {
+    "criticalComponents": [
+      "server.js",
+      "api/",
+      "js/core/",
+      "components/auth/"
+    ],
+    "testingRequirements": {
+      "apiEndpoints": true,
+      "userAuthentication": true,
+      "dataProcessing": true,
+      "uiResponsiveness": true
+    },
+    "fallbackStrategies": {
+      "apiFailure": "Use cached or mock data",
+      "authenticationIssues": "Provide limited functionality guest mode",
+      "databaseConnectivity": "Use local storage temporarily"
+    }
+  }
+} 
