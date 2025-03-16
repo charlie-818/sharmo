@@ -160,31 +160,36 @@
     
     .nav-dropdown {
         position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
+        top: calc(100% + 5px);
+        left: 0;
         background: white;
         border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        min-width: 200px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+        min-width: 220px;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.2s ease;
-        z-index: 10;
+        transform: translateY(10px);
+        transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+        z-index: 1000;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 0;
         border: 1px solid rgba(99, 102, 241, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        pointer-events: none;
     }
     
     .nav-item:hover .nav-dropdown {
         opacity: 1;
         visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
     }
     
     .dropdown-header {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(124, 58, 237, 0.08));
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(124, 58, 237, 0.05));
         padding: 12px 15px;
-        border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.05);
     }
     
     .dropdown-header span {
@@ -198,13 +203,36 @@
         padding: 12px 15px;
         color: #4B5563;
         text-decoration: none;
-        transition: all 0.2s ease;
+        transition: all 0.15s ease;
         font-size: 0.9rem;
+        position: relative;
+        border-bottom: 1px solid rgba(99, 102, 241, 0.03);
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .nav-dropdown a:last-child {
+        border-bottom: none;
     }
     
     .nav-dropdown a:hover {
         background: rgba(99, 102, 241, 0.05);
         color: #6366F1;
+        padding-left: 18px;
+    }
+    
+    .nav-dropdown a:hover::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #6366F1;
     }
     
     .contact-btn {
@@ -349,17 +377,39 @@
             transform: none;
             box-shadow: none;
             border-radius: 10px;
-            margin-top: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, margin 0.3s ease;
             border: none;
             background: rgba(99, 102, 241, 0.03);
+            pointer-events: none;
+            overflow: hidden;
+            padding: 0;
         }
         
         .nav-item:hover .nav-dropdown {
             max-height: 500px;
-            border: 1px solid rgba(99, 102, 241, 0.1);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            margin-bottom: 10px;
+            border: 1px solid rgba(99, 102, 241, 0.05);
+            padding: 5px 0;
+        }
+        
+        .dropdown-header {
+            padding: 10px 15px;
+        }
+        
+        .nav-dropdown a {
+            padding: 10px 15px 10px 20px;
+        }
+        
+        .nav-dropdown a:hover {
+            padding-left: 25px;
         }
         
         .contact-btn {
@@ -375,6 +425,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
         
         if (mobileMenuToggle) {
             mobileMenuToggle.addEventListener('click', function() {
@@ -385,15 +436,15 @@
         
         // Add active class to current page link
         const currentLocation = window.location.href;
-        const navItems = document.querySelectorAll('.nav-link, .nav-page');
+        const navLinkElements = document.querySelectorAll('.nav-link, .nav-page');
         
         // Clear any existing active classes first
-        navItems.forEach(item => {
+        navLinkElements.forEach(item => {
             item.classList.remove('active');
         });
         
         // Check for direct page matches
-        navItems.forEach(item => {
+        navLinkElements.forEach(item => {
             const href = item.getAttribute('href');
             if (href && currentLocation.includes(href)) {
                 item.classList.add('active');
@@ -407,6 +458,63 @@
                 propertiesLink.classList.add('active');
             }
         }
+        
+        // Enhanced Apple-like dropdown behavior
+        let dropdownTimeout;
+        
+        navItems.forEach(item => {
+            const dropdown = item.querySelector('.nav-dropdown');
+            if (!dropdown) return;
+            
+            // Mouse enter nav item
+            item.addEventListener('mouseenter', () => {
+                clearTimeout(dropdownTimeout);
+                
+                // Hide all other dropdowns first
+                navItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherDropdown = otherItem.querySelector('.nav-dropdown');
+                        if (otherDropdown) {
+                            otherDropdown.style.opacity = '0';
+                            otherDropdown.style.visibility = 'hidden';
+                            otherDropdown.style.transform = 'translateY(10px)';
+                            otherDropdown.style.pointerEvents = 'none';
+                        }
+                    }
+                });
+                
+                // Show current dropdown
+                dropdown.style.opacity = '1';
+                dropdown.style.visibility = 'visible';
+                dropdown.style.transform = 'translateY(0)';
+                dropdown.style.pointerEvents = 'auto';
+            });
+            
+            // Mouse leave nav item
+            item.addEventListener('mouseleave', () => {
+                dropdownTimeout = setTimeout(() => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                    dropdown.style.transform = 'translateY(10px)';
+                    dropdown.style.pointerEvents = 'none';
+                }, 150); // Small delay before hiding
+            });
+            
+            // Mouse enter dropdown
+            dropdown.addEventListener('mouseenter', () => {
+                clearTimeout(dropdownTimeout);
+            });
+            
+            // Mouse leave dropdown
+            dropdown.addEventListener('mouseleave', () => {
+                dropdownTimeout = setTimeout(() => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                    dropdown.style.transform = 'translateY(10px)';
+                    dropdown.style.pointerEvents = 'none';
+                }, 150);
+            });
+        });
         
         // Create blockchain data particles animation
         const createDataParticle = () => {

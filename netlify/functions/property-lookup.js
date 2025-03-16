@@ -1,15 +1,21 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
 
+// Get API key from environment variables
 const apiKey = process.env.PERPLEXITY_API_KEY;
+console.log(`API key loaded: ${apiKey ? 'YES' : 'NO - API key is missing!'}`);
 
 const extractJSONFromResponse = (content) => {
+    console.log(`\n📝 Extracting JSON from response (content length: ${content.length})`);
+    console.log(`Content sample: ${content.substring(0, 200)}...`);
+    
     try {
         // Clean up the content string first
         const cleanContent = content.replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width spaces
         const jsonMatch = cleanContent.match(/```(?:json)?\s*({[\s\S]*?})\s*```/);
         
         if (jsonMatch && jsonMatch[1]) {
+            console.log(`✅ Found JSON match: ${jsonMatch[1].substring(0, 100)}...`);
             try {
                 // Remove comments and clean up the JSON
                 const cleanJson = jsonMatch[1]
@@ -23,36 +29,49 @@ const extractJSONFromResponse = (content) => {
                     .replace(/,\s*,/g, ',') // Remove duplicate commas
                     .trim();
 
+                console.log(`✅ Cleaned JSON: ${cleanJson.substring(0, 100)}...`);
                 // Parse the cleaned JSON
-                return JSON.parse(cleanJson);
+                const parsed = JSON.parse(cleanJson);
+                console.log(`✅ Successfully parsed JSON`);
+                return parsed;
             } catch (e) {
-                console.error('JSON parsing error:', e);
-                console.error('Attempted to parse:', jsonMatch[1]);
+                console.error('⚠️ JSON parsing error:', e);
+                console.error('⚠️ Attempted to parse:', jsonMatch[1].substring(0, 200));
                 
                 // Fallback: Try parsing after more aggressive cleaning
                 try {
+                    console.log(`🔄 Trying fallback JSON parsing with aggressive cleaning`);
                     const fallbackJson = jsonMatch[1]
                         .replace(/\/\/.*/g, '') // Remove all comments
                         .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
                         .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":') // Ensure quoted property names
                         .replace(/\s+/g, ' ')
                         .trim();
-                    return JSON.parse(fallbackJson);
+                    console.log(`🔄 Fallback JSON: ${fallbackJson.substring(0, 100)}...`);
+                    const parsed = JSON.parse(fallbackJson);
+                    console.log(`✅ Successfully parsed JSON with fallback method`);
+                    return parsed;
                 } catch (fallbackError) {
+                    console.error('❌ Fallback parsing also failed:', fallbackError);
                     throw new Error('Failed to parse JSON after cleaning');
                 }
             }
         }
+        console.error('❌ No JSON object found in response');
+        console.error('❌ Content sample:', content.substring(0, 300));
         throw new Error('No JSON object found in response');
     } catch (e) {
-        console.error('Content parsing error:', e);
-        console.error('Raw content:', content);
+        console.error('❌ Content parsing error:', e);
+        console.error('❌ Raw content sample:', content.substring(0, 300));
         throw new Error(`Failed to extract valid JSON: ${e.message}`);
     }
 };
 
 const validatePropertyData = (data) => {
+    console.log(`\n🔍 Validating property data`);
+    
     if (!data || !data.propertyData) {
+        console.error('❌ Missing propertyData object');
         throw new Error('Missing propertyData object');
     }
 
@@ -102,6 +121,9 @@ const validatePropertyData = (data) => {
         if (!Array.isArray(data.propertyData.neighborhood.amenities)) {
             errors.push('Invalid amenities: must be array');
         }
+        if (typeof data.propertyData.neighborhood.trend !== 'string') {
+            errors.push('Invalid neighborhood trend: must be string');
+        }
     }
 
     if (data.propertyData.marketTrends) {
@@ -116,33 +138,22 @@ const validatePropertyData = (data) => {
         }
     }
 
-    // Validate market history
-    if (!data.propertyData.marketHistory || 
-        !Array.isArray(data.propertyData.marketHistory.years) ||
-        !Array.isArray(data.propertyData.marketHistory.values) ||
-        data.propertyData.marketHistory.years.length !== data.propertyData.marketHistory.values.length) {
-        errors.push('Invalid market history data');
-    }
-
-    // Validate investment projection
-    if (!data.propertyData.investmentProjection ||
-        !Array.isArray(data.propertyData.investmentProjection.years) ||
-        !Array.isArray(data.propertyData.investmentProjection.returns) ||
-        data.propertyData.investmentProjection.years.length !== data.propertyData.investmentProjection.returns.length) {
-        errors.push('Invalid investment projection data');
-    }
-
     if (errors.length > 0) {
-        console.error('Validation errors:', errors);
-        throw new Error(`Data validation failed: ${errors.join('; ')}`);
+        console.warn('⚠️ Validation warnings:', errors);
+        // Instead of throwing, we'll return the data anyway with a warning
+        data._validationWarnings = errors;
+        return data;
     }
 
+    console.log(`✅ Data validation successful`);
     return data;
 };
 
 const sanitizePropertyData = (data) => {
+    console.log(`\n🧹 Sanitizing property data`);
+    
     if (!data?.propertyData) {
-        console.error('Invalid data structure:', data);
+        console.error('❌ Invalid data structure:', JSON.stringify(data));
         throw new Error('Missing or invalid property data structure');
     }
 
@@ -187,163 +198,158 @@ const sanitizePropertyData = (data) => {
                 neighborhood: {
                     rating: Math.min(10, Math.max(0, ensureNumber(safeGet(data, 'propertyData.neighborhood.rating', 0)))),
                     description: ensureString(safeGet(data, 'propertyData.neighborhood.description', 'No description available')),
-                    amenities: ensureArray(safeGet(data, 'propertyData.neighborhood.amenities', []))
+                    amenities: ensureArray(safeGet(data, 'propertyData.neighborhood.amenities', [])),
+                    trend: ensureString(safeGet(data, 'propertyData.neighborhood.trend', 'Stable'))
                 },
                 marketTrends: {
                     yearlyAppreciation: ensureString(safeGet(data, 'propertyData.marketTrends.yearlyAppreciation', 'Not available')),
                     medianPrice: ensureNumber(safeGet(data, 'propertyData.marketTrends.medianPrice', 0)),
                     daysOnMarket: ensureNumber(safeGet(data, 'propertyData.marketTrends.daysOnMarket', 0))
-                },
-                marketHistory: {
-                    years: ensureArray(safeGet(data, 'propertyData.marketHistory.years', [])),
-                    values: ensureArray(safeGet(data, 'propertyData.marketHistory.values', []))
-                },
-                investmentProjection: {
-                    years: ensureArray(safeGet(data, 'propertyData.investmentProjection.years', [])),
-                    returns: ensureArray(safeGet(data, 'propertyData.investmentProjection.returns', []))
                 }
             }
         };
 
+        console.log(`✅ Sanitization successful`);
         return sanitized;
     } catch (error) {
-        console.error('Sanitization error:', error);
+        console.error('❌ Sanitization error:', error);
         throw error;
     }
 };
 
-module.exports = {
-    handler: async (event) => {
-        const headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Content-Type': 'application/json'
+// Export handler for serverless function
+exports.handler = async (event) => {
+    console.log("\n==================================");
+    console.log("🏠 PROPERTY LOOKUP API CALLED");
+    console.log("==================================");
+    
+    // Set CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    };
+
+    // Handle preflight request
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers, body: '' };
+    }
+
+    // Only allow POST requests
+    if (event.httpMethod !== 'POST') {
+        console.log(`❌ Invalid method: ${event.httpMethod}`);
+        return { 
+            statusCode: 405, 
+            headers,
+            body: JSON.stringify({ error: 'Method Not Allowed' })
         };
+    }
 
-        if (event.httpMethod === 'OPTIONS') {
-            return { statusCode: 204, headers, body: '' };
+    try {
+        if (!apiKey) {
+            throw new Error('PERPLEXITY_API_KEY environment variable is not set');
         }
-
-        if (event.httpMethod !== 'POST') {
-            return { 
-                statusCode: 405, 
-                headers,
-                body: JSON.stringify({ error: 'Method Not Allowed' })
-            };
-        }
-
-        try {
-            if (!apiKey) {
-                throw new Error('PERPLEXITY_API_KEY environment variable is not set');
-            }
-            
-            const { address, city, state } = JSON.parse(event.body);
-            console.log(`\n🔍 Looking up property: ${address}, ${city}, ${state}`);
-            
-            // Format the Perplexity API request
-            const promptData = `I need detailed information about a property located at ${address}, ${city}, ${state}. 
-            Please provide realistic property data including estimated value, square footage, number of bedrooms/bathrooms, 
-            property type, year built, last sale price and date, lot size, and neighborhood information. 
-            Also include market trends like yearly appreciation, median price in the area, and average days on market.
-            Return this data in a JSON format with a "propertyData" object containing all fields.`;
-            
-            // Make the request to the Perplexity API
-            const perplexityResponse = await fetch('https://api.perplexity.ai/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    model: "sonar",
-                    messages: [
+        
+        const { address, city, state } = JSON.parse(event.body);
+        console.log(`\n🔍 Looking up property: ${address}, ${city}, ${state}`);
+        
+        // Format the Perplexity API request
+        const promptData = `I need detailed information about a property located at ${address}, ${city}, ${state}. 
+        Please provide realistic property data including estimated value, square footage, number of bedrooms/bathrooms, 
+        property type, year built, last sale price and date, lot size, and neighborhood information. 
+        Also include market trends like yearly appreciation, median price in the area, and average days on market.
+        Return this data in a JSON format with a "propertyData" object containing all fields.`;
+        
+        // Make the request to the Perplexity API
+        const perplexityResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "sonar",
+                messages: [
+                    {
+                        role: "system",
+                        content: `You are a real estate data expert. When given a property address, provide realistic property details in JSON format. If you cannot find specific data for the address, respond with {"propertyData": null, "error": "Property not found"}. Format must be:
                         {
-                            role: "system",
-                            content: `You are a real estate data expert. When given a property address, provide realistic property details in JSON format. The response MUST include estimatedValue as a direct number in propertyData. Format must be:
-                            {
-                                "propertyData": {
-                                    "estimatedValue": number,  // Direct property value, not in marketTrends
-                                    "squareFootage": number,
-                                    "yearBuilt": number,
-                                    "bedrooms": number,
-                                    "bathrooms": number,
-                                    "propertyType": string,
-                                    "lastSalePrice": number or null,
-                                    "lastSaleDate": string,
-                                    "lotSize": string,
-                                    "neighborhood": {
-                                        "rating": number (0-10),
-                                        "description": string,
-                                        "amenities": string[]
-                                    },
-                                    "marketTrends": {
-                                        "yearlyAppreciation": string,
-                                        "medianPrice": number,
-                                        "daysOnMarket": number
-                                    },
-                                    "marketHistory": {
-                                        "years": number[],
-                                        "values": number[]
-                                    },
-                                    "investmentProjection": {
-                                        "years": number[],
-                                        "returns": number[]
-                                    }
+                            "propertyData": {
+                                "estimatedValue": number,
+                                "squareFootage": number,
+                                "yearBuilt": number,
+                                "bedrooms": number,
+                                "bathrooms": number,
+                                "propertyType": string,
+                                "lastSalePrice": number or null,
+                                "lastSaleDate": string,
+                                "lotSize": string,
+                                "neighborhood": {
+                                    "rating": number (0-10),
+                                    "description": string,
+                                    "amenities": string[],
+                                    "trend": string
+                                },
+                                "marketTrends": {
+                                    "yearlyAppreciation": string,
+                                    "medianPrice": number,
+                                    "daysOnMarket": number
                                 }
-                            }`
-                        },
-                        {
-                            role: "user",
-                            content: promptData
-                        }
-                    ],
-                    temperature: 0.7
-                })
-            });
+                            }
+                        }`
+                    },
+                    {
+                        role: "user",
+                        content: `Find property details for ${address}, ${city}, ${state}. If you cannot find this property, return {"propertyData": null, "error": "Property not found"}.`
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 2048
+            })
+        });
 
-            if (!perplexityResponse.ok) {
-                console.error('Perplexity API error:', await perplexityResponse.text());
-                throw new Error(`Perplexity API error: ${perplexityResponse.status}`);
-            }
-
-            const responseData = await perplexityResponse.json();
-            console.log('Perplexity API response received');
-            
-            // Extract content from Perplexity response
-            if (!responseData.choices || !responseData.choices[0] || !responseData.choices[0].message) {
-                throw new Error('Invalid response format from Perplexity API');
-            }
-            
-            const content = responseData.choices[0].message.content;
-            
-            // Extract JSON from the response content
-            const extractedData = extractJSONFromResponse(content);
-            
-            // Validate the data structure
-            const validatedData = validatePropertyData(extractedData);
-            
-            // Sanitize the property data
-            const sanitizedData = sanitizePropertyData(validatedData);
-            
-            console.log('Processed property data successfully');
-            
-            return {
-                statusCode: 200,
-                headers,
-                body: JSON.stringify(sanitizedData)
-            };
-        } catch (error) {
-            console.error('Error processing request:', error);
-            
-            return {
-                statusCode: 500,
-                headers,
-                body: JSON.stringify({ 
-                    error: 'Failed to process property lookup',
-                    message: error.message 
-                })
-            };
+        if (!perplexityResponse.ok) {
+            console.error('❌ Perplexity API error:', await perplexityResponse.text());
+            throw new Error(`Perplexity API error: ${perplexityResponse.status}`);
         }
+
+        const responseData = await perplexityResponse.json();
+        console.log('✅ Perplexity API response received');
+        
+        // Extract content from Perplexity response
+        if (!responseData.choices || !responseData.choices[0] || !responseData.choices[0].message) {
+            throw new Error('Invalid response format from Perplexity API');
+        }
+        
+        const content = responseData.choices[0].message.content;
+        
+        // Extract JSON from the response content
+        const extractedData = extractJSONFromResponse(content);
+        
+        // Validate the data structure
+        const validatedData = validatePropertyData(extractedData);
+        
+        // Sanitize the property data
+        const sanitizedData = sanitizePropertyData(validatedData);
+        
+        console.log('✅ Processed property data successfully');
+        
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify(sanitizedData)
+        };
+    } catch (error) {
+        console.error('❌ Error processing request:', error);
+        
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ 
+                error: 'Failed to process property lookup',
+                message: error.message 
+            })
+        };
     }
 };

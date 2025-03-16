@@ -3,7 +3,7 @@
 /* Main container styling */
 .smart-contract-section {
     padding: 60px 0 40px;
-    background-color: #f8f9fa;
+    background-color: #f8fafc;
     min-height: calc(100vh - 270px);
 }
 
@@ -28,12 +28,10 @@
 
 /* Property Summary Section */
 .property-summary {
-    background: white;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: transparent;
 }
 
 .property-summary h3 {
@@ -53,6 +51,11 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .summary-label {
@@ -69,12 +72,10 @@
 
 /* Contract Options Section */
 .contract-options {
-    background: white;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: transparent;
 }
 
 .contract-options h3 {
@@ -95,6 +96,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .option-item label {
@@ -153,12 +159,10 @@
 
 /* Code Editor Styling */
 .code-editor-container {
-    background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     margin-bottom: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: transparent;
 }
 
 .editor-header {
@@ -312,12 +316,10 @@
 
 /* Deployment section */
 .deployment-section {
-    background: white;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: transparent;
 }
 
 .deployment-section h3 {

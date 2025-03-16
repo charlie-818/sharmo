@@ -1,6 +1,9 @@
-// Property Lookup JS with API Integration and Fallback
+// Property Lookup JS with Direct Perplexity API Integration
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Property lookup script loaded');
+    
     // Grab form elements
+    const propertyForm = document.getElementById('propertyForm');
     const addressInput = document.getElementById('address');
     const cityInput = document.getElementById('city');
     const stateSelect = document.getElementById('state');
@@ -8,6 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const propertyResults = document.getElementById('propertyResults');
     const loadingIndicator = document.getElementById('loadingIndicator');
     const errorMessage = document.getElementById('errorMessage');
+    
+    // Check if all required elements exist
+    const requiredElements = {
+        propertyForm,
+        addressInput,
+        cityInput,
+        stateSelect,
+        lookupBtn,
+        propertyResults,
+        loadingIndicator,
+        errorMessage
+    };
+    
+    const missingElements = Object.entries(requiredElements)
+        .filter(([_, element]) => !element)
+        .map(([name]) => name);
+    
+    if (missingElements.length > 0) {
+        console.error('❌ Missing required elements:', missingElements);
+        return; // Exit if any required elements are missing
+    }
+    
+    console.log('✅ All required elements found');
     
     // Results elements
     const resultAddress = document.getElementById('resultAddress');
@@ -26,17 +52,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const rentalIncome = document.getElementById('rentalIncome');
     const appreciationRate = document.getElementById('appreciationRate');
     
-    // Property types
-    const propertyTypes = ['Single Family', 'Multi-Family', 'Condominium', 'Townhouse', 'Commercial'];
+    // Test API connectivity on page load
+    testApiConnectivity();
     
     // Add event listener for form submission
-    lookupBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        lookupProperty();
-    });
+    if (propertyForm) {
+        propertyForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+            console.log('Form submitted');
+            
+            // Add visual feedback for button click
+            lookupBtn.classList.add('btn-clicked');
+            setTimeout(() => {
+                lookupBtn.classList.remove('btn-clicked');
+            }, 200);
+            
+            lookupProperty();
+        });
+    } else {
+        console.error('Property form not found!');
+    }
     
     // Enable form submission with Enter key
     [addressInput, cityInput, stateSelect].forEach(input => {
+        if (!input) {
+            console.error(`Input element not found: ${input}`);
+            return;
+        }
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -45,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Format currency values - moved to global scope
+    // Format currency values
     const formatCurrency = (value) => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -55,11 +97,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }).format(value);
     };
     
+    // Helper function to extract JSON from Perplexity response
+    const extractJSONFromResponse = (content) => {
+        try {
+            // Clean up the content string first
+            const cleanContent = content.replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width spaces
+            const jsonMatch = cleanContent.match(/```(?:json)?\s*({[\s\S]*?})\s*```/);
+            
+            if (jsonMatch && jsonMatch[1]) {
+                try {
+                    // Remove comments and clean up the JSON
+                    const cleanJson = jsonMatch[1]
+                        .replace(/\/\/.*$/gm, '') // Remove single-line comments
+                        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+                        .replace(/[\n\r\t]/g, ' ') // Replace newlines and tabs with spaces
+                        .replace(/\s+/g, ' ') // Normalize whitespace
+                        .replace(/,\s*}/g, '}') // Remove trailing commas
+                        .replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":') // Quote property names
+                        .replace(/:\s*'([^']*?)'/g, ':"$1"') // Replace single quotes with double quotes
+                        .replace(/,\s*,/g, ',') // Remove duplicate commas
+                        .trim();
+
+                    // Parse the cleaned JSON
+                    return JSON.parse(cleanJson);
+                } catch (e) {
+                    console.error('JSON parsing error:', e);
+                    
+                    // Fallback: Try parsing after more aggressive cleaning
+                    try {
+                        const fallbackJson = jsonMatch[1]
+                            .replace(/\/\/.*/g, '') // Remove all comments
+                            .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
+                            .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":') // Ensure quoted property names
+                            .replace(/\s+/g, ' ')
+                            .trim();
+                        return JSON.parse(fallbackJson);
+                    } catch (fallbackError) {
+                        throw new Error('Failed to parse JSON after cleaning');
+                    }
+                }
+            }
+            throw new Error('No JSON object found in response');
+        } catch (e) {
+            console.error('Content parsing error:', e);
+            throw new Error(`Failed to extract valid JSON: ${e.message}`);
+        }
+    };
+    
     // Main lookup function
     async function lookupProperty() {
+        console.log('🔍 Property lookup initiated...');
+        
+        // Log form values
+        console.log('Form values:', {
+            address: addressInput?.value,
+            city: cityInput?.value,
+            state: stateSelect?.value
+        });
+        
         if (!validateForm()) {
+            console.log('❌ Form validation failed');
             return;
         }
+        
+        // Check API configuration first
+        console.log('Checking API configuration...');
+        const apiStatus = await checkApiConfiguration();
+        if (!apiStatus.ok) {
+            console.error('❌ API configuration check failed:', apiStatus.message);
+            showError(apiStatus.message);
+            return;
+        }
+        console.log('✅ API configuration check passed');
         
         // Show loading state
         propertyResults.style.display = 'none';
@@ -70,52 +179,117 @@ document.addEventListener('DOMContentLoaded', function() {
         lookupBtn.disabled = true;
         lookupBtn.innerHTML = '<div class="spinner-small"></div><span>Searching...</span>';
         
+        // Set a timeout for the entire operation
+        const timeoutDuration = 30000; // 30 seconds
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Request timed out. Please try again.')), timeoutDuration);
+        });
+        
         try {
             const address = addressInput.value.trim();
             const city = cityInput.value.trim();
             const state = stateSelect.value;
             
-            // Try to call the API first
-            try {
-                const response = await fetch('/api/property-lookup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ address, city, state })
-                });
+            console.log(`📍 Looking up property: ${address}, ${city}, ${state}`);
+            
+            // Determine which API endpoint to use based on the environment
+            const endpoints = [
+                '/api/property-lookup',          // Vercel API route
+                '/.netlify/functions/property-lookup', // Netlify function
+                '/netlify/functions/property-lookup'   // Alternative Netlify path
+            ];
+            
+            // Check if we've previously found a working endpoint
+            const cachedEndpoint = localStorage.getItem('propertyLookupEndpoint');
+            if (cachedEndpoint) {
+                // Move the cached endpoint to the front of the array
+                const index = endpoints.indexOf(cachedEndpoint);
+                if (index > -1) {
+                    endpoints.splice(index, 1);
+                }
+                endpoints.unshift(cachedEndpoint);
+                console.log(`🔄 Using cached endpoint first: ${cachedEndpoint}`);
+            }
+            
+            let response = null;
+            let endpointUsed = null;
+            
+            // Try each endpoint until one works, with timeout
+            for (const endpoint of endpoints) {
+                try {
+                    console.log(`🌐 Trying endpoint: ${endpoint}`);
+                    const fetchPromise = fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            address, 
+                            city, 
+                            state 
+                        })
+                    });
+                    
+                    // Race between fetch and timeout
+                    const tempResponse = await Promise.race([fetchPromise, timeoutPromise]);
+                    
+                    // If we get any response (even an error), consider the endpoint valid
+                    response = tempResponse;
+                    endpointUsed = endpoint;
+                    console.log(`✅ Successful connection to endpoint: ${endpoint}`);
+                    break;
+                } catch (endpointError) {
+                    if (endpointError.message.includes('timed out')) {
+                        console.error(`⏰ Endpoint ${endpoint} timed out:`, endpointError);
+                    } else {
+                        console.warn(`⚠️ Endpoint ${endpoint} failed:`, endpointError);
+                    }
+                    // Continue to the next endpoint
+                }
+            }
+            
+            if (!response) {
+                throw new Error("Could not connect to property lookup service. Please try again later.");
+            }
+            
+            console.log(`🎯 Using endpoint: ${endpointUsed}`);
+            
+            if (response.ok) {
+                const data = await response.json();
                 
-                if (response.ok) {
-                    const data = await response.json();
-                    
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-                    
-                    // Check if the API returned valid property data
-                    if (!data.propertyData || !data.propertyData.estimatedValue) {
-                        throw new Error("No valid property data found");
-                    }
-                    
-                    // Process and display the data
-                    displayPropertyData(data.propertyData, address, city, state);
-                    return; // Exit if API call was successful
+                if (data.error) {
+                    console.error('❌ API returned error:', data.error);
+                    throw new Error(data.error);
                 }
                 
-                // If we get here, the API call failed
-                throw new Error(`Property lookup failed with status: ${response.status}`);
-            } catch (apiError) {
-                console.warn('API error:', apiError);
-                showError("We couldn't find property information for the address you provided. Please check the address and try again.");
+                // Check if the API returned valid property data
+                if (!data.propertyData || !data.propertyData.estimatedValue) {
+                    console.error('❌ Invalid property data received:', data);
+                    throw new Error("No valid property data found");
+                }
+                
+                console.log("✨ Property data received:", data);
+                
+                // Process and display the data
+                displayPropertyData(data.propertyData, address, city, state);
+                // Store the successful endpoint in localStorage for future use
+                localStorage.setItem('propertyLookupEndpoint', endpointUsed);
+                console.log('✅ Property lookup completed successfully');
+            } else {
+                const errorData = await response.json().catch(() => ({}));
+                const errorMessage = errorData.message || errorData.error || `Request failed with status: ${response.status}`;
+                console.error('❌ API request failed:', errorMessage);
+                throw new Error(errorMessage);
             }
         } catch (error) {
-            console.error('Error in property lookup:', error);
-            showError(error.message);
+            console.error('❌ Error in property lookup:', error);
+            showError(error.message || "We couldn't find property information for the address you provided. Please check the address and try again.");
         } finally {
             // Reset UI state
             loadingIndicator.style.display = 'none';
             lookupBtn.disabled = false;
-            lookupBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Search</span>';
+            lookupBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Search Property';
+            console.log('🔄 Reset UI state');
         }
     }
     
@@ -169,15 +343,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function showError(message = 'Failed to fetch property data. Please try again.') {
         if (errorMessage) {
             const errorTitle = errorMessage.querySelector('h4');
-            const errorDetails = errorMessage.querySelector('.error-details');
+            const errorText = errorMessage.querySelector('p');
             
-            if (errorTitle) errorTitle.textContent = 'Property Not Found';
-            
-            // Don't update the error details if we want to keep the formatted HTML with bullet points
-            // Only update it for custom error messages
-            if (errorDetails && message !== "We couldn't find property information for the address you provided. Please check the address and try again.") {
-                errorDetails.innerHTML = message;
+            // Determine appropriate error title based on the message
+            let title = 'Property Not Found';
+            if (message.includes("connect") || message.includes("service")) {
+                title = 'Service Unavailable';
+            } else if (message.includes("API")) {
+                title = 'Technical Error';
             }
+            
+            if (errorTitle) errorTitle.textContent = title;
+            if (errorText) errorText.textContent = message;
             
             // Hide results and ensure error is visible
             propertyResults.style.display = 'none';
@@ -185,22 +362,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ensure error message is visible by scrolling to it
             setTimeout(() => {
-                const lookupForm = document.querySelector('.lookup-form');
-                if (lookupForm) {
-                    const formBottom = lookupForm.offsetTop + lookupForm.offsetHeight;
-                    window.scrollTo({
-                        top: formBottom - 30, // Position the window just below the form
-                        behavior: 'smooth'
-                    });
-                }
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
         }
-    }
-    
-    // Generate mock property data for fallback - No longer used directly
-    function generateMockPropertyData(address, city, state) {
-        // This function is kept for reference but will not be used as fallback
-        // ... existing code ...
     }
     
     // Display property data in the UI
@@ -233,16 +397,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show results with animation
         propertyResults.style.display = 'block';
         propertyResults.style.opacity = '0';
+        propertyResults.style.transform = 'translateY(20px)';
+        
         setTimeout(() => {
             propertyResults.style.opacity = '1';
             propertyResults.style.transform = 'translateY(0)';
             
             // Scroll to results
-            const resultsOffset = propertyResults.offsetTop - 20;
-            window.scrollTo({
-                top: resultsOffset,
-                behavior: 'smooth'
-            });
+            propertyResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
         
         // Set up tokenization button
@@ -336,6 +498,96 @@ document.addEventListener('DOMContentLoaded', function() {
         return states[stateCode] || stateCode;
     }
     
+    // Test API connectivity to determine the correct endpoint
+    async function testApiConnectivity() {
+        console.log("Testing API connectivity...");
+        const endpoints = [
+            '/api/property-lookup',
+            '/.netlify/functions/property-lookup',
+            '/netlify/functions/property-lookup'
+        ];
+        
+        // Check if we've previously found a working endpoint
+        const cachedEndpoint = localStorage.getItem('propertyLookupEndpoint');
+        if (cachedEndpoint) {
+            // Move the cached endpoint to the front of the array
+            const index = endpoints.indexOf(cachedEndpoint);
+            if (index > -1) {
+                endpoints.splice(index, 1);
+            }
+            endpoints.unshift(cachedEndpoint);
+        }
+        
+        for (const endpoint of endpoints) {
+            try {
+                console.log(`Testing endpoint: ${endpoint}`);
+                const response = await fetch(endpoint, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.status === 204 || response.ok) {
+                    console.log(`Found working endpoint: ${endpoint}`);
+                    localStorage.setItem('propertyLookupEndpoint', endpoint);
+                    return true;
+                }
+            } catch (error) {
+                console.warn(`Endpoint ${endpoint} not available:`, error);
+            }
+        }
+        
+        console.warn("No working property lookup endpoints found.");
+        return false;
+    }
+    
+    // Add API configuration check
+    async function checkApiConfiguration() {
+        console.log('🔑 Checking API configuration...');
+        
+        // Try the cached endpoint first
+        const cachedEndpoint = localStorage.getItem('propertyLookupEndpoint');
+        const endpoints = cachedEndpoint ? [cachedEndpoint] : ['/api/property-lookup'];
+        
+        let apiKeyMissing = false;
+        
+        for (const endpoint of endpoints) {
+            try {
+                console.log(`Testing endpoint: ${endpoint}`);
+                const response = await fetch(endpoint, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.status === 204 || response.ok) {
+                    console.log('✅ API configuration check passed');
+                    return { ok: true };
+                }
+                
+                const errorData = await response.json().catch(() => ({}));
+                if (errorData.error?.toLowerCase().includes('api key')) {
+                    apiKeyMissing = true;
+                }
+            } catch (error) {
+                console.warn('⚠️ API configuration check warning:', error);
+                // Continue to next endpoint if available
+            }
+        }
+        
+        if (apiKeyMissing) {
+            return {
+                ok: false,
+                message: 'The Perplexity API key is not configured. Please add your API key to the .env file.'
+            };
+        }
+        
+        // If we get here, we'll let the main function try all endpoints
+        return { ok: true };
+    }
+    
     // Add this for the small spinner in the button
     const style = document.createElement('style');
     style.textContent = `
@@ -347,6 +599,17 @@ document.addEventListener('DOMContentLoaded', function() {
             border-top-color: #fff;
             animation: spin 1s linear infinite;
             margin-right: 8px;
+            display: inline-block;
+        }
+        
+        #propertyResults {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .btn-clicked {
+            transform: scale(0.97);
+            opacity: 0.9;
+            transition: transform 0.1s ease, opacity 0.1s ease;
         }
     `;
     document.head.appendChild(style);

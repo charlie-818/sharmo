@@ -312,7 +312,9 @@ module.exports = async (req, res) => {
                         role: "user",
                         content: `Find property details for ${address}, ${city}, ${state}. If you cannot find this property, return {"propertyData": null, "error": "Property not found"}.`
                     }
-                ]
+                ],
+                temperature: 0.7,
+                max_tokens: 2048
             };
 
             console.log(`\n📤 Sending request to Perplexity API`);

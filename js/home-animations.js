@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Animate property card
     const propertyCard = document.querySelector('.floating-property-card');
     if (propertyCard) {
-        // Add 3D tilt effect
+        // Remove animation effects - keep only hover effect
         propertyCard.addEventListener('mousemove', function(e) {
             const card = this.getBoundingClientRect();
             const centerX = card.left + card.width / 2;
@@ -109,15 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const posX = e.clientX - centerX;
             const posY = e.clientY - centerY;
             
-            const rotateX = posY * -0.05;
-            const rotateY = posX * 0.05;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            // Keep the hover effect but remove the animation
+            // No rotation or 3D transform applied
         });
         
         propertyCard.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-            this.style.transition = 'transform 0.5s ease';
+            // Just reset without animation
+            this.style.transform = '';
+            this.style.transition = '';
         });
     }
 

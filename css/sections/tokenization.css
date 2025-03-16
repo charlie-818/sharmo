@@ -599,12 +599,12 @@
     .protocol-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
     /* More compact code showcase on larger screens */
     .code-showcase {
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
+        background-color: #f8f8fc !important;
     }
 }
 

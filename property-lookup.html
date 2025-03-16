@@ -22,11 +22,14 @@
     <link rel="stylesheet" href="css/components/property-lookup.css">
     <script src="js/common.js"></script>
     <script src="js/main.js" defer></script>
+    <!-- Property Lookup specific script -->
+    <script src="js/property-lookup.js" defer></script>
     <!-- Property Lookup specific styles -->
     <style>
         /* Property Lookup Specific Styles */
         .property-lookup {
             padding: 2rem 0 4rem;
+            background-color: #f8fafc;
         }
         
         .property-grid {
@@ -38,6 +41,11 @@
         .property-detail {
             display: flex;
             flex-direction: column;
+            transition: all 0.2s ease;
+        }
+        
+        .property-detail:hover {
+            transform: translateY(-2px);
         }
         
         .detail-label {
@@ -45,6 +53,7 @@
             color: var(--text-muted);
             margin-bottom: 0.25rem;
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
         
         .detail-value {
@@ -84,6 +93,18 @@
         
         .section-header h4 {
             margin-bottom: 0;
+            position: relative;
+        }
+        
+        .section-header h4:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         /* Loading indicator */
@@ -126,10 +147,28 @@
             justify-content: center;
         }
         
+        /* Card styling */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .property-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -137,6 +176,11 @@
             .property-grid {
                 grid-template-columns: 1fr;
             }
+        }
+        
+        /* Transitions */
+        #propertyResults {
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
     </style>
 </head>
@@ -156,7 +200,7 @@
         </script>
 
         <!-- Main property lookup section -->
-        <section style = "top: 80px !important;" class="property-lookup">
+        <section style="top: 80px !important;" class="property-lookup">
             <div class="container">
                 <h2>Property Lookup</h2>
                 
@@ -400,7 +444,6 @@
     </div>
 
     <!-- Load property lookup script -->
-    <script src="js/property-lookup.js"></script>
     <script src="js/navigation.js"></script>
 </body>
 </html> 
