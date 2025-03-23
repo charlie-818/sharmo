@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="css/sections/benefits.css">
     <link rel="stylesheet" href="css/sections/features.css">
     <link rel="stylesheet" href="css/sections/faq.css">
+    <link rel="stylesheet" href="css/sections/dao.css">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +51,7 @@
     
     <!-- Scripts -->
     <script src="js/code-showcase.js" defer></script>
+    <script src="js/dao-visualization.js" defer></script>
     
     <!-- Any additional styles can be added here -->
     <style>
@@ -1364,13 +1366,13 @@
             
             .whitepaper-content {
                 max-width: 800px;
-                text-align: center !important;
-                margin: 0 auto !important;
+                text-align: left !important;
+                margin: 0 !important;
                 padding: 0;
                 width: 100%;
                 display: flex !important;
                 flex-direction: column !important;
-                align-items: center !important;
+                align-items: flex-start !important;
             }
             
             .whitepaper-content h3 {
@@ -1378,7 +1380,7 @@
                 font-size: 2.2rem;
                 margin-bottom: 20px;
                 font-weight: 700;
-                text-align: center !important;
+                text-align: left !important;
                 width: 100% !important;
             }
             
@@ -1387,9 +1389,9 @@
                 font-size: 1.1rem;
                 line-height: 1.6;
                 margin-bottom: 30px;
-                margin-left: auto !important;
-                margin-right: auto !important;
-                text-align: center !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                text-align: left !important;
                 max-width: 700px;
                 width: 100%;
             }
@@ -1558,7 +1560,7 @@
         </div>
     </section>
 
-    <section id="tokenization" class="tokenization">
+    <section id="tokenization" class="tokenization" style="background: white;">
         <div class="container">
             <h2>How It Works</h2>
           
@@ -1566,16 +1568,16 @@
           <div class="process-flow-container">
               <!-- Featured explanation -->
               <div class="process-hero">
-                  <h3>Real Estate Tokenization Made Simple</h3>
-                  <p>Sharmo transforms property ownership by securely converting real estate into digital tokens on the Ethereum blockchain. This enables fractional ownership with minimal investment, providing instant liquidity and global access to property markets.</p>
+                  <h3>Real Estate Tokenization Reimagined</h3>
+                  <p>Sharmo transforms property ownership through blockchain innovation, converting real estate assets into digital tokens. This revolutionary approach enables fractional ownership with minimal investment, unlocking global access and instant liquidity in previously illiquid markets.</p>
                   <div class="process-stats">
                       <div class="process-stat">
-                          <div class="stat-number">4-step</div>
-                          <div class="stat-label">Simple Process</div>
+                          <div class="stat-number">$100</div>
+                          <div class="stat-label">Minimum Investment</div>
                       </div>
                       <div class="process-stat">
                           <div class="stat-number">24/7</div>
-                          <div class="stat-label">Token Trading</div>
+                          <div class="stat-label">Global Trading</div>
                       </div>
                       <div class="process-stat">
                           <div class="stat-number">100%</div>
@@ -1584,7 +1586,7 @@
                     </div>
                 </div>
 
-              <!-- Visual process timeline -->
+              <!-- Streamlined process timeline -->
               <div class="process-timeline">
                   <div class="timeline-track"></div>
                   
@@ -1597,7 +1599,7 @@
                       </div>
                             <div class="step-content">
                                 <h4>Asset Verification</h4>
-                          <p>We conduct thorough legal due diligence to verify property titles, ownership history, and regulatory compliance to ensure complete legal certainty.</p>
+                          <p>We perform comprehensive legal due diligence to verify property ownership, ensuring complete legal certainty for all token holders.</p>
                             </div>
                         </div>
                   
@@ -1610,7 +1612,7 @@
                       </div>
                             <div class="step-content">
                                 <h4>Tokenization</h4>
-                          <p>Our smart contracts create blockchain tokens that represent legally-backed shares of the property with transparent ownership rights and automated governance.</p>
+                          <p>Smart contracts create blockchain tokens representing legally-backed shares of the property with automated governance capabilities.</p>
                             </div>
                         </div>
                   
@@ -1622,7 +1624,7 @@
                       </div>
                             <div class="step-content">
                                 <h4>Distribution</h4>
-                          <p>Property tokens are listed on decentralized exchanges for 24/7 trading, transforming the traditional months-long real estate transactions into seconds.</p>
+                          <p>Property tokens become available for trading on exchanges, transforming months-long real estate transactions into seconds.</p>
                             </div>
                         </div>
                   
@@ -1635,7 +1637,7 @@
                       </div>
                       <div class="step-content">
                           <h4>Management</h4>
-                          <p>Automated smart contracts handle all aspects of property administration, including rental income distribution and transparent decision-making.</p>
+                          <p>Smart contracts automate property administration, distributing rental income and facilitating collective decision-making among token holders.</p>
                       </div>
                     </div>
                 </div>
@@ -1652,11 +1654,11 @@
             }
             
             .process-hero {
-                background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(124, 58, 237, 0.08));
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(124, 58, 237, 0.05));
                 border-radius: 16px;
                 padding: 30px;
-                border: 1px solid rgba(99, 102, 241, 0.15);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(99, 102, 241, 0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
                 position: relative;
                 overflow: hidden;
                 height: 100%;
@@ -1698,6 +1700,11 @@
                 text-align: center;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
                 transition: transform 0.3s ease;
+            }
+            
+            .process-stat:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
             }
             
             .stat-number {
@@ -1750,6 +1757,10 @@
                 opacity: 0.3;
             }
             
+            .timeline-step:last-child::after {
+                display: none;
+            }
+            
             .step-icon {
                 position: absolute;
                 left: 0;
@@ -1789,65 +1800,81 @@
                 font-size: 0.95rem;
                 line-height: 1.45;
                 color: #6B7280;
-                margin: 0;
+                margin: 0 0 10px;
             }
             
-            /* Responsive adjustments */
-            @media (max-width: 1100px) {
-                .process-flow-container {
-                    grid-template-columns: minmax(280px, 1fr) minmax(350px, 1.3fr);
-                    gap: 25px;
-                }
-                
-                .process-hero {
-                    padding: 25px;
-                }
-                
-                .process-hero h3 {
-                    font-size: 1.5rem;
-                }
+            .code-snippet {
+                background: #1e293b;
+                border-radius: 8px;
+                padding: 10px;
+                font-family: 'Fira Code', monospace;
+                font-size: 0.85rem;
+                color: #e2e8f0;
+                margin-top: 10px;
+                overflow-x: auto;
             }
             
-            @media (max-width: 850px) {
+            .code-snippet code {
+                white-space: nowrap;
+            }
+            
+            .code-snippet span {
+                color: #fb923c;
+            }
+            
+            .dao-cta {
+                text-align: center;
+                margin-top: 30px;
+            }
+            
+            .dao-button {
+                display: inline-flex;
+                align-items: center;
+                background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                color: white;
+                font-weight: 600;
+                font-size: 1rem;
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            }
+            
+            .dao-button svg {
+                margin-left: 8px;
+                transition: transform 0.2s ease;
+            }
+            
+            .dao-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+            }
+            
+            .dao-button:hover svg {
+                transform: translateX(3px);
+            }
+            
+            @media (max-width: 1024px) {
                 .process-flow-container {
                     grid-template-columns: 1fr;
-                    gap: 40px;
+                    gap: 30px;
                 }
                 
                 .process-hero {
                     position: relative;
                     top: 0;
-                    max-width: 600px;
-                    margin: 0 auto;
-                }
-                
-                .process-timeline {
-                    max-width: 600px;
-                    margin: 0 auto;
+                    margin-bottom: 20px;
                 }
             }
             
-            @media (max-width: 480px) {
-                .process-hero {
-                    padding: 20px;
+            @media (max-width: 768px) {
+                .dao-section h2 {
+                    font-size: 1.8rem;
                 }
                 
                 .process-hero h3 {
-                    font-size: 1.4rem;
-                }
-                
-                .process-stats {
-                    grid-template-columns: 1fr;
-                    gap: 10px;
-                }
-                
-                .timeline-step {
-                    margin-bottom: 25px;
-                    padding-left: 50px;
-                }
-                
-                .timeline-track {
-                    left: 20px;
+                    font-size: 1.5rem;
                 }
                 
                 .step-icon {
@@ -1855,551 +1882,604 @@
                     height: 40px;
                 }
                 
-                .timeline-step::after {
+                .timeline-step {
+                    padding-left: 50px;
+                }
+                
+                .timeline-track, .timeline-step::after {
                     left: 20px;
-                    top: 20px;
-                    height: calc(100% + 25px);
+                }
+            }
+            
+            @media (max-width: 640px) {
+                .process-stats {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 8px;
+                }
+                
+                .process-stat {
+                    padding: 10px 8px;
+                }
+                
+                .stat-number {
+                    font-size: 1.1rem;
+                }
+                
+                .stat-label {
+                    font-size: 0.7rem;
+                }
+                
+                .timeline-step h4 {
+                    font-size: 1rem;
+                }
+                
+                .timeline-step p {
+                    font-size: 0.85rem;
                 }
             }
           </style>
 
-                <!-- Protocols section added back with cleaner design -->
-            <h3 style="text-align: center !important; display: block !important; margin-left: auto !important; margin-right: auto !important;" class="section-subheading">Blockchain Standards We Use</h3>
-            <div class="protocol-grid">
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-icon eth-black">
-                            <img src="images/ethereum/eth-black.png" alt="Ethereum Icon">
-                        </div>
-                        <h3>ERC-20</h3>
-                    </div>
-                    <p>The most common token standard, perfect for creating fungible tokens that represent equal shares of an asset.</p>
-                    <ul>
-                        <li>Easily tradable on exchanges</li>
-                        <li>Widely supported by wallets</li>
-                        <li>Ideal for fractional ownership</li>
-                    </ul>
-                </div>
+           
+        </div>
+    </section>
 
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-icon">
-                            <img src="images/ethereum/eth.png" alt="Ethereum Icon">
-                        </div>
-                        <h3>ERC-721</h3>
-                    </div>
-                    <p>Non-fungible tokens (NFTs) for unique assets with specific characteristics and ownership history.</p>
-                    <ul>
-                        <li>Unique property identifiers</li>
-                        <li>Individual asset tracking</li>
-                        <li>Complete ownership history</li>
-                    </ul>
+    <!-- Seamless Section Transition -->
+    <div class="section-connector" style="padding-top: 0; margin-top: -30px; border-top: none; background: white;">
+        <div class="container">
+            <div class="connector-content">
+                <div class="connector-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="40" height="40">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </div>
-
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-icon eth-orange">
-                            <img src="images/ethereum/eth-orange.png" alt="Ethereum Icon">
-                        </div>
-                        <h3>ERC-1155</h3>
+                <h3>From Asset to Collective Governance</h3>
+                <p>Once your property is tokenized, join our decentralized ecosystem and participate in democratic decision-making</p>
+                <div class="connector-steps">
+                    <div class="connector-step">
+                        <div class="step-dot"></div>
+                        <span>Tokenization</span>
                     </div>
-                    <p>Hybrid protocol supporting both fungible and non-fungible tokens in a single smart contract.</p>
-                    <ul>
-                        <li>Multiple token types</li>
-                        <li>Reduced gas costs</li>
-                        <li>Flexible asset management</li>
-                    </ul>
+                    <div class="connector-line"></div>
+                    <div class="connector-step">
+                        <div class="step-dot"></div>
+                        <span>DAO Membership</span>
+                    </div>
+                    <div class="connector-line"></div>
+                    <div class="connector-step">
+                        <div class="step-dot"></div>
+                        <span>Governance</span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <style>
-                /* Enhanced styling for the protocol section */
-                .section-subheading {
-                    font-size: 1.8rem;
-                    text-align: center;
-                    margin: 60px 0 30px;
-                    position: relative;
-                    color: #374151;
-                }
-
-                /* Removing the pill shape 
-                .section-subheading:after {
-                    content: '';
-                    position: absolute;
-                    bottom: -12px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 80px;
-                    height: 4px;
-                    background: linear-gradient(to right, #6366F1, #8B5CF6);
-                    border-radius: 2px;
-                } */
-
-                .protocol-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 25px;
-                    margin-bottom: 50px;
-                }
-
-                .protocol-card {
-                    background: white;
-                    border-radius: 16px;
-                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-                    overflow: hidden;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    border: 1px solid rgba(99, 102, 241, 0.1);
-                }
-
-                .protocol-card:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.12);
-                }
-
-                .protocol-header {
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    padding: 25px 25px 15px;
-                    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
-                }
-
-                .protocol-icon {
-                    width: 45px;
-                    height: 45px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 12px;
-                    background: rgba(99, 102, 241, 0.06);
-                }
-
-                .protocol-icon img {
-                    width: 30px;
-                    height: 30px;
-                }
-
-                .protocol-card h3 {
-                    font-size: 1.4rem;
-                    font-weight: 600;
-                    color: #374151;
-                    margin: 0;
-                }
-
-                .protocol-card p {
-                    padding: 20px 25px 15px;
-                    margin: 0;
-                    color: #4B5563;
-                    font-size: 1rem;
-                    line-height: 1.5;
-                }
-
-                .protocol-card ul {
-                    list-style: none;
-                    padding: 0 25px 25px;
-                    margin: 0;
-                }
-
-                .protocol-card ul li {
-                    padding: 8px 0 8px 28px;
-                    position: relative;
-                    font-size: 0.95rem;
-                    color: #6B7280;
-                }
-
-                .protocol-card ul li:before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 12px;
-                    width: 18px;
-                    height: 18px;
-                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236366F1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'%3E%3C/path%3E%3Cpolyline points='22 4 12 14.01 9 11.01'%3E%3C/polyline%3E%3C/svg%3E");
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    background-size: contain;
-                }
-
-                @media (max-width: 1024px) {
-                    .protocol-grid {
-                        grid-template-columns: repeat(3, 1fr);
-                        gap: 20px;
-                    }
-                }
-
-                @media (max-width: 768px) {
-                    .protocol-grid {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-                    
-                    .section-subheading {
-                        margin: 40px 0 30px;
-                        font-size: 1.6rem;
-                    }
-                }
-
-                @media (max-width: 640px) {
-                    .protocol-grid {
-                        grid-template-columns: 1fr;
-                    }
-                    
-                    .protocol-card p {
-                        padding: 15px 20px 10px;
-                    }
-                    
-                    .protocol-card ul {
-                        padding: 0 20px 20px;
-                    }
-                }
-            </style>
-                
-                <!-- Code showcase added back with cleaner design -->
+    <style>
+        /* Enhanced connector styling */
+        .section-connector {
+            background: white;
+            padding: 30px 0 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-connector::before,
+        .section-connector::after {
+            content: none; /* Removing the gradient dividers */
+        }
+        
+        .connector-content {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: none;
+            border: none;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .connector-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+        }
+        
+        .section-connector h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-connector p {
+            font-size: 1.15rem;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+        
+        .connector-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .connector-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            margin-bottom: 8px;
+        }
+        
+        .connector-step span {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4B5563;
+        }
+        
+        .connector-line {
+            height: 3px;
+            width: 80px;
+            background: linear-gradient(to right, #6366F1, #8B5CF6);
+            margin: 0 10px;
+            position: relative;
+            top: -14px;
+        }
+        
+        @media (max-width: 768px) {
+            .section-connector {
+                padding: 40px 0;
+            }
             
-                <div class="code-showcase">
-                    <div class="heading-container">
-                        <h3 class="section-subheading">Smart Contract Functions</h3>
+            .section-connector h3 {
+                font-size: 1.5rem;
+            }
+            
+            .section-connector p {
+                font-size: 1rem;
+            }
+            
+            .connector-line {
+                width: 40px;
+            }
+            
+            .connector-step span {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+        <!-- DAO Section -->
+        <section id="dao-governance" class="dao-section" style="border-top: none !important; margin-top: -15px !important; padding-top: 40px !important; background: white !important;">
+            <div class="container dao-container">
+                <h2>Decentralized Governance</h2>
+                
+                <div class="governance-flow-container">
+                    <!-- Featured explanation -->
+                    <div class="governance-hero">
+                        <h3>Democratic Real Estate Ownership</h3>
+                        <p>Sharmo's governance model transforms traditional property investment by empowering all token holders with voting rights on acquisitions, management decisions, and profit distribution. This decentralized approach ensures equity regardless of investment size.</p>
+                        <div class="governance-stats">
+                            <div class="governance-stat">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Transparent</div>
+                            </div>
+                            <div class="governance-stat">
+                                <div class="stat-number">Equal</div>
+                                <div class="stat-label">Voting Rights</div>
+                            </div>
+                            <div class="governance-stat">
+                                <div class="stat-number">Smart</div>
+                                <div class="stat-label">Contracts</div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="functions-grid">
-                        <div class="function-card">
-                            <div class="function-header">
-                                <div class="function-icon">
-                                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                        <path d="M16.5 9.4L7.55 4.24"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4>tokenizeProperty()</h4>
-                                    <span class="function-tag">onlyOwner</span>
-                                </div>
+                    <!-- Governance process timeline -->
+                    <div class="governance-timeline">
+                        <div class="timeline-track"></div>
+                        
+                        <div class="timeline-step step-active" data-step="1">
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
-                            <div class="function-code">
-                                <pre><code><span class="keyword">function</span> tokenizeProperty(
-  <span class="type">string</span> <span class="keyword">memory</span> _propertyAddress,
-  <span class="type">uint256</span> _propertyValuation,
-  <span class="type">uint256</span> _totalSupply
-) <span class="keyword">public</span> <span class="keyword">onlyOwner</span> <span class="keyword">returns</span> (<span class="type">uint256</span> propertyId) {
-  <span class="comment">// Create property token</span>
-  <span class="keyword">return</span> _createProperty(_propertyAddress, _propertyValuation, _totalSupply);
-}</code></pre>
+                            <div class="step-content">
+                                <h4>Transparent Governance</h4>
+                                <p>All property management decisions and financial records are permanently stored on the blockchain, ensuring complete transparency for every asset in your portfolio.</p>
                             </div>
-                            <p class="function-description">Creates a tokenized property divided into multiple shares with verified ownership and legal compliance.</p>
                         </div>
                         
-                        <div class="function-card">
-                            <div class="function-header">
-                                <div class="function-icon">
-                                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="9 11 12 14 22 4"></polyline>
-                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4>purchaseTokens()</h4>
-                                    <span class="function-tag">payable</span>
-                                </div>
+                        <div class="timeline-step" data-step="2">
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
-                            <div class="function-code">
-                                <pre><code><span class="keyword">function</span> purchaseTokens(
-  <span class="type">uint256</span> _propertyId,
-  <span class="type">uint256</span> _tokenAmount
-) <span class="keyword">public</span> <span class="keyword">payable</span> <span class="keyword">nonReentrant</span> {
-  <span class="comment">// Verify sufficient funds</span>
-  <span class="keyword">require</span>(msg.value >= getTokenPrice(_propertyId) * _tokenAmount, <span class="string">"Insufficient funds"</span>);
-  <span class="comment">// Transfer tokens</span>
-  properties[_propertyId].transferTokens(msg.sender, _tokenAmount);
-}</code></pre>
+                            <div class="step-content">
+                                <h4>Automated Distributions</h4>
+                                <p>Smart contracts automatically distribute rental income to token holders based on ownership percentage, eliminating intermediaries and reducing costs.</p>
                             </div>
-                            <p class="function-description">Allows investors to buy property tokens with reentrancy protection and automatic validation.</p>
                         </div>
                         
-                        <div class="function-card">
-                            <div class="function-header">
-                                <div class="function-icon">
-                                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                                        <line x1="9" y1="21" x2="9" y2="9"></line>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4>listTokensForSale()</h4>
-                                    <span class="function-tag">public</span>
-                                </div>
+                        <div class="timeline-step" data-step="3">
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                                </svg>
                             </div>
-                            <div class="function-code">
-                                <pre><code><span class="keyword">function</span> listTokensForSale(
-  <span class="type">uint256</span> _propertyId,
-  <span class="type">uint256</span> _tokenAmount,
-  <span class="type">uint256</span> _pricePerToken
-) <span class="keyword">public</span> {
-  <span class="comment">// Verify token ownership</span>
-  <span class="keyword">require</span>(balanceOf(msg.sender, _propertyId) >= _tokenAmount, <span class="string">"Insufficient tokens"</span>);
-  <span class="comment">// Create listing</span>
-  _createListing(_propertyId, _tokenAmount, _pricePerToken);
-}</code></pre>
+                            <div class="step-content">
+                                <h4>Collective Decision-Making</h4>
+                                <p>Token holders vote on property decisions from renovations to leasing strategies, ensuring assets are managed according to the collective interests of all owners.</p>
                             </div>
-                            <p class="function-description">Lists tokens for sale with escrow locking and ownership verification for secure trading.</p>
                         </div>
                         
-                        <div class="function-card">
-                            <div class="function-header">
-                                <div class="function-icon">
-                                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="#6366F1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4>distributeReturns()</h4>
-                                    <span class="function-tag">onlyOwner</span>
+                        <div class="timeline-step" data-step="4">
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </div>
+                            <div class="step-content">
+                                <h4>Smart Contract Integration</h4>
+                                <p>Property proposals and voting are executed through secure blockchain code, as shown in this example:</p>
+                                <div class="code-snippet">
+                                    <code>proposeRenovation(<span>propertyId</span>, <span>budget: 175000</span>, <span>votingPeriod: 7</span>)</code>
                                 </div>
                             </div>
-                            <div class="function-code">
-                                <pre><code><span class="keyword">function</span> distributeReturns(
-  <span class="type">uint256</span> _propertyId,
-  <span class="type">uint256</span> _totalAmount
-) <span class="keyword">public</span> <span class="keyword">onlyOwner</span> {
-  <span class="comment">// Calculate shares</span>
-  <span class="type">address</span>[] <span class="keyword">memory</span> holders = getPropertyTokenHolders(_propertyId);
-  <span class="keyword">for</span> (<span class="type">uint</span> i = <span class="number">0</span>; i < holders.length; i++) {
-    <span class="type">uint256</span> share = (_totalAmount * balanceOf(holders[i], _propertyId)) / totalSupply(_propertyId);
-    <span class="keyword">payable</span>(holders[i]).<span class="keyword">transfer</span>(share);
-  }
-}</code></pre>
-                            </div>
-                            <p class="function-description">Distributes rental income proportionally to token holders based on ownership percentage.</p>
                         </div>
                     </div>
+                </div>
                 
+                <div class="dao-cta">
+                    <a href="#" class="dao-button">
+                        Join Our Property DAO
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-
+            
+            <!-- Updated styles for the improved governance section -->
             <style>
-                /* Optimized styling for code showcase with white theme */
-                .code-showcase {
-                    margin: 40px auto;
-                    width: 100%;
-                    max-width: 1200px;
-                    position: relative;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    background: #ffffff;
-                }
-                
-                /* Code showcase section wrapper */
-                .code-showcase-section {
-                    background: #ffffff;
+                .dao-section {
                     padding: 60px 0;
-                    margin: 0;
-                    border-top: 1px solid rgba(241, 245, 249, 0.5);
-                    border-bottom: 1px solid rgba(241, 245, 249, 0.5);
-                    width: 100%;
+                    background: white;
+                    position: relative;
+                    overflow: hidden;
                 }
                 
-                .heading-container {
-                    width: 100%;
+                .dao-section h2 {
                     text-align: center;
-                    margin-bottom: 30px;
-                }
-                
-                .section-subheading {
-                    font-size: 1.8rem;
-                    font-weight: 700;
+                    margin-bottom: 40px;
                     background: linear-gradient(135deg, #6366F1, #8B5CF6);
                     -webkit-background-clip: text;
-                    background-clip: text;
                     -webkit-text-fill-color: transparent;
-                    display: inline-block;
+                    font-size: 2.2rem;
+                }
+                
+                .dao-container {
                     position: relative;
+                    z-index: 2;
+                    max-width: 1140px;
+                    margin: 0 auto;
                 }
                 
-                .section-subheading::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -8px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 60px;
-                    height: 3px;
-                    background: linear-gradient(90deg, #6366F1, #8B5CF6);
-                    border-radius: 2px;
-                }
-                
-                /* More efficient grid layout */
-                .functions-grid {
+                /* New layout to match How It Works section */
+                .governance-flow-container {
                     display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 20px;
-                    width: 100%;
+                    grid-template-columns: minmax(300px, 1fr) minmax(400px, 1.5fr);
+                    gap: 30px;
+                    margin: 40px 0 50px;
+                    align-items: start;
                 }
                 
-                .function-card {
-                    background: #ffffff;
-                    border-radius: 12px;
-                    border: 1px solid rgba(99, 102, 241, 0.15);
+                .governance-hero {
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(124, 58, 237, 0.05));
+                    border-radius: 16px;
+                    padding: 30px;
+                    border: 1px solid rgba(99, 102, 241, 0.1);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                    position: relative;
                     overflow: hidden;
+                    height: 100%;
                     display: flex;
                     flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    justify-content: space-between;
+                    z-index: 1;
+                    position: sticky;
+                    top: 90px;
                 }
                 
-                .function-card:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.12);
+                .governance-hero::after {
+                    content: '';
+                    position: absolute;
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(124, 58, 237, 0.1));
+                    bottom: -100px;
+                    right: -100px;
+                    z-index: -1;
                 }
                 
-                .function-header {
-                    display: flex;
-                    align-items: center;
-                    padding: 16px;
-                    background: #ffffff;
-                    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+                .governance-hero h3 {
+                    font-size: 1.7rem;
+                    margin-bottom: 12px;
+                    background: linear-gradient(to right, #6366F1, #8B5CF6);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    line-height: 1.3;
                 }
                 
-                .function-icon {
-                    width: 36px;
-                    height: 36px;
-                    margin-right: 12px;
+                .governance-hero p {
+                    font-size: 1rem;
+                    line-height: 1.55;
+                    margin-bottom: 25px;
+                    color: #4B5563;
+                }
+                
+                .governance-stats {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 12px;
+                    margin-top: auto;
+                }
+                
+                .governance-stat {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 12px 10px;
+                    text-align: center;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+                    transition: transform 0.3s ease;
+                }
+                
+                .governance-stat:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+                }
+                
+                .stat-number {
+                    font-size: 1.3rem;
+                    font-weight: 700;
+                    color: #6366F1;
+                    margin-bottom: 3px;
+                }
+                
+                .stat-label {
+                    font-size: 0.8rem;
+                    color: #6B7280;
+                }
+                
+                /* Timeline matching How It Works */
+                .governance-timeline {
+                    position: relative;
+                    padding: 10px 0;
+                    min-height: 450px;
+                }
+                
+                .timeline-track {
+                    position: absolute;
+                    left: 24px;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+                    opacity: 0.3;
+                }
+                
+                .timeline-step {
+                    position: relative;
+                    padding-left: 60px;
+                    margin-bottom: 32px;
+                }
+                
+                .timeline-step:last-child {
+                    margin-bottom: 0;
+                }
+                
+                .timeline-step::after {
+                    content: '';
+                    position: absolute;
+                    left: 24px;
+                    top: 24px;
+                    width: 2px;
+                    height: calc(100% + 32px);
+                    background: linear-gradient(to bottom, #6366F1, #8B5CF6);
+                    z-index: 1;
+                    opacity: 0.3;
+                }
+                
+                .timeline-step:last-child::after {
+                    display: none;
+                }
+                
+                .step-icon {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    background: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    background: rgba(99, 102, 241, 0.08);
-                    border-radius: 8px;
-                    flex-shrink: 0;
-                }
-                
-                .function-header h4 {
-                    margin: 0 0 3px 0;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    font-family: 'Fira Code', monospace;
-                    color: #1E293B;
-                }
-                
-                .function-tag {
-                    font-size: 0.7rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    border: 2px solid rgba(99, 102, 241, 0.2);
+                    z-index: 2;
                     color: #6366F1;
-                    background: rgba(99, 102, 241, 0.08);
-                    padding: 2px 6px;
-                    border-radius: 4px;
-                    font-weight: 500;
+                    transition: all 0.3s ease;
                 }
                 
-                /* White code display */
-                .function-code {
-                    padding: 12px;
-                    background: #ffffff;
-                    overflow-x: auto;
-                    max-height: 200px;
+                .step-active .step-icon {
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                    color: white;
+                    transform: scale(1.05);
+                }
+                
+                .step-content {
+                    padding: 0 0 0 15px;
+                }
+                
+                .timeline-step h4 {
+                    font-size: 1.15rem;
+                    margin-bottom: 6px;
+                    font-weight: 600;
+                    color: #374151;
+                }
+                
+                .timeline-step p {
+                    font-size: 0.95rem;
+                    line-height: 1.45;
+                    color: #6B7280;
+                    margin: 0 0 10px;
+                }
+                
+                .code-snippet {
+                    background: #1e293b;
+                    border-radius: 8px;
+                    padding: 10px;
                     font-family: 'Fira Code', monospace;
                     font-size: 0.85rem;
-                    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+                    color: #e2e8f0;
+                    margin-top: 10px;
+                    overflow-x: auto;
                 }
                 
-                .function-code pre {
-                    margin: 0;
+                .code-snippet code {
+                    white-space: nowrap;
                 }
                 
-                .function-code code {
-                    display: block;
-                    line-height: 1.5;
-                    color: #334155;
+                .code-snippet span {
+                    color: #fb923c;
                 }
                 
-                .function-description {
-                    padding: 12px 16px;
-                    margin: 0;
-                    color: #64748B;
-                    font-size: 0.9rem;
-                    line-height: 1.4;
-                    background: #ffffff;
+                .dao-cta {
+                    text-align: center;
+                    margin-top: 30px;
                 }
                 
-                /* Light syntax highlighting for white background */
-                .keyword {
-                    color: #8250DF;
+                .dao-button {
+                    display: inline-flex;
+                    align-items: center;
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
                 }
                 
-                .type {
-                    color: #0550AE;
+                .dao-button svg {
+                    margin-left: 8px;
+                    transition: transform 0.2s ease;
                 }
                 
-                .string {
-                    color: #0A3069;
+                .dao-button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
                 }
                 
-                .comment {
-                    color: #6E7781;
-                    font-style: italic;
+                .dao-button:hover svg {
+                    transform: translateX(3px);
                 }
                 
-                .number {
-                    color: #0550AE;
-                }
-                
-                /* Responsive adjustments */
-                @media (max-width: 900px) {
-                    .functions-grid {
+                @media (max-width: 1024px) {
+                    .governance-flow-container {
                         grid-template-columns: 1fr;
-                        max-width: 600px;
-                        margin: 0 auto;
-                    }
-                }
-                
-                @media (max-width: 600px) {
-                    .function-card {
-                        font-size: 0.8rem;
+                        gap: 30px;
                     }
                     
-                    .function-code {
-                        font-size: 0.75rem;
+                    .governance-hero {
+                        position: relative;
+                        top: 0;
+                        margin-bottom: 20px;
+                    }
+                }
+                
+                @media (max-width: 768px) {
+                    .dao-section h2 {
+                        font-size: 1.8rem;
+                    }
+                    
+                    .process-hero h3 {
+                        font-size: 1.5rem;
+                    }
+                    
+                    .step-icon {
+                        width: 40px;
+                        height: 40px;
+                    }
+                    
+                    .timeline-step {
+                        padding-left: 50px;
+                    }
+                    
+                    .timeline-track, .timeline-step::after {
+                        left: 20px;
+                    }
+                }
+                
+                @media (max-width: 640px) {
+                    .process-stats {
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 8px;
+                    }
+                    
+                    .process-stat {
+                        padding: 10px 8px;
+                    }
+                    
+                    .stat-number {
+                        font-size: 1.1rem;
+                    }
+                    
+                    .stat-label {
+                        font-size: 0.7rem;
+                    }
+                    
+                    .timeline-step h4 {
+                        font-size: 1rem;
+                    }
+                    
+                    .timeline-step p {
+                        font-size: 0.85rem;
                     }
                 }
             </style>
-
-                    <!-- CTA Button -->
-                    <div class="token-action">
-                        <a href="/marketplace.html" class="btn-primary">
-                            <span>Explore Available Properties</span>
-                            <svg viewBox="0 0 24 24" width="16" height="16">
-                                <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Script for code copy functionality -->
-                <script>
-                    function copyCodeToClipboard() {
-                        const codeElement = document.querySelector('.code-content code');
-                        const textToCopy = codeElement.innerText;
-                        
-                        navigator.clipboard.writeText(textToCopy).then(() => {
-                            const copyBtn = document.getElementById('copy-code-btn');
-                            const originalText = copyBtn.innerHTML;
-                            
-                            copyBtn.innerHTML = `
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                                <span>Copied!</span>
-                            `;
-                            
-                            setTimeout(() => {
-                                copyBtn.innerHTML = originalText;
-                            }, 2000);
-                        }).catch(err => {
-                            console.error('Failed to copy: ', err);
-                        });
-                    }
-                </script>
-                        </div>
         </section>
 
-        <section id="benefits" class="benefits">
+        <!-- Benefits Section -->
+        <section id="benefits" class="benefits" style="background: white;">
             <div class="container">
                 <h2>Key Benefits of Tokenization</h2>
                 
