@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - Real Estate Tokenization Knowledge Hub</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js"></script>
+    <script src="js/main.js" defer></script>
+
+    <style>
+        body {
+            padding-top: 100px !important; /* Increased padding to account for fixed header */
+        }
+
+        /* News page specific styles */
+        .news-page-header {
+            background: #0f172a !important; /* Simplified gradient */
+            padding: 50px 0 !important;
+            text-align: center !important;
+            margin-bottom: 40px !important;
+        }
+        
+        .news-page-header .container {
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            color: white !important;
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .news-page-header h1 {
+            color: #fff !important;
+            margin: 0 auto 15px auto !important;
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            text-align: center !important;
+            padding: 5px 0 !important;
+            width: auto !important;
+            max-width: none !important;
+            display: inline-block !important;
+        }
+
+        .news-page-header p {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-size: 1.1rem !important;
+            max-width: 700px !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .news-container {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+        }
+
+        .news-filters {
+            display: flex !important;
+            justify-content: center !important;
+            margin-bottom: 30px !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+        }
+
+        .filter-tabs {
+            display: flex !important;
+            gap: 10px !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+        }
+
+        .filter-tab {
+            padding: 8px 16px !important;
+            border-radius: 4px !important; /* Less rounded */
+            background: var(--light-gray) !important;
+            color: var(--text-secondary) !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important; /* Faster transition */
+        }
+
+        .filter-tab:hover {
+            background: var(--medium-gray) !important;
+            color: var(--text) !important;
+        }
+
+        .filter-tab.active {
+            background: #4f46e5 !important; /* Solid color instead of gradient */
+            color: white !important;
+        }
+
+        .news-grid {
+            display: grid !important;
+            grid-template-columns: repeat(12, 1fr) !important;
+            gap: 20px !important; /* Reduced gap */
+            margin-bottom: 40px !important;
+        }
+
+        /* News card common styles */
+        .news-card {
+            background: var(--primary) !important;
+            border-radius: 8px !important; /* Less rounded corners */
+            overflow: hidden !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important; /* Lighter shadow */
+            transition: all 0.2s ease !important; /* Faster transition */
+            border: none !important; /* Removed border completely */
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: relative !important;
+            cursor: pointer !important;
+        }
+
+        .news-card:hover {
+            transform: translateY(-2px) !important; /* Subtle lift */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important; /* Neutral shadow instead of colored */
+            border-color: transparent !important; /* No border color change on hover */
+        }
+        
+        .news-card:hover .news-card-title {
+            color: #4f46e5 !important;
+        }
+        
+        .card-link {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 2 !important;
+        }
+
+        .news-card-image {
+            height: 180px !important; /* Shorter images */
+            overflow: hidden !important;
+            position: relative !important;
+        }
+
+        .news-card-image img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
+        .news-tag {
+            position: absolute !important;
+            top: 10px !important;
+            left: 10px !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important; /* Less rounded */
+            font-size: 0.7rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            z-index: 3 !important;
+            background: #4f46e5 !important; /* Consistent color */
+            color: white !important;
+        }
+
+        .news-card-content {
+            padding: 16px !important; /* Less padding */
+            flex-grow: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .news-card-date {
+            color: var(--text-secondary) !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            position: relative !important;
+            z-index: 3 !important;
+        }
+
+        .news-card-date i {
+            color: #4f46e5 !important;
+        }
+
+        .news-card-title {
+            font-size: 1.1rem !important; /* Smaller font */
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+            margin-bottom: 8px !important;
+            color: var(--text) !important;
+            position: relative !important;
+            z-index: 3 !important;
+            transition: color 0.2s ease !important;
+        }
+
+        .news-card-excerpt {
+            color: var(--text-secondary) !important;
+            font-size: 0.85rem !important;
+            line-height: 1.5 !important;
+            margin-bottom: 12px !important;
+            flex-grow: 1 !important;
+            position: relative !important;
+            z-index: 3 !important;
+        }
+
+        .news-card-footer {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-top: auto !important;
+            position: relative !important;
+            z-index: 3 !important;
+            border-top: 1px solid rgba(79, 70, 229, 0.08) !important;
+            padding-top: 10px !important;
+        }
+
+        .news-card-source {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        .source-logo {
+            width: 16px !important; /* Smaller logo */
+            height: 16px !important;
+            border-radius: 50% !important;
+            object-fit: cover !important;
+        }
+
+        .source-name {
+            font-size: 0.75rem !important;
+            color: var(--text-secondary) !important;
+            font-weight: 500 !important;
+        }
+
+        .read-more {
+            color: #4f46e5 !important;
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+            transition: all 0.2s ease !important;
+            position: relative !important;
+            z-index: 4 !important; /* Higher z-index */
+        }
+        
+        /* Featured news card */
+        .news-card.featured {
+            grid-column: span 12 !important;
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 0 !important;
+        }
+
+        .news-card.featured .news-card-image {
+            height: 100% !important;
+        }
+
+        .news-card.featured .news-card-content {
+            padding: 24px !important;
+        }
+
+        .news-card.featured .news-card-title {
+            font-size: 1.5rem !important;
+            line-height: 1.2 !important;
+        }
+
+        /* Medium news cards */
+        .news-card.medium {
+            grid-column: span 6 !important;
+        }
+
+        /* Small news cards */
+        .news-card.small {
+            grid-column: span 4 !important;
+        }
+
+        /* Text-only card */
+        .news-card.text-only {
+            background: #f8fafc !important; /* Light background instead of colored */
+            padding: 0 !important;
+            border: none !important; /* No border */
+        }
+
+        /* Horizontal card */
+        .news-card.horizontal {
+            display: flex !important;
+            flex-direction: row !important;
+            height: 160px !important; /* Shorter height */
+        }
+
+        .news-card.horizontal .news-card-image {
+            width: 35% !important;
+            height: 100% !important;
+            flex-shrink: 0 !important;
+        }
+
+        .news-card.horizontal .news-card-content {
+            width: 65% !important;
+        }
+        
+        /* Knowledge intro section - redesigned */
+        .knowledge-intro {
+            margin-bottom: 30px !important;
+            background: linear-gradient(to right, #f8fafc, #f1f5f9) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: row !important;
+        }
+        
+        .knowledge-intro-content {
+            flex: 1 !important;
+            padding: 25px !important;
+        }
+        
+        .knowledge-intro-visual {
+            width: 200px !important;
+            background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            color: white !important;
+            padding: 20px !important;
+        }
+        
+        .knowledge-intro-icon {
+            font-size: 3rem !important;
+            margin-bottom: 15px !important;
+        }
+        
+        .knowledge-intro h2 {
+            font-size: 1.5rem !important;
+            margin-bottom: 12px !important;
+            color: var(--text) !important;
+            font-weight: 700 !important;
+        }
+        
+        .knowledge-intro p {
+            color: var(--text-secondary) !important;
+            line-height: 1.5 !important;
+            margin-bottom: 12px !important;
+            font-size: 0.95rem !important;
+        }
+        
+        .knowledge-intro-actions {
+            display: flex !important;
+            gap: 10px !important;
+            margin-top: 5px !important;
+        }
+        
+        .knowledge-intro .cta-button {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 8px 16px !important;
+            background: #4f46e5 !important;
+            color: white !important;
+            border-radius: 4px !important;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .knowledge-intro .cta-button:hover {
+            background: #4338ca !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        .knowledge-intro .secondary-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 8px 16px !important;
+            color: #4f46e5 !important;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .knowledge-intro .secondary-link:hover {
+            color: #4338ca !important;
+            text-decoration: underline !important;
+        }
+        
+        /* Responsive styles for knowledge intro */
+        @media (max-width: 768px) {
+            .knowledge-intro {
+                flex-direction: column-reverse !important;
+            }
+            
+            .knowledge-intro-visual {
+                width: 100% !important;
+                padding: 15px !important;
+                flex-direction: row !important;
+                gap: 15px !important;
+            }
+            
+            .knowledge-intro-icon {
+                margin-bottom: 0 !important;
+            }
+        }
+        
+        /* Newsletter section - simplified */
+        .newsletter-section {
+            background: #f8fafc !important; /* Lighter solid background */
+            padding: 40px 0 !important;
+            border-radius: 8px !important;
+            margin: 40px auto !important; /* Changed 0 to auto for horizontal centering */
+            border: none !important; /* Removed border */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important; /* Added subtle shadow instead */
+            text-align: center !important; /* Ensure center alignment */
+            max-width: 100% !important; /* Full width container */
+        }
+
+        .newsletter-container {
+            max-width: 600px !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+            padding: 0 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important; /* Center form elements */
+            justify-content: center !important;
+        }
+
+        .newsletter-title {
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 15px !important;
+            color: var(--text) !important;
+        }
+
+        .newsletter-description {
+            color: var(--text-secondary) !important;
+            font-size: 1rem !important;
+            margin-bottom: 20px !important;
+            line-height: 1.5 !important;
+        }
+
+        .newsletter-form {
+            display: flex !important;
+            gap: 8px !important;
+            max-width: 500px !important;
+            margin: 0 auto !important;
+            width: 100% !important; /* Ensure full width */
+        }
+
+        .newsletter-form input {
+            flex: 1 !important;
+            padding: 12px 16px !important;
+            border-radius: 4px !important; /* Less rounded */
+            border: 1px solid var(--light-gray) !important;
+            background: var(--primary) !important;
+            font-size: 0.95rem !important;
+        }
+
+        .newsletter-form input:focus {
+            border-color: #4f46e5 !important;
+            outline: none !important;
+        }
+
+        .newsletter-form button {
+            background: #4f46e5 !important; /* Solid color instead of gradient */
+            color: white !important;
+            border: none !important;
+            border-radius: 4px !important; /* Less rounded */
+            padding: 12px 20px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            white-space: nowrap !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .news-card.featured,
+            .news-card.medium,
+            .news-card.small {
+                grid-column: span 1 !important;
+            }
+            
+            .news-card.featured {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .news-card.featured .news-card-image {
+                height: 180px !important;
+            }
+            
+            .news-card.horizontal {
+                flex-direction: column !important;
+                height: auto !important;
+            }
+            
+            .news-card.horizontal .news-card-image {
+                width: 100% !important;
+                height: 180px !important;
+            }
+            
+            .news-card.horizontal .news-card-content {
+                width: 100% !important;
+            }
+            
+            .news-page-header h1 {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        /* Additional styles for new sections */
+        .section-header {
+            text-align: left !important;
+            margin: 60px auto 30px !important;
+            max-width: 800px !important;
+            width: 100% !important; /* Ensure full width within max-width */
+            padding: 0 !important; /* Remove padding that could cause asymmetry */
+            box-sizing: border-box !important; /* Include padding in width calculation */
+            display: block !important; /* Ensure block display */
+            position: relative !important; /* Enable positioning */
+            left: 0 !important; /* Remove left shift */
+        }
+        
+        .section-header h2 {
+            font-size: 2rem !important;
+            font-weight: 700 !important;
+            color: var(--text) !important;
+            margin-bottom: 10px !important;
+            text-align: left !important;
+            width: 100% !important; /* Ensure full width */
+            display: block !important; /* Force block display */
+            padding: 0 !important; /* Remove padding */
+            margin-left: 0 !important; /* Reset potential margins */
+            margin-right: 0 !important;
+        }
+        
+        .section-header p {
+            color: var(--text-secondary) !important;
+            font-size: 1.1rem !important;
+            text-align: left !important;
+            width: 100% !important; /* Ensure full width */
+            display: block !important; /* Force block display */
+            margin: 0 !important; /* Remove auto margins */
+            padding: 0 !important; /* Remove padding */
+        }
+        
+        /* Tag colors */
+        .tag-guides {
+            background: #4f46e5;
+        }
+        
+        .tag-market {
+            background: #10b981;
+        }
+        
+        .tag-regulation {
+            background: #f59e0b;
+        }
+        
+        .tag-technology {
+            background: #6366f1;
+        }
+        
+        .tag-case-study {
+            background: #8b5cf6;
+        }
+        
+        .tag-advanced {
+            background: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- News Page Content -->
+    <main>
+        <!-- News Header -->
+        <section class="news-page-header">
+            <div class="container">
+                <h1>Real Estate Tokenization Knowledge Hub</h1>
+                <p>Learn everything about tokenized real estate - from fundamentals to advanced concepts</p>
+            </div>
+        </section>
+        
+        <!-- News Content -->
+        <section class="news-container">
+            <!-- Knowledge Intro Section -->
+            <div class="knowledge-intro">
+                <div class="knowledge-intro-content">
+                    <h2>Understanding Real Estate Tokenization</h2>
+                    <p>Real estate tokenization is revolutionizing property investment by converting real estate assets into digital tokens on a blockchain, enabling fractional ownership, increased liquidity, and global accessibility to property investments.</p>
+                    <p>Explore our comprehensive guides and expert analyses to understand how blockchain technology is transforming the real estate market.</p>
+                    <div class="knowledge-intro-actions">
+                        <a href="/articles/beginners-guide-to-real-estate-tokenization.html" class="cta-button">
+                            <i class="fas fa-graduation-cap"></i> Start Learning
+                        </a>
+                        <a href="#advanced-topics" class="secondary-link">
+                            <i class="fas fa-arrow-right"></i> Advanced Topics
+                        </a>
+                    </div>
+                </div>
+                <div class="knowledge-intro-visual">
+                    <div class="knowledge-intro-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <span>Tokenized Real Estate</span>
+                </div>
+            </div>
+            
+            <!-- News Grid -->
+            <div class="news-grid">
+                <!-- Featured Guide Card (Beginner's Guide) -->
+                <div class="news-card featured">
+                    <div class="news-card-image">
+                        <span class="news-tag tag-guides">Beginner Guide</span>
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1673&q=80" alt="Real Estate Tokenization Basics">
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Updated April 2023</span>
+                        </div>
+                        <h3 class="news-card-title">The Complete Beginner's Guide to Real Estate Tokenization</h3>
+                        <p class="news-card-excerpt">Learn the fundamentals of real estate tokenization, how it works, its benefits and challenges, and why it's transforming property investment. Perfect for those new to the concept or looking to solidify their understanding.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Sharmo Research Team</span>
+                            </div>
+                            <a href="/articles/beginners-guide-to-real-estate-tokenization.html" class="read-more">
+                                Read Complete Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Medium Card - Regulatory Guide -->
+                <div class="news-card medium">
+                    <div class="news-card-image">
+                        <span class="news-tag tag-regulation">Regulation</span>
+                        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" alt="Regulatory Framework">
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>March 2023</span>
+                        </div>
+                        <h3 class="news-card-title">Current Regulatory Landscape for Tokenized Real Estate Assets</h3>
+                        <p class="news-card-excerpt">An in-depth overview of the regulatory frameworks governing tokenized real estate across major jurisdictions, including SEC guidelines, EU regulations, and emerging global standards.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Legal Affairs Team</span>
+                            </div>
+                            <a href="/articles/regulatory-landscape-tokenized-real-estate.html" class="read-more">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Medium Card - Market Analysis -->
+                <div class="news-card medium">
+                    <div class="news-card-image">
+                        <span class="news-tag tag-market">Market</span>
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Market Growth Analysis">
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>February 2023</span>
+                        </div>
+                        <h3 class="news-card-title">2023 Market Analysis: The Growth of Tokenized Real Estate</h3>
+                        <p class="news-card-excerpt">Comprehensive market analysis of the tokenized real estate sector, including current market size, growth projections, major players, and emerging trends shaping the industry.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Market Research Team</span>
+                            </div>
+                            <a href="/articles/market-analysis-tokenized-real-estate-2023.html" class="read-more">
+                                Read Analysis <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Small Card - Blockchain Fundamentals -->
+                <div class="news-card small">
+                    <div class="news-card-image">
+                        <span class="news-tag tag-technology">Technology</span>
+                        <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" alt="Blockchain Technology">
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>January 2023</span>
+                        </div>
+                        <h3 class="news-card-title">Blockchain Fundamentals for Real Estate Professionals</h3>
+                        <p class="news-card-excerpt">A technical but accessible explanation of blockchain technology specifically tailored for real estate professionals and investors looking to understand the underlying technology.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Tech Education Team</span>
+                            </div>
+                            <a href="/articles/blockchain-fundamentals-real-estate.html" class="read-more">
+                                Read Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Small Card - Investment Guide -->
+                <div class="news-card small">
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>March 2023</span>
+                        </div>
+                        <h3 class="news-card-title">How to Evaluate Tokenized Real Estate Investment Opportunities</h3>
+                        <p class="news-card-excerpt">A practical guide for investors on how to evaluate tokenized real estate offerings, including key metrics to consider, red flags to watch for, and due diligence practices specific to blockchain-based assets.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Investment Advisory Team</span>
+                            </div>
+                            <a href="/articles/evaluating-tokenized-real-estate-investments.html" class="read-more">
+                                Read Investment Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Small Card - Case Study -->
+                <div class="news-card small">
+                    <div class="news-card-image">
+                        <span class="news-tag tag-case-study">Case Study</span>
+                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2596&q=80" alt="Case Study">
+                    </div>
+                    <div class="news-card-content">
+                        <div class="news-card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>February 2023</span>
+                        </div>
+                        <h3 class="news-card-title">Case Study: The Blackstone Tokenized REIT Success Story</h3>
+                        <p class="news-card-excerpt">Detailed analysis of how Blackstone transformed its traditional REIT offering to a tokenized structure, the challenges faced, technical implementation, and the resulting market impact.</p>
+                        <div class="news-card-footer">
+                            <div class="news-card-source">
+                                <img src="/images/logo.png" class="source-logo" alt="Sharmo Logo">
+                                <span class="source-name">Research Team</span>
+                            </div>
+                            <a href="/articles/blackstone-tokenized-reit-case-study.html" class="read-more">
+                                Read Case Study <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <div class="section-header">
+                    <h2>Stay Informed with Our Knowledge Updates</h2>
+                    <p>Subscribe to receive educational content and market insights</p>
+                </div>
+                <div class="newsletter-container">
+                    <form class="newsletter-form" id="knowledge-newsletter">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </section>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+            
+            // Newsletter form submission
+            document.getElementById('knowledge-newsletter').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                // Here you would typically send this to your backend
+                console.log("Newsletter signup:", email);
+                
+                // Show success message
+                alert("Thanks for subscribing to our knowledge updates!");
+                this.reset();
+            });
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

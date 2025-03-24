@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - Developer Resources</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js"></script>
+    <script src="js/main.js" defer></script>
+
+    <style>
+        body {
+            padding-top: 100px !important; /* Increased padding to account for fixed header */
+        }
+
+        /* Developer page specific styles */
+        .dev-page-header {
+            background: #0f172a !important;
+            padding: 50px 0 !important;
+            text-align: center !important;
+            margin-bottom: 40px !important;
+        }
+
+        .dev-page-header .container {
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            color: white !important;
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .dev-page-header h1 {
+            color: #fff !important;
+            margin: 0 auto 15px auto !important;
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            text-align: center !important;
+            padding: 5px 0 !important;
+            width: auto !important;
+            max-width: none !important;
+            display: inline-block !important;
+        }
+
+        .dev-page-header p {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-size: 1.1rem !important;
+            max-width: 700px !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .dev-container {
+            max-width: 1000px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+        }
+
+        .dev-section {
+            margin-bottom: 40px !important;
+            padding: 30px !important;
+            background: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .dev-section h2 {
+            font-size: 1.8rem !important;
+            color: #1e293b !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            text-align: left !important;
+        }
+
+        .dev-section h3 {
+            font-size: 1.4rem !important;
+            margin-top: 30px !important;
+            margin-bottom: 15px !important;
+            color: #334155 !important;
+            text-align: left !important;
+        }
+
+        .dev-section p {
+            color: #475569 !important;
+            line-height: 1.6 !important;
+            margin-bottom: 15px !important;
+            font-size: 1.05rem !important;
+        }
+
+        /* Simple resource list */
+        .resource-list {
+            margin: 20px 0 !important;
+            padding: 0 !important;
+            list-style: none !important;
+        }
+
+        .resource-item {
+            display: flex !important;
+            align-items: flex-start !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 20px !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+
+        .resource-item:last-child {
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+        }
+        
+        .resource-icon {
+            min-width: 40px !important;
+            margin-right: 15px !important;
+            color: #4f46e5 !important;
+            font-size: 1.5rem !important;
+        }
+        
+        .resource-content {
+            flex-grow: 1 !important;
+        }
+        
+        .resource-title {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            margin-bottom: 8px !important;
+            display: block !important;
+        }
+        
+        .resource-desc {
+            color: #64748b !important;
+            line-height: 1.5 !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .resource-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            color: #4f46e5 !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+        }
+        
+        .resource-link:hover {
+            text-decoration: underline !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Developer Page Content -->
+    <main>
+        <!-- Dev Header -->
+        <section class="dev-page-header">
+            <div class="container">
+                <h1>Developer Resources</h1>
+                <p>Essential tools and documentation for integrating with Sharmo's real estate tokenization platform</p>
+            </div>
+        </section>
+        
+        <!-- Dev Content -->
+        <section class="dev-container">
+            <!-- Overview Section -->
+            <div class="dev-section">
+                <h2>Platform Overview</h2>
+                <p>The Sharmo API enables secure access to our real estate tokenization platform. Developers can integrate property data, token transactions, user management, and analytics into their applications.</p>
+                <p>Our RESTful API follows industry best practices with comprehensive documentation and SDKs in multiple programming languages to accelerate your integration.</p>
+                </div>
+            
+            <!-- Key Resources Section -->
+            <div class="dev-section">
+                <h2>Key Resources</h2>
+                <ul class="resource-list">
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">API Documentation</span>
+                            <p class="resource-desc">Comprehensive API reference with endpoints, parameters, and response formats for all platform features.</p>
+                            <a href="docs/api-reference.html" class="resource-link">View API Docs <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </li>
+                    
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">Getting Started Guide</span>
+                            <p class="resource-desc">Step-by-step instructions for authentication, configuration, and making your first API call.</p>
+                            <a href="docs/getting-started.html" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </li>
+                    
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">SDK Libraries</span>
+                            <p class="resource-desc">Official client libraries for JavaScript, Python, and Java to simplify integration.</p>
+                            <a href="docs/sdk-quick-start.html" class="resource-link">Explore SDKs <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    </li>
+                    
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">Sandbox Environment</span>
+                            <p class="resource-desc">Test your integration with our sandbox environment before launching in production.</p>
+                            <a href="docs/sandbox-guide.html" class="resource-link">Access Sandbox <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Support Section -->
+            <div class="dev-section">
+                <h2>Developer Support</h2>
+                <p>Our developer relations team is here to help you with your integration. For technical questions or assistance, please reach out through one of these channels:</p>
+                <ul class="resource-list">
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">Email Support</span>
+                            <p class="resource-desc">Direct support from our developer team for complex integration questions.</p>
+                            <a href="mailto:dev-support@sharmo.io" class="resource-link">dev-support@sharmo.io</a>
+                        </div>
+                    </li>
+                    
+                    <li class="resource-item">
+                        <div class="resource-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="resource-content">
+                            <span class="resource-title">Knowledge Base</span>
+                            <p class="resource-desc">Find answers to common questions in our developer documentation.</p>
+                            <a href="docs/faq.html" class="resource-link">Browse FAQs <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+            });
+        });
+    </script>
+</body>
+</html> 

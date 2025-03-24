@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - API Reference</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="../css/components/navigation.css">
+    <link rel="stylesheet" href="../css/components/hero.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/code-showcase.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-http.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .doc-header {
+            background: #0f172a;
+            padding: 50px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .doc-header h1 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .doc-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .doc-nav {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .doc-nav h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+        
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .doc-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .doc-nav a {
+            color: #4f46e5;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .doc-nav a:hover {
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .doc-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .doc-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .doc-section h3 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #334155;
+        }
+        
+        .doc-section p, .doc-section li {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .endpoint {
+            background: #f8fafc;
+            border-left: 4px solid #4f46e5;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .endpoint-method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+        }
+        
+        .method-get {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .method-post {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .method-put {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .method-delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        .endpoint-url {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+        
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .params-table th, .params-table td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .params-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        .code-block {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        
+        .code-title {
+            color: #f1f5f9;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .copy-btn:hover {
+            color: #f1f5f9;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .doc-nav {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Documentation Content -->
+    <main>
+        <section class="doc-header" style="text-align: center !important;">
+            <div class="container" style="display: flex !important; flex-direction: column !important; align-items: center !important;">
+                <h1 style="text-align: center !important;">Sharmo API Reference</h1>
+                <p style="text-align: center !important;">Complete reference documentation for the Sharmo real estate tokenization API</p>
+            </div>
+        </section>
+        <div class="doc-container">
+            <div class="content-grid">
+                <!-- Navigation Sidebar -->
+                <aside>
+                    <div class="doc-nav">
+                        <h3>API Sections</h3>
+                        <ul>
+                            <li><a href="#authentication">Authentication</a></li>
+                            <li><a href="#properties">Properties</a></li>
+                            <li><a href="#tokens">Tokens</a></li>
+                            <li><a href="#transactions">Transactions</a></li>
+                            <li><a href="#users">Users & KYC</a></li>
+                            <li><a href="#analytics">Analytics</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <div class="doc-content">
+                    <!-- Introduction -->
+                    <section class="doc-section">
+                        <h2>Introduction</h2>
+                        <p>
+                            The Sharmo API provides programmatic access to the Sharmo real estate tokenization platform. This reference documents all available endpoints, request parameters, and response formats to help you integrate with our platform.
+                        </p>
+                        
+                        <p>
+                            If you're new to the Sharmo API, we recommend starting with our <a href="getting-started.html">Getting Started Guide</a> for a step-by-step introduction to the integration process.
+                        </p>
+                        
+                        <h3>Base URL</h3>
+                        <p>All API requests should be made to the following base URL:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Base URL</span>
+                            </div>
+                            <pre><code class="language-http">https://api.sharmo.io/v1</code></pre>
+                        </div>
+                        
+                        <h3>Authentication</h3>
+                        <p>
+                            All API requests require authentication. Refer to the <a href="api-authentication.html">Authentication Guide</a> for details on how to authenticate with the API.
+                        </p>
+                    </section>
+                    
+                    <!-- Authentication Section -->
+                    <section class="doc-section" id="authentication">
+                        <h2>Authentication</h2>
+                        <p>
+                            The following endpoints allow you to obtain and manage authentication tokens for accessing the Sharmo API.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-url">/auth/token</span>
+                        </div>
+                        
+                        <p>Generate an access token using user credentials (OAuth 2.0 password flow).</p>
+                        
+                        <h3>Request Body</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>grant_type</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>Must be "password"</td>
+                                </tr>
+                                <tr>
+                                    <td>username</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>User's email address</td>
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>User's password</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3>Example Request</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Authentication Request</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+fetch('https://api.sharmo.io/v1/auth/token', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    grant_type: 'password',
+    username: 'user@example.com',
+    password: 'securepassword'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));</code></pre>
+                        </div>
+                        
+                        <h3>Example Response</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Authentication Response</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-json">{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "def5020061a9ee62553...",
+  "token_type": "bearer",
+  "expires_in": 3600
+}</code></pre>
+                        </div>
+                    </section>
+                    
+                    <!-- Properties Section -->
+                    <section class="doc-section" id="properties">
+                        <h2>Properties</h2>
+                        <p>
+                            Endpoints for accessing and managing tokenized properties on the Sharmo platform.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/properties</span>
+                        </div>
+                        
+                        <p>Returns a list of properties based on the provided filters.</p>
+                        
+                        <h3>Query Parameters</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>limit</td>
+                                    <td>integer</td>
+                                    <td>No</td>
+                                    <td>Maximum number of results to return (default: 20, max: 100)</td>
+                                </tr>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>integer</td>
+                                    <td>No</td>
+                                    <td>Number of results to skip (for pagination)</td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>string</td>
+                                    <td>No</td>
+                                    <td>Filter by property status (active, pending, sold)</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>string</td>
+                                    <td>No</td>
+                                    <td>Filter by property type (residential, commercial, industrial)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3>Example Request</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">List Properties</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+fetch('https://api.sharmo.io/v1/properties?limit=10&status=active', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+  }
+})
+.then(response => response.json())
+.then(data => console.log(data));</code></pre>
+                        </div>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/properties/{propertyId}</span>
+                        </div>
+                        
+                        <p>Returns detailed information about a specific property.</p>
+                        
+                        <h3>Path Parameters</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>propertyId</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>Unique identifier of the property</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    
+                    <!-- Tokens Section -->
+                    <section class="doc-section" id="tokens">
+                        <h2>Tokens</h2>
+                        <p>
+                            Endpoints for managing property tokens, including retrieving token information and tracking ownership.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/properties/{propertyId}/tokens</span>
+                        </div>
+                        
+                        <p>Returns token information for a specific property.</p>
+                        
+                        <h3>Path Parameters</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>propertyId</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>Unique identifier of the property</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/tokens/balance</span>
+                        </div>
+                        
+                        <p>Returns the token balance for the authenticated user.</p>
+                    </section>
+                    
+                    <!-- Transactions Section -->
+                    <section class="doc-section" id="transactions">
+                        <h2>Transactions</h2>
+                        <p>
+                            Endpoints for managing and viewing token transactions.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/transactions</span>
+                        </div>
+                        
+                        <p>Returns a list of transactions for the authenticated user.</p>
+                        
+                        <h3>Query Parameters</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>limit</td>
+                                    <td>integer</td>
+                                    <td>No</td>
+                                    <td>Maximum number of results to return (default: 20, max: 100)</td>
+                                </tr>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>integer</td>
+                                    <td>No</td>
+                                    <td>Number of results to skip (for pagination)</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>string</td>
+                                    <td>No</td>
+                                    <td>Filter by transaction type (purchase, sale, dividend)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-url">/transactions</span>
+                        </div>
+                        
+                        <p>Creates a new transaction (buy or sell tokens).</p>
+                    </section>
+                    
+                    <!-- Users Section -->
+                    <section class="doc-section" id="users">
+                        <h2>Users & KYC</h2>
+                        <p>
+                            Endpoints for managing user profiles and KYC verification.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/users/me</span>
+                        </div>
+                        
+                        <p>Returns the profile information for the authenticated user.</p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-put">PUT</span>
+                            <span class="endpoint-url">/users/me</span>
+                        </div>
+                        
+                        <p>Updates the profile information for the authenticated user.</p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-post">POST</span>
+                            <span class="endpoint-url">/kyc/verify</span>
+                        </div>
+                        
+                        <p>Initiates KYC verification for the authenticated user.</p>
+                    </section>
+                    
+                    <!-- Analytics Section -->
+                    <section class="doc-section" id="analytics">
+                        <h2>Analytics</h2>
+                        <p>
+                            Endpoints for accessing market analytics and performance data.
+                        </p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/analytics/market</span>
+                        </div>
+                        
+                        <p>Returns market-wide analytics and trends.</p>
+                        
+                        <div class="endpoint">
+                            <span class="endpoint-method method-get">GET</span>
+                            <span class="endpoint-url">/analytics/properties/{propertyId}</span>
+                        </div>
+                        
+                        <p>Returns performance analytics for a specific property.</p>
+                        
+                        <h3>Path Parameters</h3>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>propertyId</td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>Unique identifier of the property</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+                
+            // Code copy functionality
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeBlock = this.closest('.code-block').querySelector('code');
+                    const codeText = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(codeText.trim())
+                        .then(() => {
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy code: ', err);
+                        });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

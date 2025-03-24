@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Guide - Sharmo Developer Documentation</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <!-- Components -->
+    <link rel="stylesheet" href="../css/components/navigation.css">
+    <link rel="stylesheet" href="../css/components/hero.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/code-showcase.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-json.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        body {
+            padding-top: 80px !important;
+            background-color: #f8fafc !important;
+            color: #334155 !important;
+        }
+        
+        .docs-container {
+            display: grid !important;
+            grid-template-columns: 250px 1fr !important;
+            gap: 40px !important;
+            max-width: 1200px !important;
+            margin: 40px auto !important;
+            padding: 0 20px !important;
+            position: relative !important;
+        }
+        
+        .docs-sidebar {
+            position: sticky !important;
+            top: 100px !important;
+            height: calc(100vh - 120px) !important;
+            overflow-y: auto !important;
+            padding-right: 15px !important;
+        }
+        
+        .docs-nav {
+            background-color: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            overflow: hidden !important;
+        }
+        
+        .docs-nav-section {
+            border-bottom: 1px solid #e2e8f0 !important;
+            padding: 15px 0 !important;
+        }
+        
+        .docs-nav-section:last-child {
+            border-bottom: none !important;
+        }
+        
+        .docs-nav-title {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            font-size: 0.9rem !important;
+            padding: 0 20px !important;
+            margin-bottom: 10px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+        
+        .docs-nav-items {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .docs-nav-item {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .docs-nav-link {
+            display: block !important;
+            padding: 8px 20px !important;
+            color: #64748b !important;
+            text-decoration: none !important;
+            font-size: 0.9rem !important;
+            transition: all 0.2s ease !important;
+            border-left: 3px solid transparent !important;
+        }
+        
+        .docs-nav-link:hover {
+            background-color: #f1f5f9 !important;
+            color: #4f46e5 !important;
+        }
+        
+        .docs-nav-link.active {
+            background-color: #f8fafc !important;
+            color: #4f46e5 !important;
+            border-left-color: #4f46e5 !important;
+            font-weight: 500 !important;
+        }
+        
+        .docs-content {
+            background-color: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            padding: 40px !important;
+            min-height: calc(100vh - 200px) !important;
+        }
+        
+        .docs-content h1 {
+            font-size: 2.5rem !important;
+            margin-bottom: 25px !important;
+            color: #1e293b !important;
+            font-weight: 700 !important;
+            padding-bottom: 15px !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        
+        .docs-content h2 {
+            font-size: 1.8rem !important;
+            margin-top: 40px !important;
+            margin-bottom: 20px !important;
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            position: relative !important;
+            padding-bottom: 10px !important;
+        }
+        
+        .docs-content h2::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            height: 3px !important;
+            width: 50px !important;
+            background-color: #4f46e5 !important;
+            border-radius: 3px !important;
+        }
+        
+        .docs-content h3 {
+            font-size: 1.4rem !important;
+            margin-top: 30px !important;
+            margin-bottom: 15px !important;
+            color: #334155 !important;
+            font-weight: 600 !important;
+        }
+        
+        .code-block {
+            margin: 20px 0 !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .code-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            background: #1e293b !important;
+            padding: 10px 15px !important;
+        }
+        
+        .code-title {
+            color: #f1f5f9 !important;
+            font-family: 'Fira Code', monospace !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .copy-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #cbd5e1 !important;
+            cursor: pointer !important;
+            font-size: 0.9rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+        }
+        
+        .copy-btn:hover {
+            color: #f1f5f9 !important;
+        }
+        
+        .on-this-page {
+            margin-top: 30px !important;
+            padding: 15px !important;
+            background-color: #f8fafc !important;
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        
+        .on-this-page-title {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            margin-bottom: 10px !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .on-this-page-items {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .on-this-page-item {
+            margin-bottom: 5px !important;
+            font-size: 0.85rem !important;
+        }
+        
+        .on-this-page-link {
+            color: #64748b !important;
+            text-decoration: none !important;
+            display: block !important;
+            padding: 4px 0 !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .on-this-page-link:hover {
+            color: #4f46e5 !important;
+        }
+        
+        .docs-footer {
+            margin-top: 50px !important;
+            padding-top: 20px !important;
+            border-top: 1px solid #e2e8f0 !important;
+            display: flex !important;
+            justify-content: space-between !important;
+        }
+        
+        .docs-footer-link {
+            display: flex !important;
+            align-items: center !important;
+            color: #4f46e5 !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            padding: 8px 0 !important;
+        }
+        
+        .docs-footer-link:hover {
+            color: #3730a3 !important;
+        }
+        
+        .docs-footer-link-prev i {
+            margin-right: 8px !important;
+        }
+        
+        .docs-footer-link-next i {
+            margin-left: 8px !important;
+        }
+        
+        @media (max-width: 992px) {
+            .docs-container {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .docs-sidebar {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Documentation Content -->
+    <main class="docs-container">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+            <nav class="docs-nav">
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">Getting Started</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/getting-started.html" class="docs-nav-link">Introduction</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-authentication.html" class="docs-nav-link">API Authentication</a></li>
+                        <li class="docs-nav-item"><a href="../docs/integration-guide.html" class="docs-nav-link">Integration Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">API Reference</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#authentication" class="docs-nav-link">Authentication</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#properties" class="docs-nav-link">Properties</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#tokens" class="docs-nav-link">Tokens</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#transactions" class="docs-nav-link">Transactions</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#analytics" class="docs-nav-link">Analytics</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#users" class="docs-nav-link">Users</a></li>
+                    </ul>
+                </div>
+                
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">Guides</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/sdk-quick-start.html" class="docs-nav-link">SDK Quick Start</a></li>
+                        <li class="docs-nav-item"><a href="../docs/webhook-guide.html" class="docs-nav-link active">Webhook Guide</a></li>
+                        <li class="docs-nav-item"><a href="../docs/code-examples.html" class="docs-nav-link">Code Examples</a></li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="on-this-page">
+                <h4 class="on-this-page-title">On This Page</h4>
+                <ul class="on-this-page-items">
+                    <li class="on-this-page-item"><a href="#introduction" class="on-this-page-link">Introduction</a></li>
+                    <li class="on-this-page-item"><a href="#setting-up-webhooks" class="on-this-page-link">Setting Up Webhooks</a></li>
+                    <li class="on-this-page-item"><a href="#webhook-events" class="on-this-page-link">Webhook Events</a></li>
+                    <li class="on-this-page-item"><a href="#security" class="on-this-page-link">Security</a></li>
+                    <li class="on-this-page-item"><a href="#implementation" class="on-this-page-link">Implementation Examples</a></li>
+                    <li class="on-this-page-item"><a href="#best-practices" class="on-this-page-link">Best Practices</a></li>
+                    <li class="on-this-page-item"><a href="#troubleshooting" class="on-this-page-link">Troubleshooting</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <article class="docs-content">
+            <h1>Webhook Implementation Guide</h1>
+            
+            <p>
+                Webhooks allow your application to receive real-time notifications about events that occur within the Sharmo platform. Instead of continuously polling our API for changes, webhooks push data to your application as events happen.
+            </p>
+            
+            <h2 id="introduction">Introduction</h2>
+            
+            <p>
+                Webhooks are HTTP callbacks that allow Sharmo to notify your application when specific events occur. They offer several advantages:
+            </p>
+            
+            <ul>
+                <li><strong>Real-time updates:</strong> Receive notifications as soon as events occur</li>
+                <li><strong>Reduced API calls:</strong> Eliminate the need to poll our API for updates</li>
+                <li><strong>Event-driven architecture:</strong> Build more reactive applications</li>
+                <li><strong>Improved user experience:</strong> Provide immediate feedback to your users</li>
+            </ul>
+            
+            <h2 id="setting-up-webhooks">Setting Up Webhooks</h2>
+            
+            <p>
+                To use webhooks with Sharmo, follow these steps:
+            </p>
+            
+            <h3>1. Create an Endpoint on Your Server</h3>
+            
+            <p>
+                First, you need to create an endpoint on your server that will receive webhook notifications. This endpoint should:
+            </p>
+            
+            <ul>
+                <li>Accept POST requests</li>
+                <li>Process JSON payloads</li>
+                <li>Return a 200 OK response quickly (within 5 seconds)</li>
+                <li>Handle any complex processing asynchronously</li>
+            </ul>
+            
+            <h3>2. Register Your Webhook in the Developer Dashboard</h3>
+            
+            <ol>
+                <li>Log in to your <a href="https://sharmo.io/developers/">Sharmo Developer Account</a></li>
+                <li>Navigate to the Application Dashboard</li>
+                <li>Select the application you want to configure</li>
+                <li>Go to the "Webhooks" tab</li>
+                <li>Click "Add Webhook"</li>
+                <li>Enter your endpoint URL</li>
+                <li>Select the events you want to subscribe to</li>
+                <li>Generate a webhook secret</li>
+                <li>Save your configuration</li>
+            </ol>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Webhook Configuration Example</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-json">{
+  "url": "https://example.com/webhooks/sharmo",
+  "events": [
+    "property.created",
+    "property.updated",
+    "token.transferred",
+    "transaction.completed"
+  ],
+  "secret": "whsec_abcdefghijklmnopqrstuvwxyz1234567890",
+  "active": true
+}</code></pre>
+            </div>
+            
+            <h2 id="webhook-events">Webhook Events</h2>
+            
+            <p>
+                Sharmo provides webhooks for a variety of events across different resources:
+            </p>
+            
+            <h3>Property Events</h3>
+            
+            <ul>
+                <li><code>property.created</code> - A new property is added to the platform</li>
+                <li><code>property.updated</code> - Property details are updated</li>
+                <li><code>property.tokenized</code> - A property is tokenized</li>
+                <li><code>property.sold</code> - A property is sold</li>
+                <li><code>property.delisted</code> - A property is removed from listings</li>
+            </ul>
+            
+            <h3>Token Events</h3>
+            
+            <ul>
+                <li><code>token.issued</code> - New tokens are created for a property</li>
+                <li><code>token.transferred</code> - Tokens are transferred between users</li>
+                <li><code>token.price_updated</code> - The market price of tokens changes</li>
+                <li><code>token.dividend_issued</code> - Dividend payments are issued to token holders</li>
+            </ul>
+            
+            <h3>Transaction Events</h3>
+            
+            <ul>
+                <li><code>transaction.created</code> - A new transaction is initiated</li>
+                <li><code>transaction.pending</code> - A transaction is waiting for confirmation</li>
+                <li><code>transaction.completed</code> - A transaction is successfully completed</li>
+                <li><code>transaction.failed</code> - A transaction fails to complete</li>
+                <li><code>transaction.refunded</code> - A transaction is refunded</li>
+            </ul>
+            
+            <h3>User Events</h3>
+            
+            <ul>
+                <li><code>user.registered</code> - A new user registers on the platform</li>
+                <li><code>user.kyc_updated</code> - A user's KYC status changes</li>
+                <li><code>user.kyc_verified</code> - A user passes KYC verification</li>
+                <li><code>user.kyc_rejected</code> - A user fails KYC verification</li>
+            </ul>
+            
+            <h2 id="security">Security</h2>
+            
+            <p>
+                Securing your webhook endpoint is crucial. Sharmo uses signature verification to ensure that webhook events are legitimate:
+            </p>
+            
+            <h3>Webhook Signatures</h3>
+            
+            <p>
+                Each webhook request includes a <code>Sharmo-Signature</code> header containing:
+            </p>
+            
+            <ul>
+                <li><code>t</code> - Timestamp when the signature was created</li>
+                <li><code>v1</code> - Signature in the format <code>HMAC-SHA256(timestamp + '.' + payload)</code></li>
+            </ul>
+            
+            <p>
+                To verify the signature:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">JavaScript - Signature Verification</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signature, secret) {
+  // Parse the signature header
+  const components = signature.split(',');
+  const timestamp = components.find(c => c.startsWith('t=')).substring(2);
+  const receivedSignature = components.find(c => c.startsWith('v1=')).substring(3);
+  
+  // Create the string to sign
+  const signedPayload = `${timestamp}.${payload}`;
+  
+  // Create the expected signature
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(signedPayload)
+    .digest('hex');
+  
+  // Compare signatures (use constant-time comparison in production)
+  return expectedSignature === receivedSignature;
+}
+
+// Usage in Express.js
+app.post('/webhooks/sharmo', (req, res) => {
+  const signature = req.headers['sharmo-signature'];
+  const payload = JSON.stringify(req.body);
+  const secret = 'whsec_abcdefghijklmnopqrstuvwxyz1234567890';
+  
+  if (!verifyWebhookSignature(payload, signature, secret)) {
+    return res.status(403).send('Invalid signature');
+  }
+  
+  // Process the webhook
+  const event = req.body;
+  console.log(`Received event: ${event.type}`);
+  
+  // Respond quickly
+  res.status(200).send('Webhook received');
+  
+  // Process asynchronously
+  handleWebhookEvent(event).catch(console.error);
+});</code></pre>
+            </div>
+            
+            <h3>Timestamp Tolerance</h3>
+            
+            <p>
+                For additional security, check that the webhook timestamp is recent (typically within 5 minutes) to prevent replay attacks:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">PHP - Timestamp Verification</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-php">function isTimestampValid($timestamp, $tolerance = 300) {
+    $now = time();
+    return ($now - $timestamp) < $tolerance;
+}
+
+// In your webhook handler
+$signatureParts = explode(',', $_SERVER['HTTP_SHARMO_SIGNATURE']);
+$timestamp = substr(strstr($signatureParts[0], '='), 1);
+
+if (!isTimestampValid($timestamp)) {
+    http_response_code(403);
+    echo 'Webhook timestamp expired';
+    exit;
+}</code></pre>
+            </div>
+            
+            <h2 id="implementation">Implementation Examples</h2>
+            
+            <h3>Node.js (Express)</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Node.js Webhook Handler</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">const express = require('express');
+const crypto = require('crypto');
+const app = express();
+
+// Parse JSON request body
+app.use(express.json({
+  verify: (req, res, buf) => {
+    // Save raw body for signature verification
+    req.rawBody = buf.toString();
+  }
+}));
+
+app.post('/webhooks/sharmo', async (req, res) => {
+  const signature = req.headers['sharmo-signature'];
+  const webhookSecret = process.env.SHARMO_WEBHOOK_SECRET;
+  
+  try {
+    // Verify signature
+    const isValid = verifySignature(req.rawBody, signature, webhookSecret);
+    
+    if (!isValid) {
+      console.error('Invalid webhook signature');
+      return res.status(403).send('Invalid signature');
+    }
+    
+    // Extract event data
+    const event = req.body;
+    
+    // Respond immediately to acknowledge receipt
+    res.status(200).send('Webhook received');
+    
+    // Process the event asynchronously
+    switch (event.type) {
+      case 'property.created':
+        await handlePropertyCreated(event.data);
+        break;
+      case 'token.transferred':
+        await handleTokenTransferred(event.data);
+        break;
+      case 'transaction.completed':
+        await handleTransactionCompleted(event.data);
+        break;
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
+    }
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    // Still return 200 to acknowledge receipt
+    if (!res.headersSent) {
+      res.status(200).send('Webhook received');
+    }
+  }
+});
+
+function verifySignature(payload, signature, secret) {
+  if (!signature || !secret) return false;
+  
+  try {
+    const components = signature.split(',');
+    const timestamp = components.find(c => c.startsWith('t=')).substring(2);
+    const receivedSig = components.find(c => c.startsWith('v1=')).substring(3);
+    
+    // Check timestamp is recent (within 5 minutes)
+    const now = Math.floor(Date.now() / 1000);
+    if (now - parseInt(timestamp) > 300) {
+      return false;
+    }
+    
+    // Compute expected signature
+    const signedPayload = `${timestamp}.${payload}`;
+    const expectedSig = crypto
+      .createHmac('sha256', secret)
+      .update(signedPayload)
+      .digest('hex');
+      
+    return crypto.timingSafeEqual(
+      Buffer.from(expectedSig),
+      Buffer.from(receivedSig)
+    );
+  } catch (error) {
+    console.error('Error verifying signature:', error);
+    return false;
+  }
+}
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Webhook server running on port 3000');
+});</code></pre>
+            </div>
+            
+            <h3>Processing Event Data</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Event Handling Examples</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">// Example event handlers
+
+async function handlePropertyCreated(data) {
+  // Store the new property in your database
+  await db.properties.insert({
+    propertyId: data.property_id,
+    address: data.address,
+    price: data.price,
+    tokenizationStatus: data.tokenization_status,
+    createdAt: new Date(data.created_at)
+  });
+  
+  // Notify relevant users
+  await notificationService.notifyUsersAboutNewProperty(data);
+  
+  console.log(`Processed property.created event for ${data.property_id}`);
+}
+
+async function handleTokenTransferred(data) {
+  // Update token ownership records
+  await db.tokenTransactions.insert({
+    transactionId: data.transaction_id,
+    tokenId: data.token_id,
+    fromAddress: data.from_address,
+    toAddress: data.to_address,
+    amount: data.amount,
+    timestamp: new Date(data.timestamp)
+  });
+  
+  // Update user balances
+  await db.tokenBalances.updateMany([
+    { userId: data.from_user_id, $inc: { balance: -data.amount } },
+    { userId: data.to_user_id, $inc: { balance: data.amount } }
+  ]);
+  
+  console.log(`Processed token.transferred event for ${data.transaction_id}`);
+}
+
+async function handleTransactionCompleted(data) {
+  // Update transaction status
+  await db.transactions.updateOne(
+    { transactionId: data.transaction_id },
+    { $set: { status: 'completed', completedAt: new Date() } }
+  );
+  
+  // Notify user(s)
+  await notificationService.sendTransactionConfirmation(
+    data.user_id,
+    data.transaction_id,
+    data.amount
+  );
+  
+  console.log(`Processed transaction.completed event for ${data.transaction_id}`);
+}</code></pre>
+            </div>
+            
+            <h2 id="best-practices">Best Practices</h2>
+            
+            <h3>1. Acknowledge Webhooks Quickly</h3>
+            
+            <p>
+                Always respond to webhook requests with a 200 OK status code as quickly as possible. If the request processing takes longer than 5 seconds, Sharmo will consider it failed and may retry.
+            </p>
+            
+            <h3>2. Process Events Asynchronously</h3>
+            
+            <p>
+                Handle the webhook data processing in a background job, task queue, or separate thread after you've acknowledged receipt.
+            </p>
+            
+            <h3>3. Handle Retries and Duplicates</h3>
+            
+            <p>
+                Webhooks may be delivered multiple times for the same event. Design your event handlers to be idempotent (safe to execute multiple times for the same event).
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Idempotent Event Handler</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">async function handleIdempotentEvent(eventId, eventData) {
+  // Check if we've already processed this event
+  const exists = await db.processedEvents.exists(eventId);
+  
+  if (exists) {
+    console.log(`Event ${eventId} already processed, skipping`);
+    return;
+  }
+  
+  // Process the event
+  await processEvent(eventData);
+  
+  // Mark as processed
+  await db.processedEvents.insert({
+    eventId: eventId,
+    processedAt: new Date()
+  });
+}</code></pre>
+            </div>
+            
+            <h3>4. Implement Proper Error Handling</h3>
+            
+            <p>
+                Set up robust error handling and logging for webhook processing to ensure you can diagnose and resolve issues.
+            </p>
+            
+            <h3>5. Test in Sandbox Environment</h3>
+            
+            <p>
+                Use our sandbox environment to test webhook integration before deploying to production. The sandbox allows you to trigger test events manually.
+            </p>
+            
+            <h3>6. Monitor Webhook Delivery</h3>
+            
+            <p>
+                Check the Developer Dashboard for webhook delivery status and failed deliveries. Set up alerts for consistent webhook failures.
+            </p>
+            
+            <h2 id="troubleshooting">Troubleshooting</h2>
+            
+            <h3>Common Issues</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Possible Causes</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Webhook not being received</td>
+                        <td>
+                            <ul>
+                                <li>Incorrect endpoint URL</li>
+                                <li>Firewall blocking requests</li>
+                                <li>Webhook not activated</li>
+                            </ul>
+                        </td>
+                        <td>Verify URL, check firewall settings, confirm webhook is active in dashboard</td>
+                    </tr>
+                    <tr>
+                        <td>Signature verification failures</td>
+                        <td>
+                            <ul>
+                                <li>Incorrect webhook secret</li>
+                                <li>Body parsing issues</li>
+                                <li>HTTP proxy modifying requests</li>
+                            </ul>
+                        </td>
+                        <td>Verify secret matches dashboard, ensure raw body is available for verification</td>
+                    </tr>
+                    <tr>
+                        <td>Webhook timeouts</td>
+                        <td>
+                            <ul>
+                                <li>Processing takes too long</li>
+                                <li>Database connection issues</li>
+                                <li>Third-party API delays</li>
+                            </ul>
+                        </td>
+                        <td>Move processing to background jobs, optimize database queries, return 200 immediately</td>
+                    </tr>
+                    <tr>
+                        <td>Repeated webhook deliveries</td>
+                        <td>
+                            <ul>
+                                <li>Non-200 responses</li>
+                                <li>Slow response times</li>
+                            </ul>
+                        </td>
+                        <td>Implement idempotent event handling, ensure quick 200 responses</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Debugging Tools</h3>
+            
+            <ul>
+                <li><strong>Webhook Logs:</strong> Check delivery logs in the Developer Dashboard</li>
+                <li><strong>Event Viewer:</strong> Inspect event details and replay events</li>
+                <li><strong>Local Testing:</strong> Use tools like ngrok or localtunnel to test with local development environments</li>
+            </ul>
+            
+            <p>
+                If you continue to experience issues with webhooks, contact our support team at <a href="mailto:developer-support@sharmo.io">developer-support@sharmo.io</a>.
+            </p>
+            
+            <!-- Documentation Footer with Navigation -->
+            <div class="docs-footer">
+                <a href="../docs/sdk-quick-start.html" class="docs-footer-link docs-footer-link-prev">
+                    <i class="fas fa-arrow-left"></i> SDK Quick Start
+                </a>
+                <a href="../docs/code-examples.html" class="docs-footer-link docs-footer-link-next">
+                    Code Examples <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+            
+            // Copy code functionality
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeBlock = this.closest('.code-block').querySelector('code');
+                    const code = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(code).then(() => {
+                        const spanText = this.querySelector('span');
+                        const originalText = spanText.textContent;
+                        
+                        spanText.textContent = 'Copied!';
+                        
+                        setTimeout(() => {
+                            spanText.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

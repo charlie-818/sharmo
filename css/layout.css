@@ -19,7 +19,7 @@ section h2,
     color: var(--secondary);
     text-align: left;
     font-size: 3.2em;
-    margin: 0 0 50px 120px;
+    margin: 0 0 50px 0;
     font-weight: 800;
     background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%);
     -webkit-background-clip: text;
@@ -46,7 +46,7 @@ section h2::after,
 .solution h2,
 .benefits h2,
 .contact h2 {
-    margin: 0 0 50px 120px !important;
+    margin: 0 0 50px 0 !important;
     text-transform: capitalize !important;
     font-size: 3.2em !important;
     background: linear-gradient(45deg, var(--text) 30%, var(--secondary) 100%) !important;
@@ -123,7 +123,7 @@ section:first-of-type {
 }
 
 /* Section dividers */
-section:not(:first-of-type)::before {
+section:not(:first-of-type):not(.dao-section)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -141,7 +141,7 @@ section:not(:first-of-type)::before {
 }
 
 /* Add a subtle glow effect */
-section:not(:first-of-type)::after {
+section:not(:first-of-type):not(.dao-section)::after {
     content: '';
     position: absolute;
     top: -2px;

@@ -39,12 +39,12 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 3.5rem;
     font-weight: 800;
-    margin: 0 auto 15px;
+    margin: 0 0 15px 0;
     padding: 5px 20px;
     display: block;
     width: 100%;
     max-width: 1200px;
-    text-align: center;
+    text-align: left;
     line-height: 1.2;
 }
 
@@ -53,7 +53,7 @@ h2 {
     margin-bottom: 30px;
     position: relative;
     font-weight: 800;
-    text-align: center;
+    text-align: left;
     line-height: 1.2;
     color: #1f2937;
 }
@@ -64,7 +64,7 @@ h2::after {
     width: 80px;
     height: 4px;
     background: linear-gradient(to right, #4f46e5, #7c3aed);
-    margin: 15px auto 0;
+    margin: 15px 0 0;
     border-radius: 2px;
 }
 

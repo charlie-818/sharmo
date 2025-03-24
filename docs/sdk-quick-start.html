@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDK Quick Start - Sharmo Developer Documentation</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <!-- Components -->
+    <link rel="stylesheet" href="../css/components/navigation.css">
+    <link rel="stylesheet" href="../css/components/hero.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/code-showcase.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-json.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        body {
+            padding-top: 80px !important;
+            background-color: #f8fafc !important;
+            color: #334155 !important;
+        }
+        
+        .docs-container {
+            display: grid !important;
+            grid-template-columns: 250px 1fr !important;
+            gap: 40px !important;
+            max-width: 1200px !important;
+            margin: 40px auto !important;
+            padding: 0 20px !important;
+            position: relative !important;
+        }
+        
+        .docs-sidebar {
+            position: sticky !important;
+            top: 100px !important;
+            height: calc(100vh - 120px) !important;
+            overflow-y: auto !important;
+            padding-right: 15px !important;
+        }
+        
+        .docs-nav {
+            background-color: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            overflow: hidden !important;
+        }
+        
+        .docs-nav-section {
+            border-bottom: 1px solid #e2e8f0 !important;
+            padding: 15px 0 !important;
+        }
+        
+        .docs-nav-section:last-child {
+            border-bottom: none !important;
+        }
+        
+        .docs-nav-title {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            font-size: 0.9rem !important;
+            padding: 0 20px !important;
+            margin-bottom: 10px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+        
+        .docs-nav-items {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .docs-nav-item {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .docs-nav-link {
+            display: block !important;
+            padding: 8px 20px !important;
+            color: #64748b !important;
+            text-decoration: none !important;
+            font-size: 0.9rem !important;
+            transition: all 0.2s ease !important;
+            border-left: 3px solid transparent !important;
+        }
+        
+        .docs-nav-link:hover {
+            background-color: #f1f5f9 !important;
+            color: #4f46e5 !important;
+        }
+        
+        .docs-nav-link.active {
+            background-color: #f8fafc !important;
+            color: #4f46e5 !important;
+            border-left-color: #4f46e5 !important;
+            font-weight: 500 !important;
+        }
+        
+        .docs-content {
+            background-color: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            padding: 40px !important;
+            min-height: calc(100vh - 200px) !important;
+        }
+        
+        .docs-content h1 {
+            font-size: 2.5rem !important;
+            margin-bottom: 25px !important;
+            color: #1e293b !important;
+            font-weight: 700 !important;
+            padding-bottom: 15px !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        
+        .docs-content h2 {
+            font-size: 1.8rem !important;
+            margin-top: 40px !important;
+            margin-bottom: 20px !important;
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            position: relative !important;
+            padding-bottom: 10px !important;
+        }
+        
+        .docs-content h2::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            height: 3px !important;
+            width: 50px !important;
+            background-color: #4f46e5 !important;
+            border-radius: 3px !important;
+        }
+        
+        .docs-content h3 {
+            font-size: 1.4rem !important;
+            margin-top: 30px !important;
+            margin-bottom: 15px !important;
+            color: #334155 !important;
+            font-weight: 600 !important;
+        }
+        
+        .code-block {
+            margin: 20px 0 !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .code-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            background: #1e293b !important;
+            padding: 10px 15px !important;
+        }
+        
+        .code-title {
+            color: #f1f5f9 !important;
+            font-family: 'Fira Code', monospace !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .copy-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #cbd5e1 !important;
+            cursor: pointer !important;
+            font-size: 0.9rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+        }
+        
+        .copy-btn:hover {
+            color: #f1f5f9 !important;
+        }
+        
+        .on-this-page {
+            margin-top: 30px !important;
+            padding: 15px !important;
+            background-color: #f8fafc !important;
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        
+        .on-this-page-title {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            margin-bottom: 10px !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .on-this-page-items {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .on-this-page-item {
+            margin-bottom: 5px !important;
+            font-size: 0.85rem !important;
+        }
+        
+        .on-this-page-link {
+            color: #64748b !important;
+            text-decoration: none !important;
+            display: block !important;
+            padding: 4px 0 !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .on-this-page-link:hover {
+            color: #4f46e5 !important;
+        }
+        
+        .docs-footer {
+            margin-top: 50px !important;
+            padding-top: 20px !important;
+            border-top: 1px solid #e2e8f0 !important;
+            display: flex !important;
+            justify-content: space-between !important;
+        }
+        
+        .docs-footer-link {
+            display: flex !important;
+            align-items: center !important;
+            color: #4f46e5 !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            padding: 8px 0 !important;
+        }
+        
+        .docs-footer-link:hover {
+            color: #3730a3 !important;
+        }
+        
+        .docs-footer-link-prev i {
+            margin-right: 8px !important;
+        }
+        
+        .docs-footer-link-next i {
+            margin-left: 8px !important;
+        }
+        
+        @media (max-width: 992px) {
+            .docs-container {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .docs-sidebar {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Documentation Content -->
+    <main class="docs-container">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+            <nav class="docs-nav">
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">Getting Started</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/getting-started.html" class="docs-nav-link">Introduction</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-authentication.html" class="docs-nav-link">API Authentication</a></li>
+                        <li class="docs-nav-item"><a href="../docs/integration-guide.html" class="docs-nav-link">Integration Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">API Reference</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#authentication" class="docs-nav-link">Authentication</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#properties" class="docs-nav-link">Properties</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#tokens" class="docs-nav-link">Tokens</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#transactions" class="docs-nav-link">Transactions</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#analytics" class="docs-nav-link">Analytics</a></li>
+                        <li class="docs-nav-item"><a href="../docs/api-reference.html#users" class="docs-nav-link">Users</a></li>
+                    </ul>
+                </div>
+                
+                <div class="docs-nav-section">
+                    <h4 class="docs-nav-title">Guides</h4>
+                    <ul class="docs-nav-items">
+                        <li class="docs-nav-item"><a href="../docs/sdk-quick-start.html" class="docs-nav-link active">SDK Quick Start</a></li>
+                        <li class="docs-nav-item"><a href="../docs/webhook-guide.html" class="docs-nav-link">Webhook Guide</a></li>
+                        <li class="docs-nav-item"><a href="../docs/code-examples.html" class="docs-nav-link">Code Examples</a></li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="on-this-page">
+                <h4 class="on-this-page-title">On This Page</h4>
+                <ul class="on-this-page-items">
+                    <li class="on-this-page-item"><a href="#overview" class="on-this-page-link">Overview</a></li>
+                    <li class="on-this-page-item"><a href="#javascript-sdk" class="on-this-page-link">JavaScript SDK</a></li>
+                    <li class="on-this-page-item"><a href="#python-sdk" class="on-this-page-link">Python SDK</a></li>
+                    <li class="on-this-page-item"><a href="#java-sdk" class="on-this-page-link">Java SDK</a></li>
+                    <li class="on-this-page-item"><a href="#common-tasks" class="on-this-page-link">Common Tasks</a></li>
+                    <li class="on-this-page-item"><a href="#troubleshooting" class="on-this-page-link">Troubleshooting</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <article class="docs-content">
+            <h1>Sharmo SDK Quick Start</h1>
+            
+            <p>
+                Sharmo provides official SDKs for several programming languages to help you interact with our API more efficiently. This guide helps you get started quickly with our SDKs.
+            </p>
+            
+            <h2 id="overview">Overview</h2>
+            
+            <p>
+                Our SDKs provide the following benefits:
+            </p>
+            
+            <ul>
+                <li>Type-safe interfaces to the API</li>
+                <li>Built-in authentication handling</li>
+                <li>Automatic handling of rate limits and retries</li>
+                <li>Convenient methods for common operations</li>
+                <li>Comprehensive logging and debugging tools</li>
+            </ul>
+            
+            <p>
+                Currently, we offer SDKs for:
+            </p>
+            
+            <ul>
+                <li><a href="#javascript-sdk">JavaScript/TypeScript</a></li>
+                <li><a href="#python-sdk">Python</a></li>
+                <li><a href="#java-sdk">Java</a></li>
+            </ul>
+            
+            <h2 id="javascript-sdk">JavaScript SDK</h2>
+            
+            <h3>Installation</h3>
+            
+            <p>
+                Install the JavaScript SDK with npm:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">npm</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-bash">npm install @sharmo/sdk</code></pre>
+            </div>
+            
+            <p>
+                Or with yarn:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">yarn</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-bash">yarn add @sharmo/sdk</code></pre>
+            </div>
+            
+            <h3>Basic Usage</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">JavaScript</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">// Import the SDK
+import { SharmoClient } from '@sharmo/sdk';
+
+// Initialize the client
+const client = new SharmoClient({
+  apiKey: 'your_api_key',
+  environment: 'production' // Use 'sandbox' for testing
+});
+
+// Fetch properties
+async function getProperties() {
+  try {
+    const properties = await client.properties.list({
+      limit: 10,
+      status: 'active'
+    });
+    
+    console.log(`Found ${properties.length} properties`);
+    
+    // Work with the data
+    properties.forEach(property => {
+      console.log(`${property.address}: $${property.price}`);
+    });
+    
+    return properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+  }
+}
+
+// Call the function
+getProperties();</code></pre>
+            </div>
+            
+            <h3>TypeScript Support</h3>
+            
+            <p>
+                Our JavaScript SDK includes TypeScript type definitions, providing auto-completion and type safety:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">TypeScript</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-typescript">import { SharmoClient, Property, PropertyStatus } from '@sharmo/sdk';
+
+const client = new SharmoClient({
+  apiKey: 'your_api_key'
+});
+
+async function getActiveProperties(): Promise<Property[]> {
+  try {
+    const properties = await client.properties.list({
+      status: PropertyStatus.ACTIVE,
+      city: 'New York',
+      minPrice: 100000,
+      maxPrice: 500000
+    });
+    
+    return properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    return [];
+  }
+}</code></pre>
+            </div>
+            
+            <h2 id="python-sdk">Python SDK</h2>
+            
+            <h3>Installation</h3>
+            
+            <p>
+                Install the Python SDK with pip:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">pip</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-bash">pip install sharmo-sdk</code></pre>
+            </div>
+            
+            <h3>Basic Usage</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Python</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-python">from sharmo import Client
+
+# Initialize the client
+client = Client(api_key="your_api_key", environment="production")
+
+# Fetch properties
+def get_properties():
+    try:
+        properties = client.properties.list(
+            limit=10,
+            status="active"
+        )
+        
+        print(f"Found {len(properties)} properties")
+        
+        # Work with the data
+        for property in properties:
+            print(f"{property.address}: ${property.price}")
+        
+        return properties
+    except Exception as e:
+        print(f"Error fetching properties: {e}")
+
+# Call the function
+properties = get_properties()</code></pre>
+            </div>
+            
+            <h2 id="java-sdk">Java SDK</h2>
+            
+            <h3>Installation</h3>
+            
+            <p>
+                Add the Java SDK to your Maven project:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Maven</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.sharmo&lt;/groupId&gt;
+    &lt;artifactId&gt;sharmo-sdk&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+            </div>
+            
+            <p>
+                Or with Gradle:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Gradle</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-kotlin">implementation 'io.sharmo:sharmo-sdk:1.0.0'</code></pre>
+            </div>
+            
+            <h3>Basic Usage</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Java</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-java">import io.sharmo.sdk.SharmoClient;
+import io.sharmo.sdk.models.Property;
+import io.sharmo.sdk.exceptions.SharmoApiException;
+
+import java.util.List;
+
+public class SharmoExample {
+    public static void main(String[] args) {
+        // Initialize the client
+        SharmoClient client = new SharmoClient.Builder()
+            .apiKey("your_api_key")
+            .environment("production") // Use "sandbox" for testing
+            .build();
+            
+        try {
+            // Fetch properties
+            List<Property> properties = client.properties()
+                .list()
+                .status("active")
+                .limit(10)
+                .execute();
+                
+            System.out.println("Found " + properties.size() + " properties");
+            
+            // Work with the data
+            for (Property property : properties) {
+                System.out.println(property.getAddress() + ": $" + property.getPrice());
+            }
+        } catch (SharmoApiException e) {
+            System.err.println("Error fetching properties: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+            
+            <h2 id="common-tasks">Common Tasks</h2>
+            
+            <h3>Authentication</h3>
+            
+            <p>
+                All SDKs support both API key and OAuth authentication:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">JavaScript - OAuth</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">// OAuth authentication
+const client = new SharmoClient({
+  clientId: 'your_client_id',
+  clientSecret: 'your_client_secret',
+  redirectUri: 'https://your-app.com/callback',
+  environment: 'production'
+});
+
+// Generate authorization URL
+const authUrl = client.auth.getAuthorizationUrl({
+  scope: ['read:properties', 'write:tokens']
+});
+
+// Later, exchange code for token
+const tokens = await client.auth.exchangeCodeForToken(code);
+
+// Now the client is authenticated
+const userProfile = await client.users.getProfile();</code></pre>
+            </div>
+            
+            <h3>Pagination</h3>
+            
+            <p>
+                All SDKs provide built-in pagination support:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Python - Pagination</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-python"># Manual pagination
+page1 = client.properties.list(limit=20, page=1)
+page2 = client.properties.list(limit=20, page=2)
+
+# Automatic pagination (iterator)
+all_properties = []
+for property in client.properties.iterate_all(limit=20):
+    all_properties.append(property)
+    # Process each property
+
+# Get total count
+total = client.properties.count(status="active")</code></pre>
+            </div>
+            
+            <h3>Error Handling</h3>
+            
+            <p>
+                All SDKs provide consistent error handling:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Java - Error Handling</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-java">try {
+    client.tokens().transfer()
+        .tokenId("tok_12345")
+        .toAddress("0xabcdef...")
+        .amount(5.5)
+        .execute();
+} catch (SharmoApiException e) {
+    if (e.getStatusCode() == 401) {
+        // Handle authentication error
+        System.err.println("Authentication failed: " + e.getMessage());
+    } else if (e.getStatusCode() == 429) {
+        // Handle rate limit
+        long retryAfter = e.getRetryAfter();
+        System.err.println("Rate limited, retry after " + retryAfter + " seconds");
+    } else {
+        // Handle other errors
+        System.err.println("API error: " + e.getMessage());
+        System.err.println("Error code: " + e.getErrorCode());
+    }
+} catch (SharmoNetworkException e) {
+    // Handle network errors
+    System.err.println("Network error: " + e.getMessage());
+}</code></pre>
+            </div>
+            
+            <h2 id="troubleshooting">Troubleshooting</h2>
+            
+            <h3>Enable Debug Logging</h3>
+            
+            <p>
+                All SDKs support debug logging for troubleshooting:
+            </p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">JavaScript - Debug Logging</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-javascript">const client = new SharmoClient({
+  apiKey: 'your_api_key',
+  debug: true // Enable debug logging
+});</code></pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Python - Debug Logging</span>
+                    <button class="copy-btn">
+                        <i class="far fa-copy"></i> 
+                        <span>Copy</span>
+                    </button>
+                </div>
+<pre><code class="language-python">import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Create client with debug enabled
+client = Client(api_key="your_api_key", debug=True)</code></pre>
+            </div>
+            
+            <h3>Common Issues</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Authentication failures</td>
+                        <td>Verify your API key or OAuth credentials and ensure they have the required permissions</td>
+                    </tr>
+                    <tr>
+                        <td>Rate limiting</td>
+                        <td>Implement exponential backoff, batch operations, or cache responses to reduce API calls</td>
+                    </tr>
+                    <tr>
+                        <td>Network timeouts</td>
+                        <td>Check your network connection and adjust timeout settings in the SDK configuration</td>
+                    </tr>
+                    <tr>
+                        <td>SDK version compatibility</td>
+                        <td>Ensure you're using the latest SDK version compatible with your API version</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Getting Help</h3>
+            
+            <p>
+                If you're still experiencing issues:
+            </p>
+            
+            <ul>
+                <li>Check our <a href="https://github.com/sharmo-io/sdk-js/issues">GitHub Issues</a> for known problems</li>
+                <li>Join our <a href="https://forum.sharmo.io/developers">Developer Forum</a> for community support</li>
+                <li>Contact our <a href="mailto:sdk-support@sharmo.io">SDK Support Team</a> for dedicated assistance</li>
+            </ul>
+            
+            <!-- Documentation Footer with Navigation -->
+            <div class="docs-footer">
+                <a href="../docs/integration-guide.html" class="docs-footer-link docs-footer-link-prev">
+                    <i class="fas fa-arrow-left"></i> Integration Guide
+                </a>
+                <a href="../docs/webhook-guide.html" class="docs-footer-link docs-footer-link-next">
+                    Webhook Guide <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+            
+            // Copy code functionality
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeBlock = this.closest('.code-block').querySelector('code');
+                    const code = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(code).then(() => {
+                        const spanText = this.querySelector('span');
+                        const originalText = spanText.textContent;
+                        
+                        spanText.textContent = 'Copied!';
+                        
+                        setTimeout(() => {
+                            spanText.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

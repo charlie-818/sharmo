@@ -46,4 +46,161 @@
 .code-content .storage,
 .code-content .code-line .storage { 
     color: #569CD6 !important; 
+}
+
+/* Code Showcase Component Styles */
+
+.code-showcase {
+    margin: 30px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1e293b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.code-showcase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: #0f172a;
+}
+
+.code-showcase-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    font-family: 'Fira Code', monospace;
+}
+
+.code-showcase-body {
+    padding: 15px 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.code-showcase pre {
+    margin: 0;
+    font-family: 'Fira Code', monospace;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.code-showcase code {
+    font-family: 'Fira Code', monospace;
+    color: #e2e8f0;
+}
+
+/* Code block styles for documentation pages */
+.code-block {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e293b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #0f172a;
+}
+
+.code-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.copy-btn {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: #f8fafc;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.copy-btn i {
+    font-size: 0.8rem;
+}
+
+/* Syntax highlighting */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #8b9cb5;
+}
+
+.token.punctuation {
+    color: #e2e8f0;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+    color: #ff79c6;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+    color: #a3e635;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #f1fa8c;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #62ddfd;
+}
+
+.token.function,
+.token.class-name {
+    color: #e879f9;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #f1fa8c;
+}
+
+/* For code blocks without highlighted syntax */
+code {
+    font-family: 'Fira Code', monospace;
+}
+
+pre {
+    background-color: #1e293b;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    overflow-x: auto;
+    margin: 0;
 } 

@@ -1,0 +1,880 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sharmo API",
+    "version": "1.0.0",
+    "description": "API for interacting with the Sharmo real estate tokenization platform",
+    "contact": {
+      "email": "api@sharmo.io",
+      "name": "Sharmo API Team",
+      "url": "https://sharmo.io/developers"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.sharmo.io/v1",
+      "description": "Production API Server"
+    },
+    {
+      "url": "https://staging-api.sharmo.io/v1",
+      "description": "Staging API Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authentication related operations"
+    },
+    {
+      "name": "Properties",
+      "description": "Property-related operations"
+    },
+    {
+      "name": "Tokens",
+      "description": "Token-related operations"
+    },
+    {
+      "name": "Transactions",
+      "description": "Transaction-related operations"
+    },
+    {
+      "name": "Analytics",
+      "description": "Analytics-related operations"
+    },
+    {
+      "name": "Users",
+      "description": "User-related operations"
+    }
+  ],
+  "paths": {
+    "/auth/token": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Get access token",
+        "description": "Get an access token for API authentication",
+        "operationId": "getToken",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": ["grant_type", "username", "password"],
+                    "properties": {
+                      "grant_type": {
+                        "type": "string",
+                        "enum": ["password"],
+                        "description": "Authentication type"
+                      },
+                      "username": {
+                        "type": "string",
+                        "description": "Username or email"
+                      },
+                      "password": {
+                        "type": "string",
+                        "description": "User password"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": ["grant_type", "refresh_token"],
+                    "properties": {
+                      "grant_type": {
+                        "type": "string",
+                        "enum": ["refresh_token"],
+                        "description": "Authentication type"
+                      },
+                      "refresh_token": {
+                        "type": "string",
+                        "description": "Refresh token from a previous authentication"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "refresh_token": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string",
+                      "enum": ["bearer"]
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Token expiry in seconds"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/properties": {
+      "get": {
+        "tags": ["Properties"],
+        "summary": "List properties",
+        "description": "Get a list of properties with optional filtering",
+        "operationId": "listProperties",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "price", "yield", "size"]
+            }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "description": "Filter by location",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by property status",
+            "schema": {
+              "type": "string",
+              "enum": ["available", "sold", "pending"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of properties",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Property"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/properties/{propertyId}": {
+      "get": {
+        "tags": ["Properties"],
+        "summary": "Get property details",
+        "description": "Get detailed information about a specific property",
+        "operationId": "getProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "description": "Property identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Property not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/properties/search": {
+      "post": {
+        "tags": ["Properties"],
+        "summary": "Search properties",
+        "description": "Search for properties based on specific criteria",
+        "operationId": "searchProperties",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "Property location (city, state, etc.)"
+                  },
+                  "min_price": {
+                    "type": "number",
+                    "description": "Minimum property price"
+                  },
+                  "max_price": {
+                    "type": "number",
+                    "description": "Maximum property price"
+                  },
+                  "yield_range": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "description": "Yield range [min, max]"
+                  },
+                  "property_type": {
+                    "type": "string",
+                    "description": "Type of property (residential, commercial, etc.)"
+                  },
+                  "min_size": {
+                    "type": "number",
+                    "description": "Minimum property size in square feet"
+                  },
+                  "max_size": {
+                    "type": "number",
+                    "description": "Maximum property size in square feet"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Property"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/properties/{propertyId}/analytics": {
+      "get": {
+        "tags": ["Properties"],
+        "summary": "Get property analytics",
+        "description": "Get analytics data for a specific property",
+        "operationId": "getPropertyAnalytics",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "description": "Property identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property analytics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyAnalytics"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Property not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/tokens": {
+      "get": {
+        "tags": ["Tokens"],
+        "summary": "List tokens",
+        "description": "Get a list of tokens with optional filtering",
+        "operationId": "listTokens",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "price", "volume"]
+            }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "description": "Sort order",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of tokens",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Token"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/tokens/{tokenId}": {
+      "get": {
+        "tags": ["Tokens"],
+        "summary": "Get token details",
+        "description": "Get detailed information about a specific token",
+        "operationId": "getToken",
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "description": "Token identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Token not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Property": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique property identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Property name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Property description"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "postal_code": {
+                "type": "string"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "size": {
+            "type": "number",
+            "description": "Property size in square feet"
+          },
+          "price": {
+            "type": "number",
+            "description": "Property price"
+          },
+          "expected_yield": {
+            "type": "number",
+            "description": "Expected annual yield percentage"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["available", "sold", "pending"],
+            "description": "Property status"
+          },
+          "type": {
+            "type": "string",
+            "description": "Property type (residential, commercial, etc.)"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to property thumbnail image"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Property creation date"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Property last update date"
+          }
+        }
+      },
+      "PropertyDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Property"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": "Property images"
+              },
+              "token_id": {
+                "type": "string",
+                "description": "Associated token identifier"
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Property features"
+              },
+              "yearly_appreciation": {
+                "type": "number",
+                "description": "Estimated yearly appreciation percentage"
+              },
+              "property_manager": {
+                "type": "string",
+                "description": "Property manager name"
+              }
+            }
+          }
+        ]
+      },
+      "PropertyAnalytics": {
+        "type": "object",
+        "properties": {
+          "property_id": {
+            "type": "string"
+          },
+          "historical_value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "historical_yield": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "yield": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "comparable_properties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "yield": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "market_trends": {
+            "type": "object",
+            "properties": {
+              "local_appreciation": {
+                "type": "number"
+              },
+              "regional_appreciation": {
+                "type": "number"
+              },
+              "rental_demand": {
+                "type": "string",
+                "enum": ["low", "medium", "high"]
+              }
+            }
+          },
+          "risk_assessment": {
+            "type": "object",
+            "properties": {
+              "overall_risk": {
+                "type": "string",
+                "enum": ["low", "medium", "high"]
+              },
+              "factors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "risk_level": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique token identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Token name"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Token symbol"
+          },
+          "property_id": {
+            "type": "string",
+            "description": "Associated property identifier"
+          },
+          "total_supply": {
+            "type": "number",
+            "description": "Total supply of tokens"
+          },
+          "current_price": {
+            "type": "number",
+            "description": "Current token price"
+          },
+          "market_cap": {
+            "type": "number",
+            "description": "Token market capitalization"
+          },
+          "contract_address": {
+            "type": "string",
+            "description": "Token contract address on blockchain"
+          },
+          "blockchain": {
+            "type": "string",
+            "description": "Blockchain network"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Token creation date"
+          }
+        }
+      },
+      "TokenDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Token"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "property": {
+                "$ref": "#/components/schemas/Property"
+              },
+              "token_holders_count": {
+                "type": "integer",
+                "description": "Number of token holders"
+              },
+              "volume_24h": {
+                "type": "number",
+                "description": "Trading volume in the last 24 hours"
+              },
+              "price_change_24h": {
+                "type": "number",
+                "description": "Price change percentage in the last 24 hours"
+              },
+              "all_time_high": {
+                "type": "object",
+                "properties": {
+                  "price": {
+                    "type": "number"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "description": "All-time high price information"
+              },
+              "dividend_yield": {
+                "type": "number",
+                "description": "Current dividend yield percentage"
+              },
+              "next_dividend_date": {
+                "type": "string",
+                "format": "date",
+                "description": "Next dividend distribution date"
+              }
+            }
+          }
+        ]
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "total_items": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "has_prev_page": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+} 

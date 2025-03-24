@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharmo - Getting Started</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png">
+    <!-- Base styles first -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <!-- Components next -->
+    <link rel="stylesheet" href="../css/components/navigation.css">
+    <link rel="stylesheet" href="../css/components/hero.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/code-showcase.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-json.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .doc-header {
+            background: #0f172a;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .doc-header .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .doc-header h1 {
+            color: #fff;
+            margin: 0 auto 10px auto;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 0;
+            width: auto;
+            max-width: none;
+            display: inline-block;
+        }
+        
+        .doc-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .doc-nav {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .doc-nav h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+        
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .doc-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .doc-nav a {
+            color: #4f46e5;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .doc-nav a:hover {
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .doc-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .doc-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .doc-section h3 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #334155;
+        }
+        
+        .doc-section p, .doc-section li {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .doc-nav {
+                position: static;
+            }
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        .note {
+            background-color: #f8fafc;
+            border-left: 4px solid #4f46e5;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note-title {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1e293b;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Documentation Content -->
+    <main>
+        <section class="doc-header">
+            <div class="container">
+                <h1>Getting Started with Sharmo API</h1>
+                <p>A step-by-step guide to integrating with the Sharmo real estate tokenization platform</p>
+            </div>
+        </section>
+        
+        <div class="doc-container">
+            <div class="content-grid">
+                <!-- Navigation Sidebar -->
+                <aside>
+                    <div class="doc-nav">
+                        <h3>On this page</h3>
+                        <ul>
+                            <li><a href="#introduction">Introduction</a></li>
+                            <li><a href="#prerequisites">Prerequisites</a></li>
+                            <li><a href="#registration">Platform Registration</a></li>
+                            <li><a href="#authentication">Authentication</a></li>
+                            <li><a href="#first-api-call">Your First API Call</a></li>
+                            <li><a href="#using-sdks">Using Sharmo SDKs</a></li>
+                            <li><a href="#next-steps">Next Steps</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <div class="doc-content">
+                    <!-- Introduction -->
+                    <section class="doc-section" id="introduction">
+                        <h2>Introduction</h2>
+                        <p>
+                            Welcome to the Sharmo API documentation! This getting started guide will walk you through the basic steps to integrate your application with the Sharmo real estate tokenization platform. By the end of this guide, you'll have a clear understanding of how to authenticate, make API calls, and leverage our SDKs for faster development.
+                        </p>
+                        
+                        <div class="note">
+                            <span class="note-title">Note:</span>
+                            <p>This guide assumes you have basic familiarity with RESTful APIs and at least one programming language (JavaScript, Python, or similar). If you need more detailed information about specific endpoints, refer to our <a href="api-reference.html">API Reference</a>.</p>
+                        </div>
+                    </section>
+                    
+                    <!-- Prerequisites -->
+                    <section class="doc-section" id="prerequisites">
+                        <h2>Prerequisites</h2>
+                        <p>Before you begin integrating with the Sharmo API, make sure you have the following:</p>
+                        
+                        <ul>
+                            <li>A Sharmo developer account (sign up at <a href="https://developers.sharmo.io" target="_blank">developers.sharmo.io</a>)</li>
+                            <li>Basic understanding of HTTP requests and RESTful APIs</li>
+                            <li>Familiarity with your programming language of choice</li>
+                            <li>A working development environment with internet access</li>
+                        </ul>
+                    </section>
+                    
+                    <!-- Platform Registration -->
+                    <section class="doc-section" id="registration">
+                        <h2>Platform Registration</h2>
+                        
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Create a Developer Account</div>
+                                <p>Visit <a href="https://developers.sharmo.io" target="_blank">developers.sharmo.io</a> and sign up for a developer account. You'll need to provide basic information about yourself and your company.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Register Your Application</div>
+                                <p>Once you've created an account, log in to the Developer Console and go to "Applications" → "Register New Application." Provide the following information:</p>
+                                <ul>
+                                    <li>Application name</li>
+                                    <li>Description</li>
+                                    <li>Redirect URIs (for OAuth authentication)</li>
+                                    <li>The type of application (web, mobile, or server)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Get Your API Credentials</div>
+                                <p>After registering your application, you'll receive the following credentials:</p>
+                                <ul>
+                                    <li><strong>Client ID</strong>: Identifies your application to the Sharmo API</li>
+                                    <li><strong>Client Secret</strong>: Used to authenticate your application (keep this secure!)</li>
+                                    <li><strong>API Key</strong>: For simple API authentication flows</li>
+                                </ul>
+                                <p>Store these credentials securely. Never expose them in client-side code or public repositories.</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Authentication -->
+                    <section class="doc-section" id="authentication">
+                        <h2>Authentication</h2>
+                        <p>
+                            Sharmo API uses OAuth 2.0 for authentication. There are several authentication flows available depending on your application type. For detailed information, see our <a href="api-authentication.html">Authentication Guide</a>.
+                        </p>
+                        
+                        <h3>Simple Authentication with API Key</h3>
+                        <p>
+                            For testing and simple server-to-server integrations, you can use API key authentication:
+                        </p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">HTTP Request with API Key</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+// JavaScript example
+const response = await fetch('https://api.sharmo.io/v1/properties', {
+  method: 'GET',
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+});
+
+const data = await response.json();
+console.log(data);</code></pre>
+                        </div>
+                        
+                        <h3>OAuth 2.0 Authentication</h3>
+                        <p>
+                            For production applications, especially those that access user data, use OAuth 2.0:
+                        </p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Obtaining an Access Token</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+// JavaScript example
+const response = await fetch('https://api.sharmo.io/v1/auth/token', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    grant_type: 'client_credentials',
+    client_id: 'YOUR_CLIENT_ID',
+    client_secret: 'YOUR_CLIENT_SECRET'
+  })
+});
+
+const authData = await response.json();
+const accessToken = authData.access_token;
+
+// Now use the access token for API calls
+const apiResponse = await fetch('https://api.sharmo.io/v1/properties', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json'
+  }
+});</code></pre>
+                        </div>
+                    </section>
+                    
+                    <!-- First API Call -->
+                    <section class="doc-section" id="first-api-call">
+                        <h2>Your First API Call</h2>
+                        <p>
+                            Let's make a simple API call to retrieve a list of available properties:
+                        </p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Get Properties List</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+// JavaScript example
+async function getProperties() {
+  try {
+    // First get an access token
+    const tokenResponse = await fetch('https://api.sharmo.io/v1/auth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        grant_type: 'client_credentials',
+        client_id: 'YOUR_CLIENT_ID',
+        client_secret: 'YOUR_CLIENT_SECRET'
+      })
+    });
+    
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+    
+    // Now use the token to get properties
+    const propertiesResponse = await fetch('https://api.sharmo.io/v1/properties?limit=10', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    const properties = await propertiesResponse.json();
+    console.log('Properties:', properties);
+    return properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+  }
+}
+
+// Call the function
+getProperties();</code></pre>
+                        </div>
+                        
+                        <h3>Python Example</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Get Properties List (Python)</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-python">
+import requests
+
+def get_properties():
+    try:
+        # First get an access token
+        token_response = requests.post(
+            'https://api.sharmo.io/v1/auth/token',
+            json={
+                'grant_type': 'client_credentials',
+                'client_id': 'YOUR_CLIENT_ID',
+                'client_secret': 'YOUR_CLIENT_SECRET'
+            }
+        )
+        token_data = token_response.json()
+        access_token = token_data['access_token']
+        
+        # Now use the token to get properties
+        properties_response = requests.get(
+            'https://api.sharmo.io/v1/properties',
+            params={'limit': 10},
+            headers={
+                'Authorization': f'Bearer {access_token}',
+                'Content-Type': 'application/json'
+            }
+        )
+        
+        properties = properties_response.json()
+        print('Properties:', properties)
+        return properties
+    except Exception as e:
+        print(f'Error fetching properties: {e}')
+        return None
+
+# Call the function
+get_properties()</code></pre>
+                        </div>
+                    </section>
+                    
+                    <!-- Using SDKs -->
+                    <section class="doc-section" id="using-sdks">
+                        <h2>Using Sharmo SDKs</h2>
+                        <p>
+                            To simplify API integration, we provide SDKs for popular programming languages. These SDKs handle authentication, error handling, and provide a more intuitive interface for interacting with the API.
+                        </p>
+                        
+                        <h3>JavaScript SDK</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Install and use the JavaScript SDK</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">
+// Install via npm
+// npm install sharmo-sdk
+
+import { SharmoClient } from 'sharmo-sdk';
+
+// Initialize the client
+const sharmo = new SharmoClient({
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  environment: 'sandbox' // or 'production'
+});
+
+// Get properties (the SDK handles authentication for you)
+async function getProperties() {
+  try {
+    const properties = await sharmo.properties.list({
+      limit: 10,
+      status: 'active'
+    });
+    
+    console.log('Properties:', properties);
+    return properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+  }
+}
+
+getProperties();</code></pre>
+                        </div>
+                        
+                        <h3>Python SDK</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Install and use the Python SDK</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-python">
+# Install via pip
+# pip install sharmo-sdk
+
+from sharmo.client import SharmoClient
+
+# Initialize the client
+client = SharmoClient(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+    environment="sandbox"  # or "production"
+)
+
+# Get properties (the SDK handles authentication for you)
+def get_properties():
+    try:
+        properties = client.properties.list(
+            limit=10,
+            status="active"
+        )
+        
+        print(f"Retrieved {len(properties)} properties")
+        return properties
+    except Exception as e:
+        print(f"Error retrieving properties: {e}")
+        return []
+
+# Call the function
+get_properties()</code></pre>
+                        </div>
+                        
+                        <p>For more detailed information about our SDKs, see the <a href="sdk-quick-start.html">SDK Documentation</a>.</p>
+                    </section>
+                    
+                    <!-- Next Steps -->
+                    <section class="doc-section" id="next-steps">
+                        <h2>Next Steps</h2>
+                        <p>
+                            Now that you've made your first API call, you're ready to explore more advanced features of the Sharmo platform. Here are some recommended next steps:
+                        </p>
+                        
+                        <ul>
+                            <li>Review the complete <a href="api-reference.html">API Reference</a> to explore all available endpoints</li>
+                            <li>Learn about <a href="webhook-guide.html">Webhooks</a> to receive real-time updates</li>
+                            <li>Explore the <a href="integration-guide.html">Integration Guide</a> for best practices and common patterns</li>
+                            <li>Test your integration in our <a href="integration-guide.html">Sandbox Environment</a></li>
+                            <li>Join our <a href="../developers.html">Developer Community</a> to connect with other developers</li>
+                        </ul>
+                        
+                        <div class="note">
+                            <span class="note-title">Need Help?</span>
+                            <p>If you encounter any issues or have questions, our developer support team is here to help. Contact us at <a href="mailto:dev-support@sharmo.io">dev-support@sharmo.io</a> or visit our support portal.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the header
+            fetch('/components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
+            // Load the footer
+            fetch('/components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        });
+    </script>
+</body>
+</html> 

@@ -503,19 +503,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    animation: fadeInUp 1s ease-out forwards;
-    animation-delay: 3s;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6366F1;
+    animation: fadeInUp 1s ease-out forwards, pulse-fade 2s infinite alternate;
+    animation-delay: 1s, 2s;
     opacity: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    z-index: 10;
 }
 
 .scroll-indicator span {
     margin-bottom: 8px;
+    letter-spacing: 0.05em;
 }
 
 .scroll-indicator svg {
     animation: bounce 2s infinite;
+    stroke: #6366F1;
+    stroke-width: 2.5;
+    width: 28px;
+    height: 28px;
 }
 
 /* Animations */
@@ -596,6 +610,17 @@
     }
     60% {
         transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse-fade {
+    0% {
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        transform: translateX(-50%) scale(1.05);
     }
 }
 

@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSmoothScrolling();
     setupPropertyLookupShortcut();
     setupChat();
+    setupCodeCopyButtons();
 });
 
 // Smooth scrolling for navigation links
@@ -269,4 +270,68 @@ async function streamMessage(message, element) {
     }
     
     return displayedText;
+}
+
+// Add code copy button functionality
+function setupCodeCopyButtons() {
+    // Check if we're on a documentation page with code blocks
+    const codeBlocks = document.querySelectorAll('.code-block');
+    if (codeBlocks.length === 0) return;
+    
+    // Add copy button to each code block
+    codeBlocks.forEach(block => {
+        // If block already has a copy button in the header, use that
+        let copyBtn = block.querySelector('.copy-btn');
+        
+        // If no copy button exists, create one
+        if (!copyBtn) {
+            const codeHeader = document.createElement('div');
+            codeHeader.classList.add('code-header');
+            
+            const codeTitle = document.createElement('span');
+            codeTitle.classList.add('code-title');
+            codeTitle.textContent = 'Code';
+            
+            copyBtn = document.createElement('button');
+            copyBtn.classList.add('copy-btn');
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+            
+            codeHeader.appendChild(codeTitle);
+            codeHeader.appendChild(copyBtn);
+            
+            // If there's a pre element as first child, insert before it
+            const preElement = block.querySelector('pre');
+            if (preElement) {
+                block.insertBefore(codeHeader, preElement);
+            } else {
+                block.prepend(codeHeader);
+            }
+        }
+        
+        // Add click event to copy button
+        copyBtn.addEventListener('click', function() {
+            const codeBlock = this.closest('.code-block').querySelector('code');
+            if (!codeBlock) return;
+            
+            const codeText = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(codeText.trim())
+                .then(() => {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy code: ', err);
+                    this.innerHTML = '<i class="fas fa-times"></i> Error!';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    }, 2000);
+                });
+        });
+    });
 }

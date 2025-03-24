@@ -36,24 +36,102 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ All required elements found');
     
     // Results elements
-    const resultAddress = document.getElementById('resultAddress');
-    const resultCity = document.getElementById('resultCity');
-    const resultState = document.getElementById('resultState');
-    const propertyType = document.getElementById('propertyType');
-    const squareFootage = document.getElementById('squareFootage');
-    const yearBuilt = document.getElementById('yearBuilt');
-    const propertyValue = document.getElementById('propertyValue');
-    const tokenPotential = document.getElementById('tokenPotential');
-    const liquidityScore = document.getElementById('liquidityScore');
-    const returnRate = document.getElementById('returnRate');
-    const marketDemand = document.getElementById('marketDemand');
-    const blockchainFee = document.getElementById('blockchainFee');
-    const neighborhoodTrend = document.getElementById('neighborhoodTrend');
-    const rentalIncome = document.getElementById('rentalIncome');
-    const appreciationRate = document.getElementById('appreciationRate');
+    const resultElements = {
+        address: document.getElementById('resultAddress'),
+        city: document.getElementById('resultCity'),
+        state: document.getElementById('resultState'),
+        propertyType: document.getElementById('propertyType'),
+        squareFootage: document.getElementById('squareFootage'),
+        yearBuilt: document.getElementById('yearBuilt'),
+        propertyValue: document.getElementById('propertyValue'),
+        tokenPotential: document.getElementById('tokenPotential'),
+        liquidityScore: document.getElementById('liquidityScore'),
+        returnRate: document.getElementById('returnRate'),
+        marketDemand: document.getElementById('marketDemand'),
+        blockchainFee: document.getElementById('blockchainFee'),
+        neighborhoodTrend: document.getElementById('neighborhoodTrend'),
+        rentalIncome: document.getElementById('rentalIncome'),
+        appreciationRate: document.getElementById('appreciationRate')
+    };
     
-    // Test API connectivity on page load
-    testApiConnectivity();
+    // Check server connectivity first
+    checkServerConnectivity().then(isConnected => {
+        if (!isConnected) {
+            console.error('❌ Server is not running or not reachable');
+            showServerNotRunningError();
+            return;
+        }
+        
+        // Test API connectivity only if server is running
+        testApiConnectivity();
+    });
+    
+    // Function to check if the server is running
+    async function checkServerConnectivity() {
+        try {
+            const endpoints = [
+                '/api/property-lookup',
+                '/.netlify/functions/property-lookup',
+                '/netlify/functions/property-lookup'
+            ];
+            
+            // Try each endpoint with a very short timeout
+            for (const endpoint of endpoints) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
+                    
+                    const response = await fetch(endpoint, {
+                        method: 'OPTIONS',
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (response.ok || response.status === 204) {
+                        console.log(`✅ Server is running at endpoint: ${endpoint}`);
+                        return true;
+                    }
+                } catch (err) {
+                    // Continue to next endpoint if this one failed
+                    console.log(`Endpoint ${endpoint} not available:`, err.message);
+                }
+            }
+            
+            return false;
+        } catch (error) {
+            console.error('Error checking server connectivity:', error);
+            return false;
+        }
+    }
+    
+    // Function to show server not running error
+    function showServerNotRunningError() {
+        if (errorMessage) {
+            errorMessage.innerHTML = `
+                <h4>Server Not Running</h4>
+                <p>The property lookup feature requires the server to be running.</p>
+                <div>
+                    Please try the following:
+                    <ul style="margin-top: 0.5rem; margin-left: 1.5rem; color: var(--text-secondary);">
+                        <li>Start the server using <code>node server.js</code></li>
+                        <li>Ensure you're accessing the site through the server URL (e.g., http://localhost:3000)</li>
+                        <li>Check the console for any error messages</li>
+                    </ul>
+                </div>
+            `;
+            errorMessage.style.display = 'block';
+        }
+        
+        // Disable the form
+        if (lookupBtn) lookupBtn.disabled = true;
+        if (addressInput) addressInput.disabled = true;
+        if (cityInput) cityInput.disabled = true;
+        if (stateSelect) stateSelect.disabled = true;
+    }
+    
+    // Remove duplicate API connectivity check (we'll call it from server connectivity check)
+    // testApiConnectivity();
     
     // Add event listener for form submission
     if (propertyForm) {
@@ -95,6 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0
         }).format(value);
+    };
+    
+    // Format number with commas
+    const formatNumber = (value) => {
+        return new Intl.NumberFormat('en-US').format(value);
     };
     
     // Helper function to extract JSON from Perplexity response
@@ -218,6 +301,15 @@ document.addEventListener('DOMContentLoaded', function() {
             for (const endpoint of endpoints) {
                 try {
                     console.log(`🌐 Trying endpoint: ${endpoint}`);
+                    
+                    // Debug: Show the POST request data being sent
+                    console.log('📦 Sending request data:', {
+                        address, city, state,
+                        endpoint,
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'}
+                    });
+                    
                     const fetchPromise = fetch(endpoint, {
                         method: 'POST',
                         headers: {
@@ -237,8 +329,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     response = tempResponse;
                     endpointUsed = endpoint;
                     console.log(`✅ Successful connection to endpoint: ${endpoint}`);
+                    console.log(`📊 Response status: ${response.status}`);
                     break;
                 } catch (endpointError) {
+                    console.error(`❌ Error with endpoint ${endpoint}:`, endpointError);
                     if (endpointError.message.includes('timed out')) {
                         console.error(`⏰ Endpoint ${endpoint} timed out:`, endpointError);
                     } else {
@@ -370,29 +464,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display property data in the UI
     function displayPropertyData(data, address, city, state) {
         // Update basic property information
-        resultAddress.textContent = address;
-        resultCity.textContent = city;
-        resultState.textContent = getStateName(state);
-        propertyType.textContent = data.propertyType || 'N/A';
-        squareFootage.textContent = data.squareFootage ? `${data.squareFootage.toLocaleString()} sq ft` : 'N/A';
-        yearBuilt.textContent = data.yearBuilt || 'N/A';
+        if (resultElements.address) resultElements.address.textContent = address;
+        if (resultElements.city) resultElements.city.textContent = city;
+        if (resultElements.state) resultElements.state.textContent = state;
+        if (resultElements.propertyType) resultElements.propertyType.textContent = data.propertyType || 'N/A';
+        if (resultElements.squareFootage) resultElements.squareFootage.textContent = data.squareFootage ? `${formatNumber(data.squareFootage)} sq ft` : 'N/A';
+        if (resultElements.yearBuilt) resultElements.yearBuilt.textContent = data.yearBuilt || 'N/A';
         
         // Update financial information
-        propertyValue.textContent = data.estimatedValue ? formatCurrency(data.estimatedValue) : 'N/A';
+        if (resultElements.propertyValue) resultElements.propertyValue.textContent = data.estimatedValue ? formatCurrency(data.estimatedValue) : 'N/A';
         
-        // Calculate and set token potential
-        const potentialValue = calculateTokenPotential(data);
-        tokenPotential.textContent = potentialValue;
-        setTokenPotentialStyle(tokenPotential, potentialValue);
+        // Calculate and set token potential - pass the entire data object instead of just estimatedValue
+        const potentialValue = calculateTokenPotential(data.estimatedValue, data);
+        if (resultElements.tokenPotential) resultElements.tokenPotential.textContent = potentialValue;
+        setTokenPotentialStyle(resultElements.tokenPotential, potentialValue);
         
         // Update market analysis
-        liquidityScore.textContent = calculateLiquidityScore(data);
-        returnRate.textContent = data.marketTrends?.yearlyAppreciation || 'N/A';
-        marketDemand.textContent = calculateMarketDemand(data);
-        blockchainFee.textContent = '0.05 ETH'; // Fixed fee for now
-        neighborhoodTrend.textContent = data.neighborhood?.trend || 'Stable';
-        rentalIncome.textContent = calculateRentalIncome(data);
-        appreciationRate.textContent = data.marketTrends?.yearlyAppreciation || 'N/A';
+        if (resultElements.liquidityScore) resultElements.liquidityScore.textContent = calculateLiquidityScore(data);
+        if (resultElements.returnRate) resultElements.returnRate.textContent = data.marketTrends?.yearlyAppreciation || 'N/A';
+        if (resultElements.marketDemand) resultElements.marketDemand.textContent = calculateMarketDemand(data);
+        if (resultElements.blockchainFee) resultElements.blockchainFee.textContent = '0.05 ETH'; // Fixed fee for now
+        if (resultElements.neighborhoodTrend) resultElements.neighborhoodTrend.textContent = data.neighborhood?.trend || 'Stable';
+        if (resultElements.rentalIncome) resultElements.rentalIncome.textContent = calculateRentalIncome(data);
+        if (resultElements.appreciationRate) resultElements.appreciationRate.textContent = data.marketTrends?.yearlyAppreciation || 'N/A';
         
         // Show results with animation
         propertyResults.style.display = 'block';
@@ -419,7 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     city: city,
                     state: state,
                     value: data.estimatedValue || 0,
-                    potential: tokenPotential.textContent
+                    potential: resultElements.tokenPotential.textContent
                 });
                 
                 // Navigate to the smart contract generator page with property data
@@ -429,14 +523,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Helper functions for calculations
-    function calculateTokenPotential(data) {
-        if (!data.estimatedValue || !data.marketTrends) return 'Low';
+    function calculateTokenPotential(propertyValue, propertyData) {
+        if (!propertyValue) return 'Low';
         
-        const score = (
-            (data.estimatedValue > 500000 ? 2 : 1) +
-            (parseFloat(data.marketTrends.yearlyAppreciation) > 5 ? 2 : 1) +
-            (data.marketTrends.daysOnMarket < 30 ? 2 : 1)
-        );
+        // Use propertyData if available, otherwise use default values
+        let score = (propertyValue > 500000 ? 2 : 1);
+        
+        // Add market trend factors if available
+        if (propertyData && propertyData.marketTrends) {
+            const yearlyAppreciation = parseFloat(propertyData.marketTrends.yearlyAppreciation) || 0;
+            const daysOnMarket = propertyData.marketTrends.daysOnMarket || 60;
+            
+            score += (yearlyAppreciation > 5 ? 2 : 1);
+            score += (daysOnMarket < 30 ? 2 : 1);
+        } else {
+            // Default values if no market trends data
+            score += 2;
+        }
         
         return score >= 5 ? 'High' : score >= 3 ? 'Medium' : 'Low';
     }

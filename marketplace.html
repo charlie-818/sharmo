@@ -28,8 +28,18 @@
     <script src="js/main.js" defer></script>
 
     <style>
+        /* Fix the body padding to match the nav height */
         body {
-            padding-top: 80px; /* Add padding to account for fixed header */
+            padding-top: 70px; /* Adjust to match actual header height */
+        }
+        
+        /* Ensure the header container doesn't create additional spacing */
+        #header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
         }
         
         .coming-soon-container {
@@ -679,9 +689,104 @@
         }
     </style>
     
+    <!-- Override any conflicting navigation styles -->
+    <style>
+        /* Ensure consistent navigation styling */
+        .nav {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Reset any conflicting styles from header.html */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        /* Ensure properties-link is highlighted as active in marketplace */
+        #properties-link {
+            color: #4f46e5 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Fixes for any inline styles in the header component */
+        .nav::before,
+        .nav::after {
+            display: none !important;
+        }
+        
+        /* Override any pill styles that might be causing issues */
+        .nav {
+            border-radius: 0 !important;
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+        }
+        
+        /* Fix mobile menu if needed */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px; /* Smaller padding for mobile */
+            }
+            
+            .nav {
+                height: 60px;
+            }
+        }
+    </style>
+    
+    <!-- JavaScript for loading components and functionality -->
     <script>
         // This script will be used to show/hide the mock data and handle animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Load the header with fixes for styling issues
+            fetch('components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-container').innerHTML = html;
+                    
+                    // Ensure the properties link is active
+                    setTimeout(() => {
+                        const propertiesLink = document.getElementById('properties-link');
+                        if (propertiesLink) {
+                            propertiesLink.classList.add('active');
+                            
+                            // Setup mobile menu if it exists
+                            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                            const navLinks = document.querySelector('.nav-links');
+                            
+                            if (mobileMenuToggle && navLinks) {
+                                mobileMenuToggle.addEventListener('click', () => {
+                                    mobileMenuToggle.classList.toggle('active');
+                                    navLinks.classList.toggle('active');
+                                });
+                            }
+                        }
+                    }, 100);
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+            
             // Handle View Mock Data button
             const viewMockBtn = document.getElementById('viewMockData');
             const mockDataContainer = document.getElementById('mockDataContainer');
@@ -714,17 +819,7 @@
 <body>
     <!-- Include the header component -->
     <div id="header-container"></div>
-    <script>
-        fetch('components/header.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('header-container').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error loading header:', error);
-            });
-    </script>
-
+    
     <section class="coming-soon-container">
         <span class="status-tag">Under Development</span>
         <h1 class="marketplace-title">ReactJS Marketplace Coming Soon</h1>
